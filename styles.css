@@ -424,10 +424,8 @@ body::before {
 }
 
 .date-girl-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 3px solid #ff69b4;
+  width: 10rem;
+  height: 100%;
   margin-bottom: 10px;
 }
 
@@ -497,10 +495,15 @@ body::before {
 }
 
 /* Choice Buttons */
-.story-choices,
-.date-choices {
+.story-choices {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+}
+
+.date-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
 
