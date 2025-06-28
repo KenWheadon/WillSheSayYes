@@ -385,8 +385,11 @@ const RomanceGame = {
           <img src="${UTILS.getLocationImagePath(locationId)}" alt="${
       location.name
     }" class="location-bg" />
+    <div class="location-text">
           <p class="setting-text">${currentScenario.setting}</p>
           <p class="atmosphere">${location.atmosphere}</p>
+    </div>
+    
         </div>
         
         <div class="date-conversation">

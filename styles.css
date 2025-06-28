@@ -388,11 +388,13 @@ body::before {
   background: rgba(255, 182, 193, 0.15);
   border-radius: 15px;
   border: 1px solid rgba(255, 105, 180, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .location-bg {
   width: 100%;
-  max-width: 400px;
   height: 200px;
   border-radius: 15px;
   object-fit: cover;
