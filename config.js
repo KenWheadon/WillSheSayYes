@@ -1,7 +1,7 @@
 // Romance Game configuration and constants
 const CONFIG = {
   // Timer settings
-  CHOICE_TIMER: 9999,
+  CHOICE_TIMER: 30,
   RESPONSE_DISPLAY_TIME: 2500,
 
   // Love system (replacing rage)

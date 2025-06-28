@@ -124,7 +124,6 @@ const RomanceGame = {
         </div>
         
         <div class="story-section">
-          <h2 class="story-title">${storyData.title}</h2>
           <p class="story-text">${storyData.text}</p>
         </div>
 

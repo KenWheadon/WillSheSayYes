@@ -465,13 +465,6 @@ body::before {
   text-align: center;
 }
 
-.story-title {
-  font-size: 2.2em;
-  color: #ff1493;
-  margin-bottom: 20px;
-  font-family: "Brush Script MT", cursive;
-}
-
 .story-text {
   font-size: 1.2em;
   line-height: 1.6;
