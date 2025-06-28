@@ -76,7 +76,7 @@ const CONFIG = {
     },
   },
 
-  // Date locations
+  // Date locations - UPDATED DINNER TO DINER
   LOCATIONS: {
     CARNIVAL: {
       id: "carnival",
@@ -94,9 +94,11 @@ const CONFIG = {
     },
     DINNER: {
       id: "dinner",
-      name: "Elegant Restaurant",
-      description: "An upscale restaurant with candlelit tables",
-      atmosphere: "Soft jazz music and the gentle clink of fine china",
+      name: "Cozy Diner",
+      description:
+        "A friendly neighborhood diner with comfy booths and great coffee",
+      atmosphere:
+        "The warm glow of neon signs and the comforting aroma of fresh coffee",
     },
   },
 
@@ -126,18 +128,18 @@ const CONFIG = {
     ALONE_AT_BALL: "alone-at-ball",
   },
 
-  // Achievement system
+  // Achievement system - UPDATED FOR ROMANCE THEME
   ACHIEVEMENTS: {
     FIRST_DATE: {
       id: "first-date",
       name: "First Date Nerves",
-      description: "Asked someone on your first date",
+      description: "Went on your very first date",
       icon: "💕",
     },
     PERFECT_ROMANCE: {
       id: "perfect-romance",
       name: "Perfect Romance",
-      description: "Found true love and went to the ball together",
+      description: "Found true love with maximum affection at the ball",
       icon: "👑",
     },
     THREE_DATES: {
@@ -149,7 +151,7 @@ const CONFIG = {
     HEARTBREAKER: {
       id: "heartbreaker",
       name: "Heartbreaker",
-      description: "Got rejected by all three girls",
+      description: "Couldn't win anyone's heart for the ball",
       icon: "💔",
     },
     DEVOTED_HEART: {
@@ -157,6 +159,24 @@ const CONFIG = {
       name: "Devoted Heart",
       description: "Went on three dates with the same girl",
       icon: "💝",
+    },
+    ROMANTIC_EXPLORER: {
+      id: "romantic-explorer",
+      name: "Romantic Explorer",
+      description: "Went on dates with all three girls",
+      icon: "🌟",
+    },
+    SWEET_TALKER: {
+      id: "sweet-talker",
+      name: "Sweet Talker",
+      description: "Made 20 romantic dialogue choices",
+      icon: "💬",
+    },
+    BALL_READY: {
+      id: "ball-ready",
+      name: "Ball Ready",
+      description: "Successfully asked someone to the ball",
+      icon: "💃",
     },
   },
 

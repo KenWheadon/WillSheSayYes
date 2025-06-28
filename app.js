@@ -15,6 +15,8 @@ const RomanceGame = {
     lastResponse: "",
     ballInviteAccepted: false,
     ballDateGirl: null,
+    romanticChoiceCount: 0, // Track romantic choices for achievements
+    totalGirlsDated: new Set(), // Track different girls for achievements
   },
 
   // Initialize the game
@@ -49,6 +51,8 @@ const RomanceGame = {
     RomanceGame.state.loveScores = { luna: 0, maya: 0, rose: 0 };
     RomanceGame.state.datesCompleted = 0;
     RomanceGame.state.dateHistory = [];
+    RomanceGame.state.romanticChoiceCount = 0;
+    RomanceGame.state.totalGirlsDated = new Set();
     RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
       CONFIG.MUSIC_CONTEXTS.PLANNING
     );
@@ -82,6 +86,8 @@ const RomanceGame = {
       lastResponse: "",
       ballInviteAccepted: false,
       ballDateGirl: null,
+      romanticChoiceCount: 0,
+      totalGirlsDated: new Set(),
     };
   },
 
@@ -247,7 +253,9 @@ const RomanceGame = {
             <p class="no-locations">You've exhausted all dating options with ${girl.name}!</p>
             <button id="back-to-selection" class="back-button">Choose someone else</button>
           `
-              : ""
+              : `
+            <button id="back-to-selection" class="back-button">Go back and choose a different girl</button>
+          `
           }
         </div>
           </div>
@@ -258,7 +266,7 @@ const RomanceGame = {
     RomanceGame.attachLocationEventListeners(girlId);
   },
 
-  // Handle asking girl on a date
+  // Handle asking girl on a date - IMPROVED UI
   askOnDate: (girlId, locationId) => {
     const girl = CONFIG.GIRLS[girlId.toUpperCase()];
     const location = CONFIG.LOCATIONS[locationId.toUpperCase()];
@@ -285,19 +293,57 @@ const RomanceGame = {
       RomanceGame.state.loveScores[girlId] + loveChange
     );
 
-    // Show response
+    // IMPROVED DATE RESPONSE UI
     const container = document.getElementById("game-container");
     container.innerHTML = `
       <div class="romance-ui">
-        <div class="date-response">
-          <img src="${UTILS.getCharacterImagePath(
-            girlId,
-            RomanceGame.state.loveScores[girlId]
-          )}" alt="${girl.name}" class="response-girl-image" />
-          <p class="date-response-text">${response}</p>
-          <button id="go-on-date" class="date-button" data-girl="${girlId}" data-location="${locationId}">
-            Go on the date!
-          </button>
+        <div class="status-bar">
+          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${
+      CONFIG.TOTAL_DAYS
+    } | Date Arranged!</span>
+        </div>
+        
+        <div class="date-response-container">
+          <div class="date-response-header">
+            <h2>✨ ${girl.name}'s Response ✨</h2>
+          </div>
+          
+          <div class="date-response-content">
+            <div class="girl-response-section">
+              <img src="${UTILS.getCharacterImagePath(
+                girlId,
+                RomanceGame.state.loveScores[girlId]
+              )}" alt="${girl.name}" class="date-response-girl-image" />
+              <div class="girl-response-info">
+                <h3>${girl.name}</h3>
+                <p class="love-indicator">💕 Love: ${
+                  RomanceGame.state.loveScores[girlId]
+                }/${CONFIG.MAX_LOVE}</p>
+              </div>
+            </div>
+            
+            <div class="response-dialogue">
+              <div class="response-bubble">
+                <p class="date-response-text">${response}</p>
+              </div>
+            </div>
+            
+            <div class="location-preview">
+              <img src="${UTILS.getLocationImagePath(locationId)}" alt="${
+      location.name
+    }" class="response-location-image" />
+              <div class="location-details">
+                <h4>📍 ${location.name}</h4>
+                <p>${location.description}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="date-response-actions">
+            <button id="go-on-date" class="date-button" data-girl="${girlId}" data-location="${locationId}">
+              💖 Go on the date!
+            </button>
+          </div>
         </div>
       </div>
     `;
@@ -325,6 +371,9 @@ const RomanceGame = {
       location: locationId,
       day: RomanceGame.state.currentDay,
     });
+
+    // Track total girls dated for achievements
+    RomanceGame.state.totalGirlsDated.add(girlId);
 
     // Switch to location-specific music
     let musicContext;
@@ -463,6 +512,17 @@ const RomanceGame = {
     );
     const selectedChoice = currentScenario.choices[choiceIndex];
 
+    // Track romantic choices for achievements
+    if (selectedChoice.tags && selectedChoice.tags.includes("romantic")) {
+      RomanceGame.state.romanticChoiceCount++;
+      if (
+        RomanceGame.state.romanticChoiceCount >= 20 &&
+        typeof AchievementManager !== "undefined"
+      ) {
+        AchievementManager.unlockAchievement("sweet-talker");
+      }
+    }
+
     // Apply love change
     const oldLove = RomanceGame.state.loveScores[girlId];
     RomanceGame.state.loveScores[girlId] = UTILS.clampLove(
@@ -476,9 +536,6 @@ const RomanceGame = {
     } else if (loveChange < 0) {
       UTILS.playAudio(CONFIG.AUDIO.LOVE_DECREASE);
     }
-
-    // Update music based on love progress during dates (keep current location music)
-    // Music stays the same during date conversations
 
     // Show response
     RomanceGame.state.lastResponse = selectedChoice.response;
@@ -532,6 +589,14 @@ const RomanceGame = {
       typeof AchievementManager !== "undefined"
     ) {
       AchievementManager.unlockAchievement("devoted-heart");
+    }
+
+    // Check for romantic explorer achievement (dated all three girls)
+    if (
+      RomanceGame.state.totalGirlsDated.size === 3 &&
+      typeof AchievementManager !== "undefined"
+    ) {
+      AchievementManager.unlockAchievement("romantic-explorer");
     }
 
     // Determine next day
@@ -742,6 +807,11 @@ const RomanceGame = {
         const girlId = e.target.dataset.girl;
         RomanceGame.state.ballInviteAccepted = true;
         RomanceGame.state.ballDateGirl = girlId;
+
+        // Track ball ready achievement
+        if (typeof AchievementManager !== "undefined") {
+          AchievementManager.unlockAchievement("ball-ready");
+        }
 
         // Switch to ballroom music when accepting
         RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(

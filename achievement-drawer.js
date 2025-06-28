@@ -1,4 +1,4 @@
-// Achievement Drawer UI Component
+// Achievement Drawer UI Component for Romance Game
 const AchievementDrawer = {
   isOpen: false,
 
@@ -15,7 +15,7 @@ const AchievementDrawer = {
     achievementButton.id = "achievement-button";
     achievementButton.className = "achievement-button";
     achievementButton.innerHTML = "🏆";
-    achievementButton.title = "View Achievements";
+    achievementButton.title = "View Romance Achievements";
 
     // Create drawer overlay
     const drawerOverlay = document.createElement("div");
@@ -37,6 +37,22 @@ const AchievementDrawer = {
 
   // Render drawer content
   renderDrawerContent: () => {
+    // Add safety check for AchievementManager
+    if (
+      !AchievementManager ||
+      typeof AchievementManager.getAllAchievements !== "function"
+    ) {
+      return `
+        <div class="achievement-header">
+          <h2>🏆 Romance Achievements</h2>
+          <button id="close-drawer" class="close-drawer-btn">×</button>
+        </div>
+        <div class="achievement-content">
+          <p>Achievement system not available.</p>
+        </div>
+      `;
+    }
+
     const achievements = AchievementManager.getAllAchievements();
     const stats = AchievementManager.getStatistics();
 
@@ -45,7 +61,7 @@ const AchievementDrawer = {
 
     return `
       <div class="achievement-header">
-        <h2>🏆 Achievements</h2>
+        <h2>🏆 Romance Achievements</h2>
         <div class="achievement-progress">
           ${unlockedCount}/${totalCount} Unlocked
         </div>
@@ -80,31 +96,43 @@ const AchievementDrawer = {
         </div>
         
         <div class="achievement-stats">
-          <h3>📊 Statistics</h3>
+          <h3>📊 Romance Statistics</h3>
           <div class="stats-grid">
             <div class="stat-item">
               <span class="stat-label">Games Started:</span>
-              <span class="stat-value">${stats.gamesStarted}</span>
+              <span class="stat-value">${stats.gamesStarted || 0}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Total Deaths:</span>
-              <span class="stat-value">${stats.totalDeaths}</span>
+              <span class="stat-label">Total Dates:</span>
+              <span class="stat-value">${stats.totalDates || 0}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Silent Responses:</span>
-              <span class="stat-value">${stats.totalSilentResponses}</span>
+              <span class="stat-label">Romantic Choices:</span>
+              <span class="stat-value">${stats.romanticChoices || 0}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Max Silent Streak:</span>
-              <span class="stat-value">${stats.maxConsecutiveSilent}</span>
+              <span class="stat-label">Girls Dated:</span>
+              <span class="stat-value">${
+                (stats.totalGirlsDated || []).length
+              }/3</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Music Tracks Heard:</span>
-              <span class="stat-value">${stats.musicTracksHeard.length}/3</span>
+              <span class="stat-label">Ball Invitations:</span>
+              <span class="stat-value">${stats.ballInvitations || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Perfect Romances:</span>
+              <span class="stat-value">${stats.perfectRomances || 0}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Heartbreaks:</span>
+              <span class="stat-value">${stats.heartbreaks || 0}</span>
             </div>
             <div class="stat-item">
               <span class="stat-label">Endings Reached:</span>
-              <span class="stat-value">${stats.endingsReached.length}/5</span>
+              <span class="stat-value">${
+                (stats.endingsReached || []).length
+              }/5</span>
             </div>
           </div>
         </div>

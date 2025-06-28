@@ -42,7 +42,7 @@ body::before {
   padding: 20px;
 }
 
-/* Achievement Button (adapted) */
+/* Achievement Button */
 .achievement-button {
   position: fixed;
   top: 20px;
@@ -62,6 +62,247 @@ body::before {
 .achievement-button:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Achievement Drawer Styles */
+.achievement-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.achievement-drawer-overlay.open {
+  opacity: 1;
+}
+
+.achievement-drawer {
+  background: linear-gradient(135deg, #fff 0%, #ffb6c1 100%);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 800px;
+  max-height: 80vh;
+  width: 90%;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 3px solid #ff69b4;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.achievement-drawer.open {
+  transform: scale(1);
+}
+
+.achievement-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #ff69b4;
+  justify-content: space-between;
+}
+
+.achievement-header h2 {
+  color: #ff1493;
+  font-size: 2.2em;
+  font-family: "Brush Script MT", cursive;
+  margin: 0;
+}
+
+.achievement-progress {
+  font-size: 1.1em;
+  color: #666;
+  font-weight: bold;
+}
+
+.close-drawer-btn {
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: #ff1493;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 5px;
+}
+
+.close-drawer-btn:hover {
+  color: #ff69b4;
+  transform: scale(1.2);
+}
+
+.achievement-content {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.achievement-item.unlocked {
+  background: linear-gradient(45deg, #90ee90, #98fb98);
+  border-color: #32cd32;
+  box-shadow: 0 4px 12px rgba(50, 205, 50, 0.3);
+}
+
+.achievement-item.locked {
+  background: rgba(200, 200, 200, 0.5);
+  border-color: #999;
+  opacity: 0.7;
+}
+
+.achievement-icon {
+  font-size: 2.5em;
+  margin-right: 15px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-name {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.achievement-description {
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.3;
+}
+
+.achievement-stats {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #ff69b4;
+}
+
+.achievement-stats h3 {
+  color: #ff1493;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 182, 193, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 105, 180, 0.3);
+}
+
+.stat-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-value {
+  color: #ff1493;
+  font-weight: bold;
+}
+
+/* Achievement Notification */
+.achievement-notification {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1500;
+  animation: achievementSlideIn 0.5s ease-out,
+    achievementSlideOut 0.5s ease-in 3.5s forwards;
+}
+
+.achievement-popup {
+  background: linear-gradient(45deg, #ffd700, #ffb347);
+  border: 3px solid #fff;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+  max-width: 350px;
+}
+
+.achievement-popup .achievement-icon {
+  font-size: 2em;
+  margin-right: 15px;
+}
+
+.achievement-text {
+  color: #333;
+}
+
+.achievement-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.achievement-name {
+  font-weight: bold;
+  color: #8b4513;
+  margin-bottom: 3px;
+}
+
+.achievement-desc {
+  font-size: 0.9em;
+  color: #666;
+}
+
+@keyframes achievementSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes achievementSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
 /* Start Screen Styles */
@@ -135,7 +376,9 @@ body::before {
 .start-button,
 .restart-button,
 .continue-button,
-.ball-button {
+.ball-button,
+.date-button,
+.back-button {
   background: linear-gradient(45deg, #ff69b4, #ff1493);
   color: white;
   border: none;
@@ -153,10 +396,23 @@ body::before {
 .start-button:hover,
 .restart-button:hover,
 .continue-button:hover,
-.ball-button:hover {
+.ball-button:hover,
+.date-button:hover,
+.back-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
   background: linear-gradient(45deg, #ff1493, #ff69b4);
+}
+
+.back-button {
+  background: linear-gradient(45deg, #ffa500, #ff8c00);
+  font-size: 1em;
+  padding: 10px 20px;
+  margin-top: 15px;
+}
+
+.back-button:hover {
+  background: linear-gradient(45deg, #ff8c00, #ffa500);
 }
 
 /* Main Game UI */
@@ -178,9 +434,9 @@ body::before {
   margin-bottom: 25px;
   font-size: 1.1em;
   color: #ff1493;
-  /* padding: 15px 0; */
   border-bottom: 2px solid rgba(255, 105, 180, 0.3);
   font-weight: bold;
+  padding-bottom: 15px;
 }
 
 .timer {
@@ -370,10 +626,180 @@ body::before {
   margin-bottom: 10px;
 }
 
-.like-indicator {
-  color: #00aa00;
+/* IMPROVED DATE RESPONSE STYLES */
+.date-response-container {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 193, 0.1) 0%,
+    rgba(255, 240, 245, 0.9) 100%
+  );
+  border-radius: 20px;
+  padding: 30px;
+  border: 3px solid rgba(255, 105, 180, 0.3);
+  box-shadow: 0 15px 35px rgba(255, 20, 147, 0.2);
+}
+
+.date-response-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.date-response-header h2 {
+  color: #ff1493;
+  font-size: 2.2em;
+  font-family: "Brush Script MT", cursive;
+  text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+  margin-bottom: 10px;
+}
+
+.date-response-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.girl-response-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  border: 2px solid rgba(255, 105, 180, 0.2);
+}
+
+.date-response-girl-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #ff69b4;
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+  object-fit: cover;
+}
+
+.girl-response-info {
+  text-align: center;
+}
+
+.girl-response-info h3 {
+  color: #ff1493;
+  font-size: 1.6em;
+  margin-bottom: 10px;
+  font-family: "Brush Script MT", cursive;
+}
+
+.response-dialogue {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.response-bubble {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 25px;
+  max-width: 80%;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+}
+
+.response-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #ff1493;
+}
+
+.date-response-text {
+  font-size: 1.3em;
+  line-height: 1.5;
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.location-preview {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  border: 2px solid rgba(255, 105, 180, 0.2);
+}
+
+.response-location-image {
+  width: 100px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 3px solid #ff69b4;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+}
+
+.location-details {
+  flex: 1;
+}
+
+.location-details h4 {
+  color: #ff1493;
+  font-size: 1.4em;
+  margin-bottom: 8px;
+  font-family: "Brush Script MT", cursive;
+}
+
+.location-details p {
+  color: #666;
+  font-size: 1.1em;
+  line-height: 1.4;
+}
+
+.date-response-actions {
+  text-align: center;
+}
+
+.date-button {
+  font-size: 1.4em;
+  padding: 18px 35px;
+  background: linear-gradient(45deg, #ff69b4, #ff1493, #dc143c);
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  border: none;
+  border-radius: 30px;
+  color: white;
   font-weight: bold;
-  font-size: 0.9em;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.date-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Date Scene Styles */
@@ -716,6 +1142,44 @@ body::before {
   .love-scores {
     grid-template-columns: 1fr;
   }
+
+  .date-response-content {
+    gap: 15px;
+  }
+
+  .girl-response-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .location-preview {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .girl-focus {
+    flex-direction: column;
+  }
+
+  .focus-text-holder {
+    width: 100%;
+  }
+
+  .large-girl-image {
+    width: 50%;
+  }
+
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -734,7 +1198,12 @@ body::before {
     min-height: 50px;
   }
 
-  .location-grid {
-    grid-template-columns: 1fr;
+  .date-response-text {
+    font-size: 1.1em;
+  }
+
+  .date-button {
+    font-size: 1.2em;
+    padding: 15px 25px;
   }
 }

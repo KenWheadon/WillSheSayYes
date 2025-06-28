@@ -1,14 +1,16 @@
-// Achievement Management System
+// Achievement Management System for Romance Game
 const AchievementManager = {
   // Achievement data structure
   achievementData: {
     unlockedAchievements: [],
     statistics: {
       gamesStarted: 0,
-      totalDeaths: 0,
-      totalSilentResponses: 0,
-      consecutiveSilentResponses: 0,
-      maxConsecutiveSilent: 0,
+      totalDates: 0,
+      romanticChoices: 0,
+      totalGirlsDated: new Set(),
+      perfectRomances: 0,
+      ballInvitations: 0,
+      heartbreaks: 0,
       musicTracksHeard: new Set(),
       endingsReached: new Set(),
     },
@@ -17,7 +19,7 @@ const AchievementManager = {
   // Initialize achievement system
   init: () => {
     AchievementManager.loadFromStorage();
-    console.log("Achievement system initialized");
+    console.log("Romance Achievement system initialized");
   },
 
   // Load achievements from localStorage
@@ -31,16 +33,31 @@ const AchievementManager = {
           ...parsed,
         };
 
-        // Convert musicTracksHeard back to Set
-        if (parsed.statistics && parsed.statistics.musicTracksHeard) {
-          AchievementManager.achievementData.statistics.musicTracksHeard =
-            new Set(parsed.statistics.musicTracksHeard);
-        }
+        // Convert Sets back from arrays with proper fallbacks
+        if (parsed.statistics) {
+          if (parsed.statistics.totalGirlsDated) {
+            AchievementManager.achievementData.statistics.totalGirlsDated =
+              new Set(parsed.statistics.totalGirlsDated);
+          } else {
+            AchievementManager.achievementData.statistics.totalGirlsDated =
+              new Set();
+          }
 
-        // Convert endingsReached back to Set
-        if (parsed.statistics && parsed.statistics.endingsReached) {
-          AchievementManager.achievementData.statistics.endingsReached =
-            new Set(parsed.statistics.endingsReached);
+          if (parsed.statistics.musicTracksHeard) {
+            AchievementManager.achievementData.statistics.musicTracksHeard =
+              new Set(parsed.statistics.musicTracksHeard);
+          } else {
+            AchievementManager.achievementData.statistics.musicTracksHeard =
+              new Set();
+          }
+
+          if (parsed.statistics.endingsReached) {
+            AchievementManager.achievementData.statistics.endingsReached =
+              new Set(parsed.statistics.endingsReached);
+          } else {
+            AchievementManager.achievementData.statistics.endingsReached =
+              new Set();
+          }
         }
       }
     } catch (error) {
@@ -49,10 +66,12 @@ const AchievementManager = {
         unlockedAchievements: [],
         statistics: {
           gamesStarted: 0,
-          totalDeaths: 0,
-          totalSilentResponses: 0,
-          consecutiveSilentResponses: 0,
-          maxConsecutiveSilent: 0,
+          totalDates: 0,
+          romanticChoices: 0,
+          totalGirlsDated: new Set(),
+          perfectRomances: 0,
+          ballInvitations: 0,
+          heartbreaks: 0,
           musicTracksHeard: new Set(),
           endingsReached: new Set(),
         },
@@ -63,16 +82,14 @@ const AchievementManager = {
   // Save achievements to localStorage
   saveToStorage: () => {
     try {
+      const stats = AchievementManager.achievementData.statistics;
       const toSave = {
         ...AchievementManager.achievementData,
         statistics: {
-          ...AchievementManager.achievementData.statistics,
-          musicTracksHeard: Array.from(
-            AchievementManager.achievementData.statistics.musicTracksHeard
-          ),
-          endingsReached: Array.from(
-            AchievementManager.achievementData.statistics.endingsReached
-          ),
+          ...stats,
+          totalGirlsDated: Array.from(stats.totalGirlsDated || new Set()),
+          musicTracksHeard: Array.from(stats.musicTracksHeard || new Set()),
+          endingsReached: Array.from(stats.endingsReached || new Set()),
         },
       };
       localStorage.setItem(
@@ -127,7 +144,7 @@ const AchievementManager = {
     document.body.appendChild(notification);
 
     // Play achievement sound
-    UTILS.playAudio(CONFIG.AUDIO.AIRPLANE_DING);
+    UTILS.playAudio(CONFIG.AUDIO.BELL_CHIME);
 
     // Auto-remove after 4 seconds
     setTimeout(() => {
@@ -140,57 +157,69 @@ const AchievementManager = {
   // Track game started
   trackGameStarted: () => {
     AchievementManager.achievementData.statistics.gamesStarted++;
-
-    if (AchievementManager.achievementData.statistics.gamesStarted === 1) {
-      AchievementManager.unlockAchievement("first-game");
-    }
-
     AchievementManager.saveToStorage();
   },
 
-  // Track death
-  trackDeath: () => {
-    AchievementManager.achievementData.statistics.totalDeaths++;
+  // Track date completed
+  trackDateCompleted: (girlId) => {
+    AchievementManager.achievementData.statistics.totalDates++;
+    AchievementManager.achievementData.statistics.totalGirlsDated.add(girlId);
 
-    if (AchievementManager.achievementData.statistics.totalDeaths === 3) {
-      AchievementManager.unlockAchievement("die-three-times");
+    // First date achievement
+    if (AchievementManager.achievementData.statistics.totalDates === 1) {
+      AchievementManager.unlockAchievement("first-date");
     }
 
-    if (AchievementManager.achievementData.statistics.totalDeaths === 10) {
-      AchievementManager.unlockAchievement("die-ten-times");
-    }
-
-    AchievementManager.saveToStorage();
-  },
-
-  // Track ending reached
-  trackEnding: (endingType) => {
-    AchievementManager.achievementData.statistics.endingsReached.add(
-      endingType
-    );
-
-    // Check if this ending unlocks an achievement
-    const achievementMap = {
-      [CONFIG.ENDINGS.SUPER_DEAD]: "ending-super-dead",
-      [CONFIG.ENDINGS.HOW_UNLUCKY]: "ending-how-unlucky",
-      [CONFIG.ENDINGS.RED_EYE_REDEMPTION]: "ending-red-eye-redemption",
-      [CONFIG.ENDINGS.SUSPICIOUS_WIN]: "ending-suspicious-win",
-      [CONFIG.ENDINGS.NEUTRAL]: "ending-neutral",
-    };
-
-    const achievementId = achievementMap[endingType];
-    if (achievementId) {
-      AchievementManager.unlockAchievement(achievementId);
-    }
-
-    // Track death for death endings
+    // Romantic explorer achievement (dated all 3 girls)
     if (
-      endingType === CONFIG.ENDINGS.SUPER_DEAD ||
-      endingType === CONFIG.ENDINGS.HOW_UNLUCKY
+      AchievementManager.achievementData.statistics.totalGirlsDated.size === 3
     ) {
-      AchievementManager.trackDeath();
+      AchievementManager.unlockAchievement("romantic-explorer");
     }
 
+    AchievementManager.saveToStorage();
+  },
+
+  // Track romantic choice made
+  trackRomanticChoice: () => {
+    AchievementManager.achievementData.statistics.romanticChoices++;
+
+    // Sweet talker achievement (20 romantic choices)
+    if (AchievementManager.achievementData.statistics.romanticChoices === 20) {
+      AchievementManager.unlockAchievement("sweet-talker");
+    }
+
+    AchievementManager.saveToStorage();
+  },
+
+  // Track locations visited for three dates achievement
+  trackThreeLocations: () => {
+    AchievementManager.unlockAchievement("three-dates");
+    AchievementManager.saveToStorage();
+  },
+
+  // Track devoted heart achievement (3 dates with same girl)
+  trackDevotedHeart: () => {
+    AchievementManager.unlockAchievement("devoted-heart");
+    AchievementManager.saveToStorage();
+  },
+
+  // Track ball invitation
+  trackBallInvitation: (accepted) => {
+    if (accepted) {
+      AchievementManager.achievementData.statistics.ballInvitations++;
+      AchievementManager.unlockAchievement("ball-ready");
+    } else {
+      AchievementManager.achievementData.statistics.heartbreaks++;
+      AchievementManager.unlockAchievement("heartbreaker");
+    }
+    AchievementManager.saveToStorage();
+  },
+
+  // Track perfect romance
+  trackPerfectRomance: () => {
+    AchievementManager.achievementData.statistics.perfectRomances++;
+    AchievementManager.unlockAchievement("perfect-romance");
     AchievementManager.saveToStorage();
   },
 
@@ -199,57 +228,14 @@ const AchievementManager = {
     AchievementManager.achievementData.statistics.musicTracksHeard.add(
       musicTrack
     );
+    AchievementManager.saveToStorage();
+  },
 
-    // Check if all music tracks have been heard
-    const allTracks = [
-      CONFIG.AUDIO.BACKGROUND_MUSIC_HAPPY,
-      CONFIG.AUDIO.BACKGROUND_MUSIC_UPSET,
-      CONFIG.AUDIO.BACKGROUND_MUSIC_DEATH,
-    ];
-
-    const heardAll = allTracks.every((track) =>
-      AchievementManager.achievementData.statistics.musicTracksHeard.has(track)
+  // Track ending reached
+  trackEnding: (endingType) => {
+    AchievementManager.achievementData.statistics.endingsReached.add(
+      endingType
     );
-
-    if (heardAll) {
-      AchievementManager.unlockAchievement("hear-all-music");
-    }
-
-    AchievementManager.saveToStorage();
-  },
-
-  // Track silent response
-  trackSilentResponse: () => {
-    AchievementManager.achievementData.statistics.totalSilentResponses++;
-    AchievementManager.achievementData.statistics.consecutiveSilentResponses++;
-
-    // Update max consecutive
-    AchievementManager.achievementData.statistics.maxConsecutiveSilent =
-      Math.max(
-        AchievementManager.achievementData.statistics.maxConsecutiveSilent,
-        AchievementManager.achievementData.statistics.consecutiveSilentResponses
-      );
-
-    // Check achievements
-    if (
-      AchievementManager.achievementData.statistics
-        .consecutiveSilentResponses === 3
-    ) {
-      AchievementManager.unlockAchievement("silent-streak");
-    }
-
-    if (
-      AchievementManager.achievementData.statistics.totalSilentResponses === 25
-    ) {
-      AchievementManager.unlockAchievement("silent-total");
-    }
-
-    AchievementManager.saveToStorage();
-  },
-
-  // Reset consecutive silent counter (when non-silent choice is made)
-  resetSilentStreak: () => {
-    AchievementManager.achievementData.statistics.consecutiveSilentResponses = 0;
     AchievementManager.saveToStorage();
   },
 
@@ -275,14 +261,14 @@ const AchievementManager = {
 
   // Get achievement statistics
   getStatistics: () => {
+    // Ensure Sets are properly initialized before converting to Arrays
+    const stats = AchievementManager.achievementData.statistics;
+
     return {
-      ...AchievementManager.achievementData.statistics,
-      musicTracksHeard: Array.from(
-        AchievementManager.achievementData.statistics.musicTracksHeard
-      ),
-      endingsReached: Array.from(
-        AchievementManager.achievementData.statistics.endingsReached
-      ),
+      ...stats,
+      totalGirlsDated: Array.from(stats.totalGirlsDated || new Set()),
+      musicTracksHeard: Array.from(stats.musicTracksHeard || new Set()),
+      endingsReached: Array.from(stats.endingsReached || new Set()),
       totalUnlocked:
         AchievementManager.achievementData.unlockedAchievements.length,
       totalAchievements: Object.keys(CONFIG.ACHIEVEMENTS).length,
@@ -296,14 +282,16 @@ const AchievementManager = {
       unlockedAchievements: [],
       statistics: {
         gamesStarted: 0,
-        totalDeaths: 0,
-        totalSilentResponses: 0,
-        consecutiveSilentResponses: 0,
-        maxConsecutiveSilent: 0,
+        totalDates: 0,
+        romanticChoices: 0,
+        totalGirlsDated: new Set(),
+        perfectRomances: 0,
+        ballInvitations: 0,
+        heartbreaks: 0,
         musicTracksHeard: new Set(),
         endingsReached: new Set(),
       },
     };
-    console.log("All achievements reset");
+    console.log("All romance achievements reset");
   },
 };
