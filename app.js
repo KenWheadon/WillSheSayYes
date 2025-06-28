@@ -13,8 +13,10 @@ const RomanceGame = {
     currentMusicTrack: null,
     showResponse: false,
     lastResponse: "",
+    showDatingOptions: false,
     ballInviteAccepted: false,
     ballDateGirl: null,
+    bumpInCompleted: false,
     romanticChoiceCount: 0, // Track romantic choices for achievements
     totalGirlsDated: new Set(), // Track different girls for achievements
   },
@@ -84,8 +86,10 @@ const RomanceGame = {
       currentMusicTrack: null,
       showResponse: false,
       lastResponse: "",
+      showDatingOptions: false,
       ballInviteAccepted: false,
       ballDateGirl: null,
+      bumpInCompleted: false,
       romanticChoiceCount: 0,
       totalGirlsDated: new Set(),
     };
@@ -93,7 +97,15 @@ const RomanceGame = {
 
   // Render current day
   renderDay: () => {
-    if (RomanceGame.state.currentDay === CONFIG.BALL_DAY) {
+    if (
+      RomanceGame.state.currentDay === CONFIG.BUMP_IN_DAY &&
+      !RomanceGame.state.bumpInCompleted
+    ) {
+      RomanceGame.renderBumpInDay();
+    } else if (
+      RomanceGame.state.currentDay === CONFIG.BALL_DAY &&
+      RomanceGame.state.bumpInCompleted
+    ) {
       RomanceGame.renderBallDay();
     } else if (RomanceGame.state.dayType === CONFIG.DAY_TYPES.STORY) {
       RomanceGame.renderStoryDay();
@@ -123,17 +135,21 @@ const RomanceGame = {
     }) Rose(${RomanceGame.state.loveScores.rose})</span>
         </div>
         
-        <div class="story-section">
+        <div class="story-section" id="story-section" ${
+          RomanceGame.state.showDatingOptions ? 'style="display: none;"' : ""
+        }>
           <p class="story-text">${storyData.text}</p>
         </div>
 
-        <div class="dialogue-section" id="dialogue-section">
+        <div class="dialogue-section" id="dialogue-section" ${
+          RomanceGame.state.showDatingOptions ? 'style="display: none;"' : ""
+        }>
           ${RomanceGame.renderStoryDialogue(storyData)}
         </div>
 
         ${
-          RomanceGame.state.currentDay < CONFIG.BALL_DAY &&
-          !RomanceGame.state.showResponse
+          RomanceGame.state.showDatingOptions &&
+          RomanceGame.state.currentDay < CONFIG.BALL_DAY
             ? `
           <div class="dating-options">
             <h3>${MESSAGES.UI.CHOOSE_GIRL}</h3>
@@ -172,9 +188,11 @@ const RomanceGame = {
   renderStoryDialogue: (storyData) => {
     if (RomanceGame.state.showResponse) {
       return `
-        <div class="response-display">
-          <p class="story-response">${RomanceGame.state.lastResponse}</p>
-          <button id="continue-btn" class="continue-button">Continue</button>
+        <div class="story-response-display">
+          <div class="response-bubble-story">
+            <p class="story-response">${RomanceGame.state.lastResponse}</p>
+          </div>
+          <button id="continue-btn" class="continue-button">Continue to Dating</button>
         </div>
       `;
     } else {
@@ -199,9 +217,9 @@ const RomanceGame = {
     const girl = CONFIG.GIRLS[girlId.toUpperCase()];
     const availableLocations = Object.values(CONFIG.LOCATIONS).filter(
       (location) => {
-        // Check if this girl+location combo hasn't been used
+        // Check if this location hasn't been used yet
         return !RomanceGame.state.dateHistory.some(
-          (date) => date.girl === girlId && date.location === location.id
+          (date) => date.location === location.id
         );
       }
     );
@@ -249,7 +267,7 @@ const RomanceGame = {
           ${
             availableLocations.length === 0
               ? `
-            <p class="no-locations">You've exhausted all dating options with ${girl.name}!</p>
+            <p class="no-locations">All locations have been visited!</p>
             <button id="back-to-selection" class="back-button">Choose someone else</button>
           `
               : `
@@ -599,12 +617,13 @@ const RomanceGame = {
     }
 
     // Determine next day
-    if (RomanceGame.state.currentDay >= CONFIG.BALL_DAY) {
-      RomanceGame.renderBallDay();
+    if (RomanceGame.state.currentDay >= CONFIG.BUMP_IN_DAY) {
+      RomanceGame.renderDay(); // Will trigger bump-in or ball logic
     } else {
       // Go to next story day - switch back to planning music
       RomanceGame.state.currentDay++;
       RomanceGame.state.dayType = CONFIG.DAY_TYPES.STORY;
+      RomanceGame.state.showDatingOptions = false;
       RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
         CONFIG.MUSIC_CONTEXTS.PLANNING
       );
@@ -612,9 +631,9 @@ const RomanceGame = {
     }
   },
 
-  // Render ball day (day 7)
-  renderBallDay: () => {
-    // Switch to bump-in music for the initial encounter
+  // Render bump-in day (day 7 before ball)
+  renderBumpInDay: () => {
+    // Switch to bump-in music
     RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
       CONFIG.MUSIC_CONTEXTS.BUMP_IN
     );
@@ -626,55 +645,224 @@ const RomanceGame = {
     );
 
     const girl = CONFIG.GIRLS[bestGirl.toUpperCase()];
-    const canAskToBall = maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD;
+    const flowerShop = CONFIG.LOCATIONS.FLOWER_SHOP;
 
     const container = document.getElementById("game-container");
     container.innerHTML = `
-      <div class="romance-ui ball-day">
-        <div class="ball-header">
-          <h1>${MESSAGES.UI.BALL_NIGHT} - Evening of Day 7</h1>
-          <p>The ballroom sparkles with golden light as couples arrive. You see ${
-            girl.name
-          } across the room...</p>
+      <div class="romance-ui bump-in-scene">
+        <div class="status-bar">
+          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${
+      CONFIG.TOTAL_DAYS
+    } | An Unexpected Encounter</span>
         </div>
         
-        <div class="ball-scene">
-          <img src="${UTILS.getCharacterImagePath(
-            bestGirl,
-            RomanceGame.state.loveScores[bestGirl]
-          )}" alt="${girl.name}" class="ball-girl-image" />
-          <div class="ball-dialogue">
-            <h3>${girl.name}</h3>
-            <p class="girl-thoughts">${RomanceGame.getBallDialogue(
+        <div class="bump-in-setting">
+          <img src="${UTILS.getLocationImagePath("flower-shop")}" alt="${
+      flowerShop.name
+    }" class="location-bg" />
+          <div class="setting-description">
+            <h2>✨ ${flowerShop.name} ✨</h2>
+            <p class="atmosphere">${flowerShop.atmosphere}</p>
+            <p class="setting-text">While walking through town before the ball tonight, you decide to stop by the flower shop to get a boutonniere. As you approach the entrance, you bump into someone familiar...</p>
+          </div>
+        </div>
+        
+        <div class="bump-in-encounter">
+          <div class="girl-section">
+            <img src="${UTILS.getCharacterImagePath(
               bestGirl,
-              maxLove
-            )}</p>
+              RomanceGame.state.loveScores[bestGirl]
+            )}" alt="${girl.name}" class="bump-in-girl-image" />
+            <h3>${girl.name}</h3>
+            <p class="love-indicator">💕 Love: ${
+              RomanceGame.state.loveScores[bestGirl]
+            }/${CONFIG.MAX_LOVE}</p>
+          </div>
+          
+          <div class="bump-in-dialogue">
+            <div class="dialogue-bubble">
+              <p class="dialogue-text">"Oh! ${
+                girl.name === "Luna"
+                  ? "What a magical coincidence!"
+                  : girl.name === "Maya"
+                  ? "Hey there! Fancy meeting you here!"
+                  : "How delightfully serendipitous!"
+              } I was just picking up flowers for tonight's ball. ${
+      maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD
+        ? "I was actually hoping I might see you..."
+        : "Are you going to the ball too?"
+    }"</p>
+            </div>
             
-            ${
-              canAskToBall
-                ? `
-              <div class="ball-choice">
-                <p>This is your moment! Ask her to be your date!</p>
-                <button id="ask-to-ball" class="ball-button" data-girl="${bestGirl}">
-                  "${girl.name}, would you like to dance with me?"
-                </button>
-              </div>
-            `
-                : `
-              <div class="ball-rejection">
-                <p>You approach, but sense she's not interested in more than friendship...</p>
-                <button id="accept-friendship" class="ball-button">
-                  "I hope we can be good friends"
-                </button>
-              </div>
-            `
-            }
+            <div class="bump-in-choices">
+              <button class="choice-button" id="bump-in-response">
+                "${
+                  maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD
+                    ? "I was hoping to see you too!"
+                    : "Yes, I'll be there. Maybe I'll see you around!"
+                }"
+              </button>
+            </div>
           </div>
         </div>
       </div>
     `;
 
-    RomanceGame.attachBallEventListeners();
+    // Attach event listener
+    document
+      .getElementById("bump-in-response")
+      .addEventListener("click", () => {
+        RomanceGame.state.bumpInCompleted = true;
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
+
+        // Show response and then transition to ball
+        setTimeout(() => {
+          RomanceGame.renderBallDay();
+        }, 1500);
+      });
+  },
+
+  // Render ball day (day 7)
+  renderBallDay: () => {
+    // Don't switch music yet - we'll do it during the reveal
+
+    // Find girl with highest love score
+    const maxLove = Math.max(...Object.values(RomanceGame.state.loveScores));
+    const bestGirl = Object.keys(RomanceGame.state.loveScores).find(
+      (girl) => RomanceGame.state.loveScores[girl] === maxLove
+    );
+
+    const container = document.getElementById("game-container");
+    container.innerHTML = `
+      <div class="romance-ui ball-entrance">
+        <div class="ball-header">
+          <h1>🏰 The Grand Spring Ball 🏰</h1>
+          <p class="ball-description">You enter the magnificent ballroom. Crystal chandeliers cast dancing shadows across marble floors as elegant couples waltz to the orchestra's melody. Your heart pounds as you scan the room...</p>
+        </div>
+        
+        <div class="ballroom-scene">
+          <img src="${CONFIG.IMAGES.BACKGROUND}" alt="Grand Ballroom" class="ballroom-image" />
+          <div class="ballroom-atmosphere">
+            <p>✨ The air shimmers with magic and possibility ✨</p>
+            <p>🎵 Soft orchestral music fills the grand hall 🎵</p>
+            <p>💃 Couples dance gracefully under sparkling lights 💃</p>
+          </div>
+        </div>
+        
+        <div class="moment-of-truth">
+          <button id="reveal-button" class="reveal-button">
+            💖 WILL ANYONE BE THERE WAITING FOR YOU? 💖
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Attach event listener for the big reveal
+    document.getElementById("reveal-button").addEventListener("click", () => {
+      RomanceGame.performBallReveal(bestGirl, maxLove);
+    });
+  },
+
+  // Perform the dramatic ball reveal
+  performBallReveal: (bestGirl, maxLove) => {
+    UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
+
+    const container = document.getElementById("game-container");
+
+    // Show "searching" screen
+    container.innerHTML = `
+      <div class="romance-ui ball-reveal">
+        <div class="reveal-suspense">
+          <h2>🔍 Searching the ballroom... 🔍</h2>
+          <div class="suspense-dots">
+            <span class="dot">.</span>
+            <span class="dot">.</span>
+            <span class="dot">.</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // After 2 seconds, show the result
+    setTimeout(() => {
+      // Switch to ballroom music now
+      RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
+        CONFIG.MUSIC_CONTEXTS.BALLROOM
+      );
+
+      const girl = CONFIG.GIRLS[bestGirl.toUpperCase()];
+      const canAskToBall = maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD;
+
+      if (canAskToBall) {
+        // Someone is there waiting!
+        container.innerHTML = `
+          <div class="romance-ui ball-day">
+            <div class="ball-header">
+              <h1>💕 SHE'S THERE! 💕</h1>
+              <p>Across the ballroom, you spot ${
+                girl.name
+              } looking radiant in her ball gown. She catches your eye and smiles warmly, clearly hoping you'll approach...</p>
+            </div>
+            
+            <div class="ball-scene">
+              <img src="${UTILS.getCharacterImagePath(
+                bestGirl,
+                RomanceGame.state.loveScores[bestGirl]
+              )}" alt="${girl.name}" class="ball-girl-image" />
+              <div class="ball-dialogue">
+                <h3>${girl.name}</h3>
+                <p class="girl-thoughts">${RomanceGame.getBallDialogue(
+                  bestGirl,
+                  maxLove
+                )}</p>
+                
+                <div class="ball-choice">
+                  <p>✨ This is your moment! Ask her to be your date! ✨</p>
+                  <button id="ask-to-ball" class="ball-button" data-girl="${bestGirl}">
+                    "${girl.name}, would you like to dance with me?"
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        // No one is really interested in romance
+        container.innerHTML = `
+          <div class="romance-ui ball-day">
+            <div class="ball-header">
+              <h1>💔 Just Friends 💔</h1>
+              <p>You spot ${
+                girl.name
+              } across the room, but when you approach, it's clear she only sees you as a friend...</p>
+            </div>
+            
+            <div class="ball-scene">
+              <img src="${UTILS.getCharacterImagePath(
+                bestGirl,
+                RomanceGame.state.loveScores[bestGirl]
+              )}" alt="${girl.name}" class="ball-girl-image" />
+              <div class="ball-dialogue">
+                <h3>${girl.name}</h3>
+                <p class="girl-thoughts">${RomanceGame.getBallDialogue(
+                  bestGirl,
+                  maxLove
+                )}</p>
+                
+                <div class="ball-rejection">
+                  <p>She's friendly but clearly not interested in romance...</p>
+                  <button id="accept-friendship" class="ball-button">
+                    "I hope we can be good friends"
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      RomanceGame.attachBallEventListeners();
+    }, 3000);
   },
 
   // Get ball dialogue based on relationship
@@ -752,6 +940,11 @@ const RomanceGame = {
         const girlId = e.currentTarget.dataset.girl;
         RomanceGame.renderDateSelection(girlId);
       });
+
+      // Add hover effect for girl buttons
+      button.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
+      });
     });
 
     // Continue button
@@ -759,11 +952,8 @@ const RomanceGame = {
     if (continueBtn) {
       continueBtn.addEventListener("click", () => {
         RomanceGame.state.showResponse = false;
-        if (RomanceGame.state.currentDay >= CONFIG.BALL_DAY) {
-          RomanceGame.renderBallDay();
-        } else {
-          RomanceGame.renderDay();
-        }
+        RomanceGame.state.showDatingOptions = true;
+        RomanceGame.renderStoryDay();
       });
     }
   },
@@ -854,7 +1044,8 @@ const RomanceGame = {
     if (continueBtn) {
       continueBtn.addEventListener("click", () => {
         RomanceGame.state.showResponse = false;
-        RomanceGame.renderDay();
+        RomanceGame.state.showDatingOptions = true;
+        RomanceGame.renderStoryDay();
       });
     }
   },

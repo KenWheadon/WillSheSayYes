@@ -305,6 +305,331 @@ body::before {
   }
 }
 
+/* Enhanced Story Response Styles */
+.story-response-display {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.response-bubble-story {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  padding: 25px 30px;
+  border-radius: 25px;
+  margin: 20px auto;
+  max-width: 80%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+  animation: bubbleAppear 0.6s ease-out;
+}
+
+.response-bubble-story::before {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #ff1493;
+}
+
+.response-bubble-story .story-response {
+  font-size: 1.4em;
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes bubbleAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Bump-in Scene Styles */
+.bump-in-scene {
+  background: linear-gradient(135deg, #e6f3ff 0%, #ffb6c1 50%, #ff69b4 100%);
+}
+
+.bump-in-setting {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  border: 3px solid rgba(255, 105, 180, 0.3);
+}
+
+.bump-in-setting h2 {
+  color: #ff1493;
+  font-size: 2.2em;
+  font-family: "Brush Script MT", cursive;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+}
+
+.bump-in-encounter {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 105, 180, 0.3);
+  box-shadow: 0 10px 30px rgba(255, 20, 147, 0.2);
+}
+
+.bump-in-girl-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid #ff69b4;
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+  animation: gentlePulse 2s infinite;
+}
+
+@keyframes gentlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.bump-in-dialogue {
+  flex: 1;
+}
+
+.dialogue-bubble {
+  background: rgba(255, 182, 193, 0.3);
+  border: 2px solid rgba(255, 105, 180, 0.5);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.dialogue-bubble::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 30px;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 15px solid rgba(255, 105, 180, 0.5);
+}
+
+.bump-in-choices {
+  text-align: center;
+}
+
+/* Ball Entrance and Reveal Styles */
+.ball-entrance {
+  background: linear-gradient(
+    135deg,
+    #ffd700 0%,
+    #ffb347 30%,
+    #ff69b4 70%,
+    #ff1493 100%
+  );
+  text-align: center;
+}
+
+.ball-entrance .ball-header h1 {
+  font-size: 3em;
+  color: #8b0000;
+  font-family: "Brush Script MT", cursive;
+  text-shadow: 3px 3px 6px rgba(139, 0, 0, 0.4);
+  margin-bottom: 20px;
+  animation: titleShimmer 3s infinite;
+}
+
+@keyframes titleShimmer {
+  0%,
+  100% {
+    text-shadow: 3px 3px 6px rgba(139, 0, 0, 0.4);
+  }
+  50% {
+    text-shadow: 3px 3px 6px rgba(255, 215, 0, 0.6);
+  }
+}
+
+.ball-description {
+  font-size: 1.3em;
+  line-height: 1.6;
+  color: #4a4a4a;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+}
+
+.ballroom-scene {
+  margin: 30px 0;
+}
+
+.ballroom-image {
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 4px solid #ffd700;
+  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+  margin-bottom: 20px;
+}
+
+.ballroom-atmosphere {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.ballroom-atmosphere p {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: #8b0000;
+  font-weight: bold;
+}
+
+.moment-of-truth {
+  margin-top: 40px;
+}
+
+.reveal-button {
+  background: linear-gradient(45deg, #ff69b4, #ff1493, #dc143c, #ffd700);
+  background-size: 300% 300%;
+  animation: rainbowGradient 3s ease infinite;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  font-size: 1.8em;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: "Brush Script MT", cursive;
+  letter-spacing: 2px;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.reveal-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7);
+}
+
+@keyframes rainbowGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ball Reveal Suspense */
+.ball-reveal {
+  text-align: center;
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #333 100%);
+  color: white;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reveal-suspense h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  font-family: "Brush Script MT", cursive;
+  animation: suspenseGlow 2s infinite;
+}
+
+@keyframes suspenseGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+}
+
+.suspense-dots {
+  font-size: 3em;
+  letter-spacing: 10px;
+}
+
+.dot {
+  animation: dotPulse 1.5s infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Enhanced Ball Day Styles */
+.ball-day {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff69b4 100%);
+  color: #2c1810;
+}
+
+.ball-day .ball-header h1 {
+  font-size: 2.8em;
+  color: #8b0000;
+  font-family: "Brush Script MT", cursive;
+  text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.3);
+  margin-bottom: 15px;
+  animation: celebrationGlow 2s infinite;
+}
+
+@keyframes celebrationGlow {
+  0%,
+  100% {
+    text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.8);
+  }
+}
+
 /* Start Screen Styles */
 .start-screen,
 .ending-screen {
@@ -1173,6 +1498,29 @@ body::before {
   .stats-grid {
     grid-template-columns: 1fr;
   }
+
+  .bump-in-encounter {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .bump-in-girl-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .reveal-button {
+    font-size: 1.4em;
+    padding: 15px 25px;
+  }
+
+  .ball-entrance .ball-header h1 {
+    font-size: 2.2em;
+  }
+
+  .ballroom-image {
+    height: 200px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1198,5 +1546,18 @@ body::before {
   .date-button {
     font-size: 1.2em;
     padding: 15px 25px;
+  }
+
+  .reveal-button {
+    font-size: 1.2em;
+    padding: 12px 20px;
+  }
+
+  .ball-entrance .ball-header h1 {
+    font-size: 1.8em;
+  }
+
+  .response-bubble-story .story-response {
+    font-size: 1.2em;
   }
 }

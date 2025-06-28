@@ -11,7 +11,8 @@ const CONFIG = {
 
   // Game progression
   TOTAL_DAYS: 7,
-  BALL_DAY: 7,
+  BUMP_IN_DAY: 7,
+  BALL_DAY: 7, // Ball happens after bump-in on same day
   TOTAL_DATES: 3,
 
   // Audio settings
@@ -100,12 +101,20 @@ const CONFIG = {
       atmosphere:
         "The warm glow of neon signs and the comforting aroma of fresh coffee",
     },
+    FLOWER_SHOP: {
+      id: "flower-shop",
+      name: "Enchanted Flower Shop",
+      description: "A magical flower shop with blooms that never wilt",
+      atmosphere:
+        "Sweet floral scents fill the air as soft chimes play in the breeze",
+    },
   },
 
   // Day types
   DAY_TYPES: {
     STORY: "story",
     DATE: "date",
+    BUMP_IN: "bump_in",
     BALL: "ball",
   },
 
