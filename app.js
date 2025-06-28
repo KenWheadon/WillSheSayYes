@@ -20,6 +20,7 @@ const RomanceGame = {
     showPreBumpIn: false, // New state for pre-bump-in popup
     romanticChoiceCount: 0, // Track romantic choices for achievements
     totalGirlsDated: new Set(), // Track different girls for achievements
+    showFarewell: false,
   },
 
   // Initialize the game
@@ -94,6 +95,7 @@ const RomanceGame = {
       showPreBumpIn: false,
       romanticChoiceCount: 0,
       totalGirlsDated: new Set(),
+      showFarewell: false,
     };
   },
 
@@ -152,6 +154,46 @@ const RomanceGame = {
       });
   },
 
+  // Get player sprite based on game progress
+  getPlayerSprite: () => {
+    if (
+      RomanceGame.state.currentDay === CONFIG.BALL_DAY &&
+      RomanceGame.state.bumpInCompleted
+    ) {
+      return "player";
+    } else if (RomanceGame.state.currentDay >= 5) {
+      return "player";
+    } else if (RomanceGame.state.currentDay >= 3) {
+      return "player";
+    } else {
+      return "player";
+    }
+  },
+
+  // Get player expression based on game progress
+  getPlayerExpression: () => {
+    if (
+      RomanceGame.state.currentDay === CONFIG.BALL_DAY &&
+      RomanceGame.state.bumpInCompleted
+    ) {
+      return 10; // Will use dress version
+    } else if (RomanceGame.state.currentDay >= 5) {
+      return 8; // Happy
+    } else if (RomanceGame.state.currentDay >= 3) {
+      return 5; // Neutral
+    } else {
+      return 2; // Skeptical
+    }
+  },
+
+  // Get if player should use dress
+  getPlayerUseDress: () => {
+    return (
+      RomanceGame.state.currentDay === CONFIG.BALL_DAY &&
+      RomanceGame.state.bumpInCompleted
+    );
+  },
+
   // Render story days (1, 3, 5)
   renderStoryDay: () => {
     const storyData = getCurrentStoryDay(RomanceGame.state.currentDay);
@@ -176,7 +218,15 @@ const RomanceGame = {
         <div class="story-section" id="story-section" ${
           RomanceGame.state.showDatingOptions ? 'style="display: none;"' : ""
         }>
-          <p class="story-text">${storyData.text}</p>
+          <div class="story-content">
+            <img src="${UTILS.getCharacterImagePath(
+              RomanceGame.getPlayerSprite(),
+              RomanceGame.getPlayerExpression(),
+              RomanceGame.getPlayerUseDress()
+            )}" 
+                 alt="You" class="player-story-image" />
+            <p class="story-text">${storyData.text}</p>
+          </div>
         </div>
 
         <div class="dialogue-section" id="dialogue-section" ${
@@ -478,7 +528,7 @@ const RomanceGame = {
       CONFIG.TOTAL_DAYS
     } | Date with ${girl.name} at ${location.name}</span>
           ${
-            !isFinalScenario
+            !isFinalScenario && !RomanceGame.state.showFarewell
               ? `<span class="timer ${
                   RomanceGame.state.timer <= 3 ? "warning" : ""
                 }">${MESSAGES.UI.TIMER_LABEL} ${
@@ -520,17 +570,29 @@ const RomanceGame = {
     `;
 
     RomanceGame.attachDateEventListeners();
-    if (!RomanceGame.state.showResponse && !isFinalScenario) {
+    if (
+      !RomanceGame.state.showResponse &&
+      !RomanceGame.state.showFarewell &&
+      !isFinalScenario
+    ) {
       RomanceGame.startTimer();
     }
   },
 
   // Render date dialogue
   renderDateDialogue: (scenario) => {
-    if (RomanceGame.state.showResponse) {
+    if (RomanceGame.state.showFarewell) {
+      return `
+        <div class="girl-response">
+          <p class="response-text farewell-text">${scenario.farewell}</p>
+          <button id="continue-date" class="continue-button">Continue</button>
+        </div>
+      `;
+    } else if (RomanceGame.state.showResponse) {
       return `
         <div class="girl-response">
           <p class="response-text">${RomanceGame.state.lastResponse}</p>
+          <button id="continue-date" class="continue-button">Continue</button>
         </div>
       `;
     } else {
@@ -555,7 +617,8 @@ const RomanceGame = {
 
   // Handle date choice
   handleDateChoice: (choiceIndex) => {
-    if (RomanceGame.state.showResponse) return;
+    if (RomanceGame.state.showResponse || RomanceGame.state.showFarewell)
+      return;
 
     RomanceGame.stopTimer();
 
@@ -608,30 +671,64 @@ const RomanceGame = {
     const dialogueSection = document.getElementById("dialogue-section");
     dialogueSection.innerHTML = RomanceGame.renderDateDialogue(currentScenario);
 
-    // Different timing for final scenario
-    const continueTime = isFinalScenario
-      ? CONFIG.RESPONSE_DISPLAY_TIME + 1000
-      : CONFIG.RESPONSE_DISPLAY_TIME;
+    // Attach continue button listener
+    RomanceGame.attachContinueDateListener(isFinalScenario);
+  },
 
-    // Continue to next part of conversation or end date
-    setTimeout(() => {
-      if (isFinalScenario) {
-        // End the date after final scenario
-        RomanceGame.endDate();
-      } else {
-        // Continue to next conversation
-        RomanceGame.state.currentDate.conversationIndex++;
-        RomanceGame.state.showResponse = false;
-        RomanceGame.state.timer = CONFIG.CHOICE_TIMER;
-        RomanceGame.renderDateDay();
-      }
-    }, continueTime);
+  // Attach continue date listener
+  attachContinueDateListener: (isFinalScenario) => {
+    const continueBtn = document.getElementById("continue-date");
+    if (continueBtn) {
+      continueBtn.addEventListener("click", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
+
+        if (RomanceGame.state.showFarewell) {
+          // End the date after farewell
+          RomanceGame.endDate();
+        } else if (RomanceGame.state.showResponse) {
+          if (isFinalScenario) {
+            // Show farewell message for final scenario
+            const {
+              girl: girlId,
+              location: locationId,
+              conversationIndex,
+            } = RomanceGame.state.currentDate;
+            const currentScenario = getDateScenario(
+              locationId,
+              girlId,
+              conversationIndex
+            );
+
+            if (currentScenario.farewell) {
+              RomanceGame.state.showResponse = false;
+              RomanceGame.state.showFarewell = true;
+              const dialogueSection =
+                document.getElementById("dialogue-section");
+              dialogueSection.innerHTML =
+                RomanceGame.renderDateDialogue(currentScenario);
+              RomanceGame.attachContinueDateListener(isFinalScenario);
+            } else {
+              // No farewell message, just end date
+              RomanceGame.endDate();
+            }
+          } else {
+            // Continue to next conversation
+            RomanceGame.state.currentDate.conversationIndex++;
+            RomanceGame.state.showResponse = false;
+            RomanceGame.state.timer = CONFIG.CHOICE_TIMER;
+            RomanceGame.renderDateDay();
+          }
+        }
+      });
+    }
   },
 
   // End current date and progress game
   endDate: () => {
     RomanceGame.state.datesCompleted++;
     RomanceGame.state.currentDate = null;
+    RomanceGame.state.showResponse = false;
+    RomanceGame.state.showFarewell = false;
 
     // Track achievements
     if (
@@ -771,13 +868,39 @@ const RomanceGame = {
     document
       .getElementById("bump-in-response")
       .addEventListener("click", () => {
-        RomanceGame.state.bumpInCompleted = true;
         UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
 
-        // Show response and then transition to ball
-        setTimeout(() => {
-          RomanceGame.renderBallDay();
-        }, 1500);
+        // Show response first
+        const responseText =
+          maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD
+            ? `${girl.name} smiles warmly and takes your hand. 'I was hoping you'd say that... I'll see you tonight at the ball!'`
+            : `${girl.name} nods politely. 'Of course! It should be a wonderful evening for everyone.'`;
+
+        // Update the dialogue section to show response
+        const dialogueSection = document.querySelector(".bump-in-dialogue");
+        dialogueSection.innerHTML = `
+          <div class="dialogue-bubble">
+            <p class="dialogue-text">${responseText}</p>
+          </div>
+          <div class="bump-in-choices">
+            <button id="continue-to-ball" class="continue-button">
+              Continue to the Ball
+            </button>
+          </div>
+        `;
+
+        // Attach continue listener
+        document
+          .getElementById("continue-to-ball")
+          .addEventListener("click", () => {
+            RomanceGame.state.bumpInCompleted = true;
+            UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
+
+            // Transition to ball after a brief moment
+            setTimeout(() => {
+              RomanceGame.renderBallDay();
+            }, 500);
+          });
       });
   },
 
@@ -1061,6 +1184,18 @@ const RomanceGame = {
         UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     });
+
+    // Also attach continue listener if continue button exists
+    const continueBtn = document.getElementById("continue-date");
+    if (continueBtn) {
+      const { conversationIndex } = RomanceGame.state.currentDate;
+      const allScenarios = getAllDateScenarios(
+        RomanceGame.state.currentDate.location,
+        RomanceGame.state.currentDate.girl
+      );
+      const isFinalScenario = conversationIndex === allScenarios.length - 1;
+      RomanceGame.attachContinueDateListener(isFinalScenario);
+    }
   },
 
   attachBallEventListeners: () => {

@@ -910,6 +910,10 @@ body::before {
   box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
 }
 
+.continue-button {
+  margin-top: 20px;
+}
+
 .start-button:hover,
 .restart-button:hover,
 .continue-button:hover,
@@ -999,15 +1003,30 @@ body::before {
   text-align: center;
 }
 
-.story-text {
-  font-size: 1.2em;
-  line-height: 1.6;
-  color: #4a4a4a;
-  margin-bottom: 20px;
+.story-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   padding: 20px;
   background: rgba(255, 182, 193, 0.2);
   border-radius: 15px;
   border: 1px solid rgba(255, 105, 180, 0.3);
+  margin-bottom: 20px;
+}
+
+.player-story-image {
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.3));
+}
+
+.story-text {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #4a4a4a;
+  flex: 1;
+  text-align: left;
 }
 
 /* Girl Selection */
@@ -1363,7 +1382,7 @@ body::before {
 .date-conversation {
   display: flex;
   gap: 25px;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .girl-section {
@@ -1417,7 +1436,7 @@ body::before {
 
 .girl-response {
   text-align: center;
-  margin: 20px 0;
+  /* margin: 20px 0; */
 }
 
 .response-text {
@@ -1429,6 +1448,14 @@ body::before {
   border-radius: 10px;
   border: 2px solid rgba(255, 105, 180, 0.3);
   animation: fadeIn 0.5s ease-in;
+}
+
+.farewell-text {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  color: #8b4513;
+  font-weight: bold;
+  border: 2px solid #ffa500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes fadeIn {
@@ -1732,6 +1759,24 @@ body::before {
 
   .popup-content {
     padding: 25px;
+  }
+
+  .response-bubble-story .story-response {
+    font-size: 1.2em;
+  }
+
+  .story-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .player-story-image {
+    width: 120px;
+    margin-bottom: 15px;
+  }
+
+  .story-text {
+    text-align: center;
   }
 }
 

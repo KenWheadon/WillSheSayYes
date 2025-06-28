@@ -147,7 +147,8 @@
               "tags": ["forward", "romantic"],
               "love": 2
             }
-          ]
+          ],
+          "farewell": "Luna gives you a gentle hug goodbye. 'Thank you for such a wonderful evening... I can't wait to see you again!'"
         }
       ],
       "maya": [
@@ -239,7 +240,8 @@
               "tags": ["practical", "extending"],
               "love": 1
             }
-          ]
+          ],
+          "farewell": "Maya punches your arm playfully. 'You're alright, you know that? Thanks for showing me that fake can be fun sometimes. Catch you later!'"
         }
       ],
       "rose": [
@@ -331,7 +333,8 @@
               "tags": ["polite", "grateful"],
               "love": 1
             }
-          ]
+          ],
+          "farewell": "Rose takes your hand and gives it a gentle kiss. 'What a marvelous evening, darling. You've quite swept me off my feet!'"
         }
       ]
     },
@@ -426,7 +429,8 @@
               "tags": ["forward", "eager"],
               "love": 1
             }
-          ]
+          ],
+          "farewell": "Luna gives you a sweet kiss on the cheek. 'Tonight was pure magic... thank you for making my heart soar among the stars.'"
         }
       ],
       "maya": [
@@ -518,7 +522,8 @@
               "tags": ["practical", "extending"],
               "love": 1
             }
-          ]
+          ],
+          "farewell": "Maya gives you a hearty high-five. 'That was awesome! You're definitely my kind of adventure buddy. Let's do this again soon!'"
         }
       ],
       "rose": [
@@ -610,7 +615,8 @@
               "tags": ["caring"],
               "love": 1
             }
-          ]
+          ],
+          "farewell": "Rose curtseys gracefully despite her muddy shoes. 'What an adventure! You've awakened the explorer in me, darling.'"
         }
       ]
     },
@@ -705,7 +711,8 @@
               "tags": ["romantic", "hopeful"],
               "love": 2
             }
-          ]
+          ],
+          "farewell": "Luna stands up and spins once, happily. 'Tonight was like a beautiful dream! Thank you for such a perfect evening!'"
         }
       ],
       "maya": [
@@ -797,7 +804,8 @@
               "tags": ["romantic", "grateful"],
               "love": 2
             }
-          ]
+          ],
+          "farewell": "Maya gives you a firm handshake that turns into a warm hug. 'Thanks for keeping it real tonight. You're good people!'"
         }
       ],
       "rose": [
@@ -889,7 +897,8 @@
               "tags": ["hopeful", "future"],
               "love": 1
             }
-          ]
+          ],
+          "farewell": "Rose stands and offers you her arm. 'Shall we continue this magical evening with that moonlit stroll? Tonight has been absolutely divine.'"
         }
       ]
     }
