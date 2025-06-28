@@ -111,7 +111,7 @@ const AchievementDrawer = {
               <span class="stat-value">${stats.romanticChoices || 0}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Girls Dated:</span>
+              <span class="stat-label">Woman Dated:</span>
               <span class="stat-value">${
                 (stats.totalGirlsDated || []).length
               }/3</span>

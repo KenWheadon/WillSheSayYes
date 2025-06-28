@@ -253,7 +253,7 @@ const RomanceGame = {
             <button id="back-to-selection" class="back-button">Choose someone else</button>
           `
               : `
-            <button id="back-to-selection" class="back-button">Go back and choose a different girl</button>
+            <button id="back-to-selection" class="back-button">Go back and choose a different woman</button>
           `
           }
         </div>
