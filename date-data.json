@@ -1,0 +1,240 @@
+{
+  "storyDays": {
+    "1": {
+      "title": "The Royal Ball Announcement",
+      "text": "You're a pink lion woman living in the magical kingdom of Lumina. A royal proclamation announces the Grand Spring Ball in just 7 days! Everyone who's anyone will be there, but you need a date. You think of three lovely lionesses who might be interested...",
+      "choices": [
+        { "text": "This is my chance for romance!", "response": "Your heart flutters with excitement." },
+        { "text": "I should probably find someone...", "response": "You take a deep breath and steel your nerves." },
+        { "text": "Maybe I could go alone?", "response": "But deep down, you know it would be more magical with someone special." }
+      ]
+    },
+    "3": {
+      "title": "Midweek Reflection", 
+      "text": "You've been on one date so far. The ball is getting closer, and you're starting to feel the pressure. You could ask the same person again or try someone new...",
+      "choices": [
+        { "text": "I should focus on one person", "response": "Sometimes the best romances bloom slowly." },
+        { "text": "Maybe I should explore my options", "response": "Variety is the spice of life, after all." },
+        { "text": "I'm overthinking this", "response": "You decide to follow your heart." }
+      ]
+    },
+    "5": {
+      "title": "The Final Stretch",
+      "text": "Two dates down, one more chance before the ball. Your palms are sweaty just thinking about asking someone to be your date. Will your efforts pay off?",
+      "choices": [
+        { "text": "I'm confident in my chances", "response": "Confidence is attractive, you remind yourself." },
+        { "text": "I'm so nervous!", "response": "Your heart pounds, but sometimes nerves mean it matters." },
+        { "text": "Whatever happens, happens", "response": "You try to maintain a zen-like calm." }
+      ]
+    }
+  },
+  
+  "dateScenarios": {
+    "carnival": {
+      "luna": [
+        {
+          "setting": "You and Luna stroll through the carnival as fairy lights twinkle overhead",
+          "dialogue": "Oh my! Look at all these colors! It's like walking through a painting.",
+          "choices": [
+            { "text": "Want to try the ferris wheel?", "response": "Luna's eyes light up. 'Yes! We can see the whole world from up there!'", "tags": ["romantic", "adventurous"], "love": 2 },
+            { "text": "The cotton candy looks good", "response": "Luna giggles. 'It's like eating sweet clouds! How whimsical!'", "tags": ["creative"], "love": 1 },
+            { "text": "This place is pretty crowded", "response": "Luna tilts her head. 'But that means more joy to share, doesn't it?'", "tags": ["practical"], "love": -1 },
+            { "text": "You look beautiful in this light", "response": "Luna blushes deeply. 'You make everything more magical...'", "tags": ["romantic"], "love": 2 }
+          ]
+        },
+        {
+          "setting": "You're both riding the ferris wheel as it reaches the top",
+          "dialogue": "The stars look so close from here... I feel like I could paint them.",
+          "choices": [
+            { "text": "You should! I'd love to see your art", "response": "Luna beams. 'Really? Most people think art is impractical.'", "tags": ["creative", "supportive"], "love": 2 },
+            { "text": "The view is incredible", "response": "Luna nods dreamily. 'It's like we're in our own little world.'", "tags": ["romantic"], "love": 1 },
+            { "text": "Are you afraid of heights?", "response": "Luna shakes her head. 'When something is beautiful, fear melts away.'", "tags": ["practical"], "love": 0 },
+            { "text": "I'm glad we're here together", "response": "Luna takes your paw gently. 'Me too... this feels perfect.'", "tags": ["romantic", "intimate"], "love": 3 }
+          ]
+        }
+      ],
+      "maya": [
+        {
+          "setting": "Maya looks around the carnival with a skeptical expression",
+          "dialogue": "Hmm, this is... very artificial. All these fake lights and processed sugar.",
+          "choices": [
+            { "text": "Want to find something more active?", "response": "Maya perks up. 'Yes! Maybe some carnival games we can compete at?'", "tags": ["active", "competitive"], "love": 2 },
+            { "text": "Come on, it can be fun!", "response": "Maya sighs. 'I suppose... for you, I'll try to enjoy it.'", "tags": ["encouraging"], "love": 1 },
+            { "text": "You're being a bit negative", "response": "Maya's ears flatten. 'I'm just being honest about what I see.'", "tags": ["rude", "critical"], "love": -2 },
+            { "text": "I love how you see things differently", "response": "Maya softens. 'Most people just tell me to go with the flow.'", "tags": ["accepting", "honest"], "love": 2 }
+          ]
+        },
+        {
+          "setting": "You both approach a strength test game with a large hammer",
+          "dialogue": "Now THIS looks interesting! Think you can beat my score?",
+          "choices": [
+            { "text": "You're on! Prepare to lose!", "response": "Maya grins fiercely. 'I like your confidence! May the best lioness win!'", "tags": ["competitive", "confident"], "love": 2 },
+            { "text": "I'll probably embarrass myself", "response": "Maya rolls her eyes. 'Not with that attitude! Come on, at least try!'", "tags": ["self-deprecating"], "love": -1 },
+            { "text": "Ladies first", "response": "Maya flexes playfully. 'Prepare to be impressed!'", "tags": ["respectful"], "love": 1 },
+            { "text": "How about we work together?", "response": "Maya pauses. 'That's... actually sweet. Teamwork over competition.'", "tags": ["cooperative", "thoughtful"], "love": 2 }
+          ]
+        }
+      ],
+      "rose": [
+        {
+          "setting": "Rose looks around the carnival with mild amusement",
+          "dialogue": "How delightfully kitschy! It's like stepping into a children's storybook.",
+          "choices": [
+            { "text": "Is that good or bad?", "response": "Rose laughs melodiously. 'Both! Sometimes embracing the absurd is quite freeing.'", "tags": ["curious"], "love": 1 },
+            { "text": "You have such an interesting perspective", "response": "Rose's eyes sparkle. 'Why thank you! I do try to find beauty in unexpected places.'", "tags": ["appreciative", "thoughtful"], "love": 2 },
+            { "text": "Want to win you a stuffed animal?", "response": "Rose claps her paws together. 'How charmingly traditional! I'd be delighted.'", "tags": ["romantic", "traditional"], "love": 2 },
+            { "text": "This place is kind of tacky", "response": "Rose raises an eyebrow. 'Tacky, perhaps, but there's an honest joy here.'", "tags": ["critical"], "love": -1 }
+          ]
+        },
+        {
+          "setting": "You're at a ring toss game, trying to win Rose a prize",
+          "dialogue": "The secret is in the wrist action, darling. Gentle but confident.",
+          "choices": [
+            { "text": "Thanks for the tip!", "response": "Rose winks. 'I have many hidden talents, you know.'", "tags": ["grateful", "flirty"], "love": 1 },
+            { "text": "I want to impress you", "response": "Rose touches your arm gently. 'You already are, just by trying.'", "tags": ["honest", "vulnerable"], "love": 2 },
+            { "text": "This is harder than it looks", "response": "Rose nods knowingly. 'The best things usually are, don't you think?'", "tags": ["honest"], "love": 1 },
+            { "text": "Show me how it's done", "response": "Rose takes the ring gracefully. 'With pleasure! Watch and learn.'", "tags": ["admiring"], "love": 2 }
+          ]
+        }
+      ]
+    },
+    
+    "hike": {
+      "luna": [
+        {
+          "setting": "You and Luna walk along a moonlit forest path",
+          "dialogue": "The way the moonlight filters through the leaves... it's like nature's own stained glass.",
+          "choices": [
+            { "text": "You see beauty everywhere", "response": "Luna smiles softly. 'When you look with your heart, how can you not?'", "tags": ["appreciative", "romantic"], "love": 2 },
+            { "text": "Are you cold? Take my jacket", "response": "Luna blushes. 'You're so thoughtful... yes, please.'", "tags": ["caring", "romantic"], "love": 2 },
+            { "text": "Watch out for that root", "response": "Luna giggles. 'Thank you! I was too busy stargazing to watch my step.'", "tags": ["protective"], "love": 1 },
+            { "text": "This is nice and peaceful", "response": "Luna nods. 'Sometimes the world is too loud. This feels... pure.'", "tags": ["peaceful"], "love": 1 }
+          ]
+        },
+        {
+          "setting": "You reach a clearing with a perfect view of the stars",
+          "dialogue": "Oh! It's like someone scattered diamonds across velvet! I wish I could capture this forever.",
+          "choices": [
+            { "text": "Maybe you could paint it from memory", "response": "Luna's eyes shine. 'You believe in my art... that means everything.'", "tags": ["supportive", "creative"], "love": 3 },
+            { "text": "We could come back here again", "response": "Luna takes your paw. 'I'd love that... this can be our special place.'", "tags": ["romantic", "committed"], "love": 2 },
+            { "text": "The stars are beautiful", "response": "Luna whispers. 'Not as beautiful as this moment with you.'", "tags": ["romantic"], "love": 2 },
+            { "text": "Make a wish on a star", "response": "Luna closes her eyes. 'I'm wishing for more nights like this...'", "tags": ["romantic", "whimsical"], "love": 2 }
+          ]
+        }
+      ],
+      "maya": [
+        {
+          "setting": "Maya bounds ahead energetically on the trail",
+          "dialogue": "This is perfect! Fresh air, exercise, and good company. Race you to that boulder!",
+          "choices": [
+            { "text": "You're on! *sprint ahead*", "response": "Maya laughs as she catches up. 'Finally, someone who can keep up with me!'", "tags": ["active", "competitive"], "love": 2 },
+            { "text": "Let's enjoy the journey", "response": "Maya slows down. 'You're right... I get carried away sometimes.'", "tags": ["thoughtful"], "love": 1 },
+            { "text": "I'm not much of a runner", "response": "Maya stops. 'That's okay! We can go at your pace.'", "tags": ["honest"], "love": 1 },
+            { "text": "I love your energy", "response": "Maya grins widely. 'Really? Most people say I'm too much.'", "tags": ["accepting", "encouraging"], "love": 2 }
+          ]
+        },
+        {
+          "setting": "You both pause to rest on a fallen log overlooking a valley",
+          "dialogue": "Look at all that wilderness... makes you feel alive, doesn't it?",
+          "choices": [
+            { "text": "It makes me appreciate nature", "response": "Maya nods enthusiastically. 'Exactly! This is what's real and true.'", "tags": ["authentic", "appreciative"], "love": 2 },
+            { "text": "It makes me appreciate you", "response": "Maya blushes. 'I... that's really sweet. Thanks for being here with me.'", "tags": ["romantic", "honest"], "love": 2 },
+            { "text": "I prefer the city myself", "response": "Maya frowns slightly. 'Really? All that noise and pollution?'", "tags": ["different values"], "love": -1 },
+            { "text": "Want to explore down there?", "response": "Maya jumps up excitedly. 'Yes! I know a secret path down the cliff!'", "tags": ["adventurous", "trusting"], "love": 2 }
+          ]
+        }
+      ],
+      "rose": [
+        {
+          "setting": "Rose delicately navigates the trail in elegant shoes",
+          "dialogue": "I must admit, this wasn't quite what I expected when you said 'hike.' These shoes weren't designed for... nature.",
+          "choices": [
+            { "text": "I should have warned you", "response": "Rose waves gracefully. 'Nonsense! A little adventure never hurt anyone.'", "tags": ["apologetic"], "love": 1 },
+            { "text": "Want to head back?", "response": "Rose straightens. 'Absolutely not! I'm tougher than I look.'", "tags": ["respectful"], "love": 1 },
+            { "text": "You're handling it well", "response": "Rose laughs. 'Years of etiquette training includes graceful suffering.'", "tags": ["encouraging"], "love": 1 },
+            { "text": "Here, lean on me", "response": "Rose takes your arm gratefully. 'My hero! Such gallantry is rare these days.'", "tags": ["helpful", "romantic"], "love": 2 }
+          ]
+        },
+        {
+          "setting": "You reach a scenic overlook as Rose catches her breath",
+          "dialogue": "Well... I must say the view is quite worth the struggle. How pristine and untouched.",
+          "choices": [
+            { "text": "Like finding a hidden treasure", "response": "Rose smiles warmly. 'Exactly! The best things require a little effort to reach.'", "tags": ["poetic", "thoughtful"], "love": 2 },
+            { "text": "Sorry this was so difficult", "response": "Rose touches your cheek. 'Don't apologize for showing me something beautiful.'", "tags": ["caring"], "love": 2 },
+            { "text": "You're braver than you thought", "response": "Rose stands taller. 'You bring out the adventurer in me, apparently.'", "tags": ["encouraging"], "love": 2 },
+            { "text": "Next time we'll stay indoors", "response": "Rose looks disappointed. 'Oh... but this was actually quite... refreshing.'", "tags": ["safe"], "love": -1 }
+          ]
+        }
+      ]
+    },
+    
+    "dinner": {
+      "luna": [
+        {
+          "setting": "The elegant restaurant feels very formal as Luna fidgets with her napkin",
+          "dialogue": "This place is so... fancy. I feel like I should whisper. Do you think the flowers are real?",
+          "choices": [
+            { "text": "You look perfect here", "response": "Luna relaxes slightly. 'Really? I was worried I'd break something expensive.'", "tags": ["reassuring", "romantic"], "love": 2 },
+            { "text": "Want to leave and get pizza?", "response": "Luna brightens immediately. 'Oh yes! Somewhere we can actually talk normally!'", "tags": ["understanding", "casual"], "love": 2 },
+            { "text": "Just be yourself", "response": "Luna smiles. 'You always know what to say to make me feel better.'", "tags": ["accepting"], "love": 1 },
+            { "text": "The ambiance is nice though", "response": "Luna nods uncertainly. 'I suppose... it's just very different from what I'm used to.'", "tags": ["different values"], "love": 0 }
+          ]
+        },
+        {
+          "setting": "The waiter brings an elaborate menu with no prices",
+          "dialogue": "Um... what's a 'reduction'? And why don't any of these have prices? Should I be worried?",
+          "choices": [
+            { "text": "Don't worry about the cost", "response": "Luna looks relieved. 'Are you sure? I brought my piggy bank just in case.'", "tags": ["generous"], "love": 1 },
+            { "text": "Let's order together", "response": "Luna leans closer. 'Yes please! You can translate fancy food into normal words.'", "tags": ["supportive"], "love": 2 },
+            { "text": "Trust me, you'll love it", "response": "Luna nods. 'I trust you completely. You haven't steered me wrong yet.'", "tags": ["confident"], "love": 1 },
+            { "text": "We can share a few dishes", "response": "Luna brightens. 'That's so romantic! Like a little adventure for our taste buds!'", "tags": ["romantic", "sharing"], "love": 2 }
+          ]
+        }
+      ],
+      "maya": [
+        {
+          "setting": "Maya looks around the upscale restaurant with interest",
+          "dialogue": "Wow, this place has quite the atmosphere. I hope the food is as good as the presentation.",
+          "choices": [
+            { "text": "Only the best for you", "response": "Maya smiles genuinely. 'That's sweet, but good company matters more than fancy plates.'", "tags": ["romantic", "generous"], "love": 1 },
+            { "text": "I thought you'd appreciate quality", "response": "Maya nods approvingly. 'I do! I just prefer substance over style, you know?'", "tags": ["thoughtful"], "love": 2 },
+            { "text": "Is this too fancy?", "response": "Maya shakes her head. 'Not at all! I can appreciate fine dining when it's earned.'", "tags": ["considerate"], "love": 1 },
+            { "text": "Want to arm wrestle for who pays?", "response": "Maya laughs loudly. 'You're on! But let's wait until after dessert!'", "tags": ["playful", "competitive"], "love": 2 }
+          ]
+        },
+        {
+          "setting": "The sommelier approaches with an extensive wine list",
+          "dialogue": "I usually just drink water with meals. All this wine talk goes over my head.",
+          "choices": [
+            { "text": "Water is the healthiest choice", "response": "Maya grins. 'Finally, someone who gets it! Hydration is key to everything.'", "tags": ["healthy", "practical"], "love": 2 },
+            { "text": "Want to try something new?", "response": "Maya considers. 'Actually, yes. Life's about new experiences, right?'", "tags": ["adventurous"], "love": 1 },
+            { "text": "Let me handle the wine", "response": "Maya nods gratefully. 'Thanks! I trust your judgment on fancy stuff.'", "tags": ["helpful"], "love": 1 },
+            { "text": "We could get sparkling cider", "response": "Maya's eyes light up. 'Perfect compromise! Fancy but refreshing.'", "tags": ["thoughtful", "compromise"], "love": 2 }
+          ]
+        }
+      ],
+      "rose": [
+        {
+          "setting": "Rose examines the restaurant with an appreciative eye",
+          "dialogue": "Exquisite choice! The ambiance is perfectly romantic, and I recognize this china pattern. Quite exclusive.",
+          "choices": [
+            { "text": "I wanted to impress you", "response": "Rose reaches across the table. 'Mission accomplished, darling. You have excellent taste.'", "tags": ["honest", "romantic"], "love": 2 },
+            { "text": "You deserve the finest", "response": "Rose blushes elegantly. 'Such a charmer! But your company is the finest thing here.'", "tags": ["romantic", "generous"], "love": 2 },
+            { "text": "I'm glad you approve", "response": "Rose nods graciously. 'I always appreciate when someone pays attention to details.'", "tags": ["thoughtful"], "love": 1 },
+            { "text": "I was nervous you wouldn't like it", "response": "Rose looks surprised. 'You were nervous? How wonderfully sweet and vulnerable.'", "tags": ["vulnerable", "honest"], "love": 2 }
+          ]
+        },
+        {
+          "setting": "The waiter presents the evening's special menu with flourish",
+          "dialogue": "Oh, they have the seasonal truffle menu! It's quite the delicacy. Have you tried truffle before?",
+          "choices": [
+            { "text": "Never, but I'm willing to try", "response": "Rose claps softly. 'Wonderful! I love introducing people to new experiences.'", "tags": ["adventurous", "open-minded"], "love": 2 },
+            { "text": "I'll follow your recommendation", "response": "Rose beams. 'I do have quite the refined palate. You won't be disappointed.'", "tags": ["trusting"], "love": 1 },
+            { "text": "Honestly, I'm a simple eater", "response": "Rose nods understandingly. 'There's beauty in simplicity too. Shall we find something we both enjoy?'", "tags": ["honest"], "love": 1 },
+            { "text": "Let's go all out tonight", "response": "Rose's eyes sparkle. 'Yes! Let's make this an evening to remember in every way!'", "tags": ["confident", "romantic"], "love": 2 }
+          ]
+        }
+      ]
+    }
+  }
+}

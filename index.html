@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hearts & Paws - Romance Dating Game</title>
+    <link rel="stylesheet" href="romance-styles.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <!-- Game content will be dynamically loaded here -->
+    </div>
+
+    <!-- Audio elements for romance theme -->
+    <audio id="background-music-romantic" loop>
+      <source src="audio/romantic.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="background-music-nervous" loop>
+      <source src="audio/nervous.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="background-music-victory" loop>
+      <source src="audio/victory.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="choice-hover">
+      <source src="audio/choice-hover.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="bell-chime">
+      <source src="audio/bell-chime.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="choice-sound">
+      <source src="audio/choice-click.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="heart-sound">
+      <source src="audio/heart-sound.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="disappointed-sound">
+      <source src="audio/disappointed.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="success-fanfare">
+      <source src="audio/success-fanfare.mp3" type="audio/mpeg" />
+    </audio>
+
+    <audio id="sad-music">
+      <source src="audio/sad-music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Scripts in proper dependency order -->
+    <script src="romance-config.js"></script>
+    <script src="romance-messages.js"></script>
+    <script src="achievements.js"></script>
+    <script src="achievement-drawer.js"></script>
+    <script src="romance-end-screen.js"></script>
+    <script src="romance-start-screen.js"></script>
+    <script src="romance-app.js"></script>
+  </body>
+</html>
