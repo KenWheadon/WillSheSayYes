@@ -17,6 +17,7 @@ const RomanceGame = {
     ballInviteAccepted: false,
     ballDateGirl: null,
     bumpInCompleted: false,
+    showPreBumpIn: false, // New state for pre-bump-in popup
     romanticChoiceCount: 0, // Track romantic choices for achievements
     totalGirlsDated: new Set(), // Track different girls for achievements
   },
@@ -90,6 +91,7 @@ const RomanceGame = {
       ballInviteAccepted: false,
       ballDateGirl: null,
       bumpInCompleted: false,
+      showPreBumpIn: false,
       romanticChoiceCount: 0,
       totalGirlsDated: new Set(),
     };
@@ -99,7 +101,14 @@ const RomanceGame = {
   renderDay: () => {
     if (
       RomanceGame.state.currentDay === CONFIG.BUMP_IN_DAY &&
-      !RomanceGame.state.bumpInCompleted
+      !RomanceGame.state.bumpInCompleted &&
+      !RomanceGame.state.showPreBumpIn
+    ) {
+      RomanceGame.renderPreBumpInPopup();
+    } else if (
+      RomanceGame.state.currentDay === CONFIG.BUMP_IN_DAY &&
+      !RomanceGame.state.bumpInCompleted &&
+      RomanceGame.state.showPreBumpIn
     ) {
       RomanceGame.renderBumpInDay();
     } else if (
@@ -112,6 +121,35 @@ const RomanceGame = {
     } else if (RomanceGame.state.dayType === CONFIG.DAY_TYPES.DATE) {
       RomanceGame.renderDateDay();
     }
+  },
+
+  // Render pre-bump-in transition popup
+  renderPreBumpInPopup: () => {
+    const container = document.getElementById("game-container");
+    container.innerHTML = `
+      <div class="romance-ui pre-bump-in-popup">
+        <div class="popup-content">
+          <h2>🌸 The Next Day... 🌸</h2>
+          <div class="transition-text">
+            <p>The excitement of your recent dates still lingers in your heart. Tonight is the Grand Spring Ball, and you can't help but wonder who might be waiting for you there...</p>
+            <p>You decide to take a walk downtown to pick up some flowers for your corsage. The afternoon sun is warm, and the streets are bustling with other residents preparing for the evening's festivities.</p>
+            <p>As you approach the enchanted flower shop, lost in thought about the magical evening ahead, you're not paying attention to where you're walking when suddenly...</p>
+          </div>
+          <button id="continue-to-bump-in" class="continue-button">
+            ✨ Continue ✨
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Attach event listener
+    document
+      .getElementById("continue-to-bump-in")
+      .addEventListener("click", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
+        RomanceGame.state.showPreBumpIn = true;
+        RomanceGame.renderDay();
+      });
   },
 
   // Render story days (1, 3, 5)
@@ -425,6 +463,10 @@ const RomanceGame = {
       return;
     }
 
+    // Check if this is the final scenario for this date
+    const allScenarios = getAllDateScenarios(locationId, girlId);
+    const isFinalScenario = conversationIndex === allScenarios.length - 1;
+
     const girl = CONFIG.GIRLS[girlId.toUpperCase()];
     const location = CONFIG.LOCATIONS[locationId.toUpperCase()];
 
@@ -435,18 +477,25 @@ const RomanceGame = {
           <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${
       CONFIG.TOTAL_DAYS
     } | Date with ${girl.name} at ${location.name}</span>
-          <span class="timer ${
-            RomanceGame.state.timer <= 3 ? "warning" : ""
-          }">${MESSAGES.UI.TIMER_LABEL} ${RomanceGame.state.timer}s</span>
+          ${
+            !isFinalScenario
+              ? `<span class="timer ${
+                  RomanceGame.state.timer <= 3 ? "warning" : ""
+                }">${MESSAGES.UI.TIMER_LABEL} ${
+                  RomanceGame.state.timer
+                }s</span>`
+              : '<span class="final-moment">💕 Final Moments 💕</span>'
+          }
         </div>
         
         <div class="date-setting">
+        <p class="atmosphere">${location.atmosphere}</p>
           <img src="${UTILS.getLocationImagePath(locationId)}" alt="${
       location.name
     }" class="location-bg" />
+    
     <div class="location-text">
           <p class="setting-text">${currentScenario.setting}</p>
-          <p class="atmosphere">${location.atmosphere}</p>
     </div>
     
         </div>
@@ -471,7 +520,7 @@ const RomanceGame = {
     `;
 
     RomanceGame.attachDateEventListeners();
-    if (!RomanceGame.state.showResponse) {
+    if (!RomanceGame.state.showResponse && !isFinalScenario) {
       RomanceGame.startTimer();
     }
   },
@@ -522,6 +571,10 @@ const RomanceGame = {
     );
     const selectedChoice = currentScenario.choices[choiceIndex];
 
+    // Check if this is the final scenario
+    const allScenarios = getAllDateScenarios(locationId, girlId);
+    const isFinalScenario = conversationIndex === allScenarios.length - 1;
+
     // Track romantic choices for achievements
     if (selectedChoice.tags && selectedChoice.tags.includes("romantic")) {
       RomanceGame.state.romanticChoiceCount++;
@@ -555,13 +608,24 @@ const RomanceGame = {
     const dialogueSection = document.getElementById("dialogue-section");
     dialogueSection.innerHTML = RomanceGame.renderDateDialogue(currentScenario);
 
-    // Continue to next part of conversation
+    // Different timing for final scenario
+    const continueTime = isFinalScenario
+      ? CONFIG.RESPONSE_DISPLAY_TIME + 1000
+      : CONFIG.RESPONSE_DISPLAY_TIME;
+
+    // Continue to next part of conversation or end date
     setTimeout(() => {
-      RomanceGame.state.currentDate.conversationIndex++;
-      RomanceGame.state.showResponse = false;
-      RomanceGame.state.timer = CONFIG.CHOICE_TIMER;
-      RomanceGame.renderDateDay();
-    }, CONFIG.RESPONSE_DISPLAY_TIME);
+      if (isFinalScenario) {
+        // End the date after final scenario
+        RomanceGame.endDate();
+      } else {
+        // Continue to next conversation
+        RomanceGame.state.currentDate.conversationIndex++;
+        RomanceGame.state.showResponse = false;
+        RomanceGame.state.timer = CONFIG.CHOICE_TIMER;
+        RomanceGame.renderDateDay();
+      }
+    }, continueTime);
   },
 
   // End current date and progress game
@@ -650,23 +714,25 @@ const RomanceGame = {
         </div>
         
         <div class="bump-in-setting">
+        <h2>✨ ${flowerShop.name} ✨</h2>
           <img src="${UTILS.getLocationImagePath("flower-shop")}" alt="${
       flowerShop.name
     }" class="location-bg" />
           <div class="setting-description">
-            <h2>✨ ${flowerShop.name} ✨</h2>
+            
             <p class="atmosphere">${flowerShop.atmosphere}</p>
-            <p class="setting-text">While walking through town before the ball tonight, you decide to stop by the flower shop to get a boutonniere. As you approach the entrance, you bump into someone familiar...</p>
           </div>
         </div>
         
         <div class="bump-in-encounter">
           <div class="girl-section">
+          <h3>${girl.name}</h3>
             <img src="${UTILS.getCharacterImagePath(
               bestGirl,
-              RomanceGame.state.loveScores[bestGirl]
+              RomanceGame.state.loveScores[bestGirl],
+              false
             )}" alt="${girl.name}" class="bump-in-girl-image" />
-            <h3>${girl.name}</h3>
+            
             <p class="love-indicator">💕 Love: ${
               RomanceGame.state.loveScores[bestGirl]
             }/${CONFIG.MAX_LOVE}</p>
@@ -762,21 +828,34 @@ const RomanceGame = {
 
     const container = document.getElementById("game-container");
 
-    // Show "searching" screen
+    // Show enhanced "searching" screen
     container.innerHTML = `
       <div class="romance-ui ball-reveal">
         <div class="reveal-suspense">
           <h2>🔍 Searching the ballroom... 🔍</h2>
+          <div class="reveal-graphic">
+            <!-- Placeholder for custom graphic - will be replaced -->
+            <div class="search-animation">
+              <div class="search-spotlight"></div>
+              <div class="search-hearts">
+                <span class="floating-heart">💕</span>
+                <span class="floating-heart">💖</span>
+                <span class="floating-heart">💗</span>
+                <span class="floating-heart">💝</span>
+              </div>
+            </div>
+          </div>
           <div class="suspense-dots">
             <span class="dot">.</span>
             <span class="dot">.</span>
             <span class="dot">.</span>
           </div>
+          <p class="searching-text">Will anyone be there waiting for you?</p>
         </div>
       </div>
     `;
 
-    // After 2 seconds, show the result
+    // After 3 seconds, show the result
     setTimeout(() => {
       // Switch to ballroom music now
       RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
@@ -800,7 +879,8 @@ const RomanceGame = {
             <div class="ball-scene">
               <img src="${UTILS.getCharacterImagePath(
                 bestGirl,
-                RomanceGame.state.loveScores[bestGirl]
+                RomanceGame.state.loveScores[bestGirl],
+                true
               )}" alt="${girl.name}" class="ball-girl-image" />
               <div class="ball-dialogue">
                 <h3>${girl.name}</h3>
@@ -833,7 +913,8 @@ const RomanceGame = {
             <div class="ball-scene">
               <img src="${UTILS.getCharacterImagePath(
                 bestGirl,
-                RomanceGame.state.loveScores[bestGirl]
+                RomanceGame.state.loveScores[bestGirl],
+                true
               )}" alt="${girl.name}" class="ball-girl-image" />
               <div class="ball-dialogue">
                 <h3>${girl.name}</h3>

@@ -355,6 +355,63 @@ body::before {
   }
 }
 
+/* Pre-bump-in Popup Styles */
+.pre-bump-in-popup {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #ff7675 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.popup-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  text-align: center;
+  border: 3px solid rgba(255, 105, 180, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  animation: popupAppear 0.8s ease-out;
+}
+
+@keyframes popupAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.popup-content h2 {
+  color: #ff1493;
+  font-size: 2.2em;
+  font-family: "Brush Script MT", cursive;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+}
+
+.transition-text {
+  margin-bottom: 30px;
+}
+
+.transition-text p {
+  font-size: 1.3em;
+  line-height: 1.6;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.transition-text p:last-child {
+  font-style: italic;
+  color: #ff1493;
+  font-weight: bold;
+}
+
 /* Bump-in Scene Styles */
 .bump-in-scene {
   background: linear-gradient(135deg, #e6f3ff 0%, #ffb6c1 50%, #ff69b4 100%);
@@ -449,7 +506,7 @@ body::before {
   color: #8b0000;
   font-family: "Brush Script MT", cursive;
   text-shadow: 3px 3px 6px rgba(139, 0, 0, 0.4);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   animation: titleShimmer 3s infinite;
 }
 
@@ -467,7 +524,6 @@ body::before {
   font-size: 1.3em;
   line-height: 1.6;
   color: #4a4a4a;
-  margin-bottom: 30px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
@@ -475,23 +531,22 @@ body::before {
 }
 
 .ballroom-scene {
-  margin: 30px 0;
+  margin-top: 10px;
 }
 
 .ballroom-image {
   width: 100%;
-  max-width: 600px;
-  height: 300px;
+  height: 288px;
   border-radius: 20px;
   object-fit: cover;
   border: 4px solid #ffd700;
   box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .ballroom-atmosphere {
   background: rgba(255, 255, 255, 0.9);
-  padding: 20px;
+  padding: 10px;
   border-radius: 15px;
   border: 2px solid rgba(255, 215, 0, 0.3);
 }
@@ -504,7 +559,7 @@ body::before {
 }
 
 .moment-of-truth {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .reveal-button {
@@ -547,10 +602,15 @@ body::before {
   text-align: center;
   background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #333 100%);
   color: white;
-  min-height: 60vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.reveal-suspense {
+  max-width: 500px;
+  width: 100%;
 }
 
 .reveal-suspense h2 {
@@ -558,6 +618,126 @@ body::before {
   margin-bottom: 30px;
   font-family: "Brush Script MT", cursive;
   animation: suspenseGlow 2s infinite;
+}
+
+.reveal-graphic {
+  margin: 30px 0;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.search-animation {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.search-spotlight {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: searchSpotlight 3s infinite;
+}
+
+@keyframes searchSpotlight {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.4;
+  }
+}
+
+.search-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-heart {
+  position: absolute;
+  font-size: 1.5em;
+  animation: floatHeart 4s infinite;
+  opacity: 0.7;
+}
+
+.floating-heart:nth-child(1) {
+  top: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.floating-heart:nth-child(2) {
+  top: 70%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.floating-heart:nth-child(3) {
+  bottom: 10%;
+  left: 60%;
+  animation-delay: 2s;
+}
+
+.floating-heart:nth-child(4) {
+  top: 40%;
+  right: 70%;
+  animation-delay: 3s;
+}
+
+@keyframes floatHeart {
+  0%,
+  100% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-5px);
+    opacity: 0.9;
+  }
+}
+
+.searching-text {
+  font-size: 1.4em;
+  font-style: italic;
+  margin-top: 20px;
+  color: #ff69b4;
+  animation: searchTextPulse 2s infinite;
+}
+
+@keyframes searchTextPulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+  }
 }
 
 @keyframes suspenseGlow {
@@ -616,6 +796,10 @@ body::before {
   animation: celebrationGlow 2s infinite;
 }
 
+.ball-header p {
+  font-style: italic;
+}
+
 @keyframes celebrationGlow {
   0%,
   100% {
@@ -644,6 +828,11 @@ body::before {
   box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
 }
 
+.ending-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .game-title,
 .ending-title {
   font-size: 3.5em;
@@ -652,6 +841,10 @@ body::before {
   letter-spacing: 3px;
   color: #ff1493;
   font-family: "Brush Script MT", cursive;
+}
+
+.ending-title {
+  width: 100%;
 }
 
 .game-description {
@@ -665,6 +858,11 @@ body::before {
 
 .ending-display {
   margin: 10px 0;
+  width: 30%;
+}
+
+.ending-message-container {
+  width: 65%;
 }
 
 .player-image,
@@ -676,7 +874,6 @@ body::before {
 }
 
 .final-girl-image {
-  max-width: 250px;
   animation: finalGirlPulse 2s infinite;
 }
 
@@ -763,6 +960,23 @@ body::before {
   font-weight: bold;
   font-size: 1.2em;
   transition: color 0.3s ease;
+}
+
+.final-moment {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #ff1493;
+  animation: finalMomentGlow 2s infinite;
+}
+
+@keyframes finalMomentGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 5px rgba(255, 20, 147, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(255, 20, 147, 0.8);
+  }
 }
 
 .timer.warning {
@@ -969,7 +1183,6 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 25px;
-  margin-bottom: 30px;
 }
 
 .girl-response-section {
@@ -1297,18 +1510,16 @@ body::before {
 
 /* Ball Day Styles */
 .ball-day {
-  background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff69b4 100%);
+  background: linear-gradient(135deg, #e6e6fa 0%, #87ceeb 50%, #e6e6fa 100%);
   color: #2c1810;
 }
 
 .ball-header {
   text-align: center;
-  margin-bottom: 30px;
 }
 
 .ball-header h1 {
   font-size: 2.5em;
-  color: #8b0000;
   font-family: "Brush Script MT", cursive;
   text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.3);
   margin-bottom: 15px;
@@ -1487,6 +1698,7 @@ body::before {
     flex-direction: column;
     text-align: center;
   }
+
   .reveal-button {
     font-size: 1.4em;
     padding: 15px 25px;
@@ -1498,6 +1710,28 @@ body::before {
 
   .ballroom-image {
     height: 200px;
+  }
+
+  .reveal-graphic {
+    height: 150px;
+  }
+
+  .search-animation {
+    width: 100px;
+    height: 100px;
+  }
+
+  .search-spotlight {
+    width: 70px;
+    height: 70px;
+  }
+
+  .transition-text p {
+    font-size: 1.1em;
+  }
+
+  .popup-content {
+    padding: 25px;
   }
 }
 
@@ -1537,5 +1771,35 @@ body::before {
 
   .response-bubble-story .story-response {
     font-size: 1.2em;
+  }
+
+  .reveal-graphic {
+    height: 120px;
+  }
+
+  .search-animation {
+    width: 80px;
+    height: 80px;
+  }
+
+  .search-spotlight {
+    width: 50px;
+    height: 50px;
+  }
+
+  .searching-text {
+    font-size: 1.2em;
+  }
+
+  .transition-text p {
+    font-size: 1em;
+  }
+
+  .popup-content {
+    padding: 20px;
+  }
+
+  .popup-content h2 {
+    font-size: 1.8em;
   }
 }

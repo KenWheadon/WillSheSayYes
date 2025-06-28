@@ -19,14 +19,16 @@ const RomanceEndingScreen = {
                 ? `
               <img src="${UTILS.getCharacterImagePath(
                 gameState.ballDateGirl,
-                gameState.loveScores[gameState.ballDateGirl]
+                gameState.loveScores[gameState.ballDateGirl],
+                true
               )}" 
                    alt="${ballGirl.name}" 
                    class="ending-girl-image final-girl-image" />`
                 : `
                    <img src="${UTILS.getCharacterImagePath(
                      "player",
-                     2
+                     2,
+                     true
                    )}" alt="You alone" class="ending-girl-image final-girl-image" />
               <h3>Flying Solo</h3>
             `

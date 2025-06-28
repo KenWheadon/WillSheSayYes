@@ -5,13 +5,13 @@ const MESSAGES = {
     [CONFIG.ENDINGS.PERFECT_ROMANCE]: {
       title: "PERFECT ROMANCE",
       message:
-        "True love has blossomed! You and your chosen partner dance together under the starlit ballroom, hearts beating as one. This is the beginning of a beautiful love story that will be told for generations.",
+        "You dance together under the starlit ballroom, hearts beating as one. This is the beginning of a beautiful love story that will be told for generations.",
       color: "#ff69b4",
     },
     [CONFIG.ENDINGS.SWEET_SUCCESS]: {
       title: "SWEET SUCCESS",
       message:
-        "Love has found a way! While your romance is still growing, you've won her heart enough for a magical evening together. The ball is perfect, and your future looks bright with possibility.",
+        "While your romance is still growing, you've won her heart enough for a magical evening together. The ball is perfect, and your future looks bright.",
       color: "#ff1493",
     },
     [CONFIG.ENDINGS.FRIENDLY_REJECTION]: {
@@ -23,13 +23,13 @@ const MESSAGES = {
     [CONFIG.ENDINGS.AWKWARD_FAILURE]: {
       title: "MISSED CONNECTIONS",
       message:
-        "Despite your efforts, the spark just wasn't there. The conversations felt forced and the chemistry never quite clicked. You attend the ball solo, but with lessons learned about love.",
+        "Despite your efforts, the spark just wasn't there. The conversations felt forced and the chemistry never quite clicked. You attend the ball solo.",
       color: "#ff4500",
     },
     [CONFIG.ENDINGS.ALONE_AT_BALL]: {
       title: "SOLO AT THE BALL",
       message:
-        "Your romantic pursuits didn't pan out as hoped. You stand alone at the grand ball, watching other couples dance. But hey, the buffet is excellent and you've got some great stories to tell!",
+        "You stand alone at the grand ball, watching other couples dance. But hey, the buffet is excellent and you've got some great stories to tell!",
       color: "#696969",
     },
   },
@@ -43,7 +43,7 @@ const MESSAGES = {
     START_DESCRIPTION: `You're a pink lion woman in the magical kingdom of Lumina.
 The Grand Spring Ball is in 7 days, and you need a date!
 
-Choose wisely among three lovely lionesses:
+Choose wisely among three lovely women:
 Luna the dreamy artist, Maya the fashionable adventurer, 
 and Rose the confident biker.
 

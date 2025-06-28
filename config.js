@@ -200,7 +200,11 @@ const CONFIG = {
 // Utility functions
 const UTILS = {
   // Get character image path based on love level
-  getCharacterImagePath: (characterId, loveLevel = 0) => {
+  getCharacterImagePath: (characterId, loveLevel = 0, useDress = false) => {
+    if (useDress) {
+      return `${CONFIG.IMAGES.CHARACTER_PREFIX}${characterId}-dress${CONFIG.IMAGES.CHARACTER_EXTENSION}`;
+    }
+
     const expression =
       loveLevel >= 7 ? "happy" : loveLevel >= 4 ? "neutral" : "skeptical";
     return `${CONFIG.IMAGES.CHARACTER_PREFIX}${characterId}-${expression}${CONFIG.IMAGES.CHARACTER_EXTENSION}`;

@@ -118,6 +118,36 @@
               "love": 3
             }
           ]
+        },
+        {
+          "setting": "As the carnival winds down and the lights begin to dim, you walk Luna toward the exit",
+          "dialogue": "What a magical evening! The colors, the lights, the wonder of it all... and the best part was sharing it with you.",
+          "choices": [
+            {
+              "text": "You made it magical for me",
+              "response": "Luna twirls happily. 'We made magic together! Like two artists collaborating on a masterpiece.'",
+              "tags": ["romantic", "artistic"],
+              "love": 2
+            },
+            {
+              "text": "I'll never forget tonight",
+              "response": "Luna clasps her hands together. 'Neither will I! This will definitely inspire my next painting.'",
+              "tags": ["memorable", "sweet"],
+              "love": 2
+            },
+            {
+              "text": "Want to get some cotton candy for the road?",
+              "response": "Luna giggles. 'Yes! Sweet treats to end a sweet evening!'",
+              "tags": ["thoughtful", "fun"],
+              "love": 1
+            },
+            {
+              "text": "I hope this is just the beginning",
+              "response": "Luna blushes deeply. 'I hope so too... you've awakened something wonderful in my heart.'",
+              "tags": ["forward", "romantic"],
+              "love": 2
+            }
+          ]
         }
       ],
       "maya": [
@@ -180,6 +210,36 @@
               "love": 2
             }
           ]
+        },
+        {
+          "setting": "After trying several games, you both head toward the carnival exit, Maya carrying a small stuffed prize",
+          "dialogue": "Okay, I admit it - this place grew on me! Especially the part where I demolished you at ring toss. Thanks for being such a good sport!",
+          "choices": [
+            {
+              "text": "You were incredible at everything",
+              "response": "Maya beams proudly. 'I love that you appreciate my competitive spirit instead of trying to tone it down!'",
+              "tags": ["encouraging", "accepting"],
+              "love": 2
+            },
+            {
+              "text": "I had more fun than I expected",
+              "response": "Maya nods enthusiastically. 'Same here! Sometimes it's good to embrace the silly stuff.'",
+              "tags": ["honest", "fun"],
+              "love": 2
+            },
+            {
+              "text": "Next time I'm training first",
+              "response": "Maya laughs heartily. 'Now that's the spirit! I love a challenge.'",
+              "tags": ["competitive", "playful"],
+              "love": 1
+            },
+            {
+              "text": "Want to celebrate with some real food?",
+              "response": "Maya's eyes light up. 'Yes! All this cotton candy has me craving a proper burger.'",
+              "tags": ["practical", "extending"],
+              "love": 1
+            }
+          ]
         }
       ],
       "rose": [
@@ -240,6 +300,36 @@
               "response": "Rose takes the ring gracefully. 'With pleasure! Watch and learn.'",
               "tags": ["admiring"],
               "love": 2
+            }
+          ]
+        },
+        {
+          "setting": "As the evening draws to a close, Rose admires the small plush rose you won for her",
+          "dialogue": "What a delightfully unexpected evening! I came here thinking it would be terribly gauche, but you've shown me the charm in simple pleasures.",
+          "choices": [
+            {
+              "text": "You bring elegance to everything",
+              "response": "Rose curtseys playfully. 'And you bring out my sense of adventure. What a perfect combination!'",
+              "tags": ["complimentary", "romantic"],
+              "love": 2
+            },
+            {
+              "text": "I'm glad you gave it a chance",
+              "response": "Rose nods thoughtfully. 'Sometimes the most surprising experiences are the most rewarding.'",
+              "tags": ["encouraging", "growth"],
+              "love": 2
+            },
+            {
+              "text": "The night doesn't have to end",
+              "response": "Rose raises an eyebrow with interest. 'Oh? And what did you have in mind, you charming rogue?'",
+              "tags": ["forward", "flirty"],
+              "love": 1
+            },
+            {
+              "text": "Thank you for being so gracious",
+              "response": "Rose smiles warmly. 'Thank you for being such wonderful company. This has been truly special.'",
+              "tags": ["polite", "grateful"],
+              "love": 1
             }
           ]
         }
@@ -307,6 +397,36 @@
               "love": 2
             }
           ]
+        },
+        {
+          "setting": "As the night winds down, you both start walking back together",
+          "dialogue": "This has been absolutely magical... I feel like I'm floating on stardust. Thank you for such a wonderful evening.",
+          "choices": [
+            {
+              "text": "The pleasure was all mine",
+              "response": "Luna blushes. 'You're such a gentleman... I hope we can do this again soon.'",
+              "tags": ["polite", "romantic"],
+              "love": 2
+            },
+            {
+              "text": "Can I walk you home?",
+              "response": "Luna nods shyly. 'I'd like that very much. The night doesn't have to end just yet.'",
+              "tags": ["caring", "romantic"],
+              "love": 2
+            },
+            {
+              "text": "I had the best time with you",
+              "response": "Luna squeezes your paw gently. 'Me too... you make everything feel like a fairy tale.'",
+              "tags": ["honest", "sweet"],
+              "love": 1
+            },
+            {
+              "text": "We should do this again",
+              "response": "Luna's eyes sparkle. 'I was hoping you'd say that! I already can't wait.'",
+              "tags": ["forward", "eager"],
+              "love": 1
+            }
+          ]
         }
       ],
       "maya": [
@@ -369,6 +489,36 @@
               "love": 2
             }
           ]
+        },
+        {
+          "setting": "As you head back down the trail, Maya seems energized and happy",
+          "dialogue": "Wow, I feel so refreshed! There's nothing like getting out in nature. Thanks for being such a great hiking partner!",
+          "choices": [
+            {
+              "text": "You made it even better",
+              "response": "Maya grins. 'Right back at you! I love how you kept up with me.'",
+              "tags": ["complimentary", "athletic"],
+              "love": 2
+            },
+            {
+              "text": "We make a good team",
+              "response": "Maya nods firmly. 'We really do! I felt so comfortable with you out there.'",
+              "tags": ["partnership", "comfortable"],
+              "love": 2
+            },
+            {
+              "text": "I'm definitely sore tomorrow",
+              "response": "Maya laughs. 'That's the best kind of sore! It means you really lived today.'",
+              "tags": ["honest", "funny"],
+              "love": 1
+            },
+            {
+              "text": "Want to grab some water?",
+              "response": "Maya beams. 'Perfect idea! I know a great juice bar nearby.'",
+              "tags": ["practical", "extending"],
+              "love": 1
+            }
+          ]
         }
       ],
       "rose": [
@@ -429,6 +579,36 @@
               "response": "Rose looks disappointed. 'Oh... but this was actually quite... refreshing.'",
               "tags": ["safe"],
               "love": -1
+            }
+          ]
+        },
+        {
+          "setting": "As you carefully make your way back down the trail, Rose seems contemplative",
+          "dialogue": "You know, I'm quite glad you suggested this. I don't often step outside my comfort zone, but today was... enlightening.",
+          "choices": [
+            {
+              "text": "You were amazing out there",
+              "response": "Rose preens a little. 'Why thank you! Though I do think I'll invest in proper hiking boots.'",
+              "tags": ["encouraging", "supportive"],
+              "love": 2
+            },
+            {
+              "text": "I loved seeing this side of you",
+              "response": "Rose smiles softly. 'I quite enjoyed discovering it myself. You have a way of inspiring courage.'",
+              "tags": ["romantic", "deep"],
+              "love": 2
+            },
+            {
+              "text": "Maybe we can try something easier next time",
+              "response": "Rose chuckles. 'Oh no, darling. I think I'm ready for the next adventure already.'",
+              "tags": ["protective"],
+              "love": 1
+            },
+            {
+              "text": "I hope you're not too tired",
+              "response": "Rose shakes her head gracefully. 'Tired, yes. But it's a good tired. Thank you for today.'",
+              "tags": ["caring"],
+              "love": 1
             }
           ]
         }
@@ -496,6 +676,36 @@
               "love": 2
             }
           ]
+        },
+        {
+          "setting": "After sharing a delicious slice of apple pie, you both sit back contentedly with your coffee",
+          "dialogue": "That was absolutely divine! Simple ingredients made with love - just like the best art. Thank you for bringing me somewhere so genuine.",
+          "choices": [
+            {
+              "text": "I wanted somewhere as real as you are",
+              "response": "Luna blushes deeply. 'You always know just what to say to make my heart sing.'",
+              "tags": ["romantic", "meaningful"],
+              "love": 2
+            },
+            {
+              "text": "Your company made it special",
+              "response": "Luna reaches across to squeeze your hand. 'Moments like this are what dreams are made of.'",
+              "tags": ["sweet", "intimate"],
+              "love": 2
+            },
+            {
+              "text": "Should we order more pie to go?",
+              "response": "Luna laughs melodiously. 'Yes! We can have a midnight snack under the stars!'",
+              "tags": ["fun", "planning"],
+              "love": 1
+            },
+            {
+              "text": "I don't want this evening to end",
+              "response": "Luna sighs contentedly. 'Neither do I... but that just means we'll have to do this again soon.'",
+              "tags": ["romantic", "hopeful"],
+              "love": 2
+            }
+          ]
         }
       ],
       "maya": [
@@ -558,6 +768,36 @@
               "love": 1
             }
           ]
+        },
+        {
+          "setting": "After finishing your meal, Maya leans back with satisfaction, patting her stomach",
+          "dialogue": "Now THAT was a proper meal! No frou-frou tiny portions or fancy names I can't pronounce. Just good, honest food with great company.",
+          "choices": [
+            {
+              "text": "I love how genuine you are",
+              "response": "Maya grins widely. 'What you see is what you get with me! Thanks for appreciating that.'",
+              "tags": ["accepting", "honest"],
+              "love": 2
+            },
+            {
+              "text": "Ready for a walk to work off dinner?",
+              "response": "Maya jumps up energetically. 'Absolutely! I know a great route through the park.'",
+              "tags": ["active", "extending"],
+              "love": 2
+            },
+            {
+              "text": "You're easy to please",
+              "response": "Maya nods firmly. 'Life's too short to be picky about everything. Good food, good friends - that's what matters.'",
+              "tags": ["complimentary"],
+              "love": 1
+            },
+            {
+              "text": "This was perfect",
+              "response": "Maya reaches over to touch your hand. 'It really was. Thanks for being so... you. I had a blast.'",
+              "tags": ["romantic", "grateful"],
+              "love": 2
+            }
+          ]
         }
       ],
       "rose": [
@@ -618,6 +858,36 @@
               "response": "Rose's eyes light up. 'Homemade? How wonderfully old-fashioned! There's artistry in traditional cooking too.'",
               "tags": ["appreciative"],
               "love": 2
+            }
+          ]
+        },
+        {
+          "setting": "As you both finish your shared dessert, Rose dabs her lips delicately with her napkin",
+          "dialogue": "What a thoroughly charming evening! You've opened my eyes to a different kind of elegance - the beauty found in simplicity and warmth.",
+          "choices": [
+            {
+              "text": "You bring class to any setting",
+              "response": "Rose smiles radiantly. 'And you bring out the best in every setting. What a wonderful partnership.'",
+              "tags": ["complimentary", "romantic"],
+              "love": 2
+            },
+            {
+              "text": "I loved watching you discover this place",
+              "response": "Rose touches your hand gently. 'I loved having you as my guide. You make everything an adventure.'",
+              "tags": ["observant", "sweet"],
+              "love": 2
+            },
+            {
+              "text": "Shall we take a moonlit stroll?",
+              "response": "Rose's eyes sparkle. 'How delightfully romantic! I do believe this evening has more magic left in it.'",
+              "tags": ["romantic", "extending"],
+              "love": 2
+            },
+            {
+              "text": "I hope this won't be our last dinner",
+              "response": "Rose leans forward conspiratorially. 'Oh darling, this is just the beginning. I have so many places to show you too.'",
+              "tags": ["hopeful", "future"],
+              "love": 1
             }
           ]
         }

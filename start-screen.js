@@ -6,7 +6,7 @@ const RomanceStartScreen = {
         <div class="start-content">
           <h1 class="game-title">${MESSAGES.UI.GAME_TITLE}</h1>
           <div class="character-display">
-            <img src="${UTILS.getCharacterImagePath('player', 5)}" 
+            <img src="${UTILS.getCharacterImagePath("player", 10, false)}" 
                  alt="You - A Pink Lion Woman" 
                  class="player-image" />
           </div>
@@ -27,9 +27,9 @@ const RomanceStartScreen = {
       startButton.addEventListener("click", () => {
         UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         UTILS.playAudio(CONFIG.AUDIO.BELL_CHIME);
-        
+
         // Start the romance game
-        if (typeof RomanceGame !== 'undefined') {
+        if (typeof RomanceGame !== "undefined") {
           RomanceGame.startGame();
         }
       });
@@ -43,14 +43,17 @@ const RomanceStartScreen = {
 
     // Start romantic background music
     const currentTrack = UTILS.switchBackgroundMusic(0);
-    
+
     // Track music for achievements if system is available
     if (typeof AchievementManager !== "undefined") {
       AchievementManager.trackMusicHeard(currentTrack);
     }
 
     // Make sure achievement drawer is available
-    if (typeof AchievementDrawer !== "undefined" && !document.getElementById("achievement-button")) {
+    if (
+      typeof AchievementDrawer !== "undefined" &&
+      !document.getElementById("achievement-button")
+    ) {
       AchievementDrawer.init();
     }
   },
