@@ -44,8 +44,8 @@ const MESSAGES = {
 The Grand Spring Ball is in 7 days, and you need a date!
 
 Choose wisely among three lovely lionesses:
-Luna the dreamy artist, Maya the athletic adventurer, 
-and Rose the elegant socialite.
+Luna the dreamy artist, Maya the fashionable adventurer, 
+and Rose the confident biker.
 
 You have 3 chances to go on dates and win someone's heart.
 Will you find true love in time for the ball?`,

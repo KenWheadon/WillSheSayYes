@@ -245,14 +245,8 @@ const RomanceGame = {
           <div class="location-grid">
             ${availableLocations
               .map((location) => {
-                const girlLikesLocation = UTILS.doesGirlLikeLocation(
-                  girlId,
-                  location.id
-                );
                 return `
-                <button class="location-button ${
-                  girlLikesLocation ? "liked" : "disliked"
-                }" data-location="${location.id}">
+                <button class="location-button" data-location="${location.id}">
                   <img src="${UTILS.getLocationImagePath(location.id)}" alt="${
                   location.name
                 }" class="location-image" />
@@ -283,26 +277,20 @@ const RomanceGame = {
     RomanceGame.attachLocationEventListeners(girlId);
   },
 
-  // Handle asking girl on a date - IMPROVED UI
+  // Handle asking girl on a date - SIMPLIFIED (no rejection)
   askOnDate: (girlId, locationId) => {
     const girl = CONFIG.GIRLS[girlId.toUpperCase()];
     const location = CONFIG.LOCATIONS[locationId.toUpperCase()];
     const girlLikesLocation = UTILS.doesGirlLikeLocation(girlId, locationId);
 
-    // Girl's response to date suggestion
+    // Girl's response to date suggestion - always positive now
     let response, loveChange;
     if (girlLikesLocation) {
       response = `${girl.name} lights up! "I'd love to go to ${location.name} with you! What a wonderful idea!"`;
-      loveChange = 1;
+      loveChange = 2;
     } else {
-      response = `${girl.name} hesitates. "Oh... ${location.name}? That's not really my thing, but... I suppose we could try something else?"`;
-      loveChange = -1;
-      // Give option to choose different location
-      setTimeout(() => {
-        alert("She didn't like that suggestion. Choose a different location!");
-        RomanceGame.renderDateSelection(girlId);
-      }, 2000);
-      return;
+      response = `${girl.name} smiles warmly. "Oh, ${location.name}? That sounds interesting! I'd be happy to try something new with you."`;
+      loveChange = 1;
     }
 
     // Update love score
