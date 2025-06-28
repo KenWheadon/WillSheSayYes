@@ -984,7 +984,6 @@ const RomanceGame = {
     container.innerHTML = `
       <div class="romance-ui ball-reveal">
         <div class="reveal-suspense">
-          <h2>🔍 Searching the ballroom... 🔍</h2>
           <div class="reveal-graphic">
             <img src="images/ballroom-reveal.png" alt="Ballroom Reveal" class="ballroom-reveal-image" />
             <div class="search-hearts">
@@ -999,7 +998,6 @@ const RomanceGame = {
             <span class="dot">.</span>
             <span class="dot">.</span>
           </div>
-          <p class="searching-text">Will anyone be there waiting for you?</p>
         </div>
       </div>
     `;
@@ -1085,7 +1083,7 @@ const RomanceGame = {
       }
 
       RomanceGame.attachBallEventListeners();
-    }, 3000);
+    }, 5000);
   },
 
   // Get ball dialogue based on relationship
