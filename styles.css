@@ -907,8 +907,8 @@ body::before {
 .location-button {
   background: rgba(255, 255, 255, 0.9);
   border: 3px solid #ff69b4;
-  border-radius: 15px;
-  padding: 20px;
+  border-radius: 10px;
+  padding: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -930,9 +930,9 @@ body::before {
 }
 
 .location-image {
-  width: 80px;
+  width: 100%;
   height: 60px;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-bottom: 10px;
   object-fit: cover;
 }
@@ -987,12 +987,7 @@ body::before {
 }
 
 .date-response-girl-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid #ff69b4;
-  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
-  object-fit: cover;
+  width: 33%;
 }
 
 .girl-response-info {
@@ -1025,14 +1020,14 @@ body::before {
 .response-bubble::before {
   content: "";
   position: absolute;
-  bottom: -10px;
-  left: 50%;
+  top: 48px;
+  left: -2%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 15px solid #ff1493;
+  border-right: 15px solid #ff1493;
+  border-bottom: 15px solid transparent;
+  border-top: 15px solid transparent;
 }
 
 .date-response-text {
@@ -1047,29 +1042,28 @@ body::before {
 .location-preview {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 16px;
+  padding: 10px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
   border: 2px solid rgba(255, 105, 180, 0.2);
 }
 
 .response-location-image {
-  width: 100px;
-  height: 80px;
-  border-radius: 12px;
-  object-fit: cover;
+  width: 49%;
+  border-radius: 10px;
   border: 3px solid #ff69b4;
   box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
 }
 
 .location-details {
   flex: 1;
+  text-align: end;
 }
 
 .location-details h4 {
   color: #ff1493;
-  font-size: 1.4em;
+  font-size: 1.754em;
   margin-bottom: 8px;
   font-family: "Brush Script MT", cursive;
 }

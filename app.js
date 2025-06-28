@@ -315,35 +315,40 @@ const RomanceGame = {
           
           <div class="date-response-content">
             <div class="girl-response-section">
+
               <img src="${UTILS.getCharacterImagePath(
                 girlId,
                 RomanceGame.state.loveScores[girlId]
               )}" alt="${girl.name}" class="date-response-girl-image" />
-              <div class="girl-response-info">
-                <h3>${girl.name}</h3>
-                <p class="love-indicator">💕 Love: ${
-                  RomanceGame.state.loveScores[girlId]
-                }/${CONFIG.MAX_LOVE}</p>
-              </div>
-            </div>
-            
-            <div class="response-dialogue">
-              <div class="response-bubble">
-                <p class="date-response-text">${response}</p>
-              </div>
-            </div>
-            
-            <div class="location-preview">
-              <img src="${UTILS.getLocationImagePath(locationId)}" alt="${
+
+              <div class="response-content-column">
+              
+
+                <div class="location-preview">
+                  <div class="location-details">
+                    <h4>📍 ${location.name}</h4>
+                    <p>${location.description}</p>
+                  </div>
+                  <img src="${UTILS.getLocationImagePath(locationId)}" alt="${
       location.name
     }" class="response-location-image" />
-              <div class="location-details">
-                <h4>📍 ${location.name}</h4>
-                <p>${location.description}</p>
+                </div>
+                <div class="response-dialogue">
+                  <div class="response-bubble">
+                    <p class="date-response-text">${response}</p>
+                  </div>
+                </div>
+
+                <div class="girl-response-info">
+                  <p class="love-indicator">💕 Love: ${
+                    RomanceGame.state.loveScores[girlId]
+                  }/${CONFIG.MAX_LOVE}</p>
+                </div>
+
               </div>
+            
             </div>
-          </div>
-          
+            
           <div class="date-response-actions">
             <button id="go-on-date" class="date-button" data-girl="${girlId}" data-location="${locationId}">
               💖 Go on the date!

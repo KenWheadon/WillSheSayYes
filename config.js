@@ -89,9 +89,9 @@ const CONFIG = {
     },
     HIKE: {
       id: "hike",
-      name: "Moonlit Nature Trail",
-      description: "A peaceful hiking trail under the stars",
-      atmosphere: "Cool night air and the sound of crickets surround you",
+      name: "Nature Trail",
+      description: "A peaceful hiking trail just outside town",
+      atmosphere: "Cool air and the sound of frogs surround you",
     },
     DINNER: {
       id: "dinner",
@@ -99,7 +99,7 @@ const CONFIG = {
       description:
         "A friendly neighborhood diner with comfy booths and great coffee",
       atmosphere:
-        "The warm glow of neon signs and the comforting aroma of fresh coffee",
+        "The creeking vinyl of the booth seats and the comforting aroma of fresh coffee",
     },
   },
 
@@ -194,7 +194,7 @@ const CONFIG = {
   },
 
   // Achievement storage key
-  ACHIEVEMENT_STORAGE_KEY: "romance-game-achievements",
+  ACHIEVEMENT_STORAGE_KEY: "willshesayyes-game-achievements",
 };
 
 // Utility functions
