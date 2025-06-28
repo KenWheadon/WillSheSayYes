@@ -14,29 +14,29 @@ const RomanceGame = {
     showResponse: false,
     lastResponse: "",
     ballInviteAccepted: false,
-    ballDateGirl: null
+    ballDateGirl: null,
   },
 
   // Initialize the game
   init: async () => {
     console.log("Initializing Romance Game...");
-    
+
     // Initialize achievement system if available
-    if (typeof AchievementManager !== 'undefined') {
+    if (typeof AchievementManager !== "undefined") {
       AchievementManager.init();
     }
-    
+
     // Load romance data
     const dataLoaded = await loadRomanceData();
     if (!dataLoaded) {
       console.warn("Using fallback romance data");
     }
-    
+
     // Initialize achievement drawer if available
-    if (typeof AchievementDrawer !== 'undefined') {
+    if (typeof AchievementDrawer !== "undefined") {
       AchievementDrawer.init();
     }
-    
+
     // Initialize start screen
     RomanceStartScreen.init();
   },
@@ -50,12 +50,12 @@ const RomanceGame = {
     RomanceGame.state.datesCompleted = 0;
     RomanceGame.state.dateHistory = [];
     RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(0);
-    
+
     // Track game started achievement
-    if (typeof AchievementManager !== 'undefined') {
+    if (typeof AchievementManager !== "undefined") {
       AchievementManager.trackGameStarted();
     }
-    
+
     RomanceGame.renderDay();
   },
 
@@ -65,7 +65,7 @@ const RomanceGame = {
       clearInterval(RomanceGame.state.timerInterval);
       RomanceGame.state.timerInterval = null;
     }
-    
+
     RomanceGame.state = {
       currentDay: 1,
       dayType: CONFIG.DAY_TYPES.STORY,
@@ -79,7 +79,7 @@ const RomanceGame = {
       showResponse: false,
       lastResponse: "",
       ballInviteAccepted: false,
-      ballDateGirl: null
+      ballDateGirl: null,
     };
   },
 
@@ -101,18 +101,21 @@ const RomanceGame = {
       console.error("No story data for day:", RomanceGame.state.currentDay);
       return;
     }
-    
+
     const container = document.getElementById("game-container");
-    
+
     container.innerHTML = `
       <div class="romance-ui">
         <div class="status-bar">
-          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${CONFIG.TOTAL_DAYS} | ${storyData.title}</span>
-          <span>Love Levels: Luna(${RomanceGame.state.loveScores.luna}) Maya(${RomanceGame.state.loveScores.maya}) Rose(${RomanceGame.state.loveScores.rose})</span>
+          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${
+      CONFIG.TOTAL_DAYS
+    } | ${storyData.title}</span>
+          <span>Love Levels: Luna(${RomanceGame.state.loveScores.luna}) Maya(${
+      RomanceGame.state.loveScores.maya
+    }) Rose(${RomanceGame.state.loveScores.rose})</span>
         </div>
         
         <div class="story-section">
-          <h2 class="story-title">${storyData.title}</h2>
           <p class="story-text">${storyData.text}</p>
         </div>
 
@@ -120,26 +123,40 @@ const RomanceGame = {
           ${RomanceGame.renderStoryDialogue(storyData)}
         </div>
 
-        ${RomanceGame.state.currentDay < CONFIG.BALL_DAY && !RomanceGame.state.showResponse ? `
+        ${
+          RomanceGame.state.currentDay < CONFIG.BALL_DAY &&
+          !RomanceGame.state.showResponse
+            ? `
           <div class="dating-options">
             <h3>${MESSAGES.UI.CHOOSE_GIRL}</h3>
             <div class="girl-selection">
-              ${Object.values(CONFIG.GIRLS).map(girl => `
+              ${Object.values(CONFIG.GIRLS)
+                .map(
+                  (girl) => `
                 <button class="girl-button" data-girl="${girl.id}">
-                  <img src="${UTILS.getCharacterImagePath(girl.id, RomanceGame.state.loveScores[girl.id])}" alt="${girl.name}" class="girl-image" />
+                  <img src="${UTILS.getCharacterImagePath(
+                    girl.id,
+                    RomanceGame.state.loveScores[girl.id]
+                  )}" alt="${girl.name}" class="girl-image" />
                   <div class="girl-info">
                     <h4>${girl.name}</h4>
                     <p>${girl.description}</p>
-                    <p class="love-score">${MESSAGES.UI.LOVE_LABEL} ${RomanceGame.state.loveScores[girl.id]}/${CONFIG.MAX_LOVE}</p>
+                    <p class="love-score">${MESSAGES.UI.LOVE_LABEL} ${
+                    RomanceGame.state.loveScores[girl.id]
+                  }/${CONFIG.MAX_LOVE}</p>
                   </div>
                 </button>
-              `).join('')}
+              `
+                )
+                .join("")}
             </div>
           </div>
-        ` : ''}
+        `
+            : ""
+        }
       </div>
     `;
-    
+
     RomanceGame.attachStoryEventListeners();
   },
 
@@ -155,11 +172,15 @@ const RomanceGame = {
     } else {
       return `
         <div class="story-choices">
-          ${storyData.choices.map((choice, index) => `
+          ${storyData.choices
+            .map(
+              (choice, index) => `
             <button class="choice-button" data-choice="${index}">
               ${choice.text}
             </button>
-          `).join('')}
+          `
+            )
+            .join("")}
         </div>
       `;
     }
@@ -168,51 +189,77 @@ const RomanceGame = {
   // Render date selection for chosen girl
   renderDateSelection: (girlId) => {
     const girl = CONFIG.GIRLS[girlId.toUpperCase()];
-    const availableLocations = Object.values(CONFIG.LOCATIONS).filter(location => {
-      // Check if this girl+location combo hasn't been used
-      return !RomanceGame.state.dateHistory.some(date => 
-        date.girl === girlId && date.location === location.id
-      );
-    });
-    
+    const availableLocations = Object.values(CONFIG.LOCATIONS).filter(
+      (location) => {
+        // Check if this girl+location combo hasn't been used
+        return !RomanceGame.state.dateHistory.some(
+          (date) => date.girl === girlId && date.location === location.id
+        );
+      }
+    );
+
     const container = document.getElementById("game-container");
     container.innerHTML = `
       <div class="romance-ui">
         <div class="status-bar">
-          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${CONFIG.TOTAL_DAYS} | Planning a date with ${girl.name}</span>
+          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${
+      CONFIG.TOTAL_DAYS
+    } | Planning a date with ${girl.name}</span>
         </div>
         
         <div class="girl-focus">
-          <img src="${UTILS.getCharacterImagePath(girlId, RomanceGame.state.loveScores[girlId])}" alt="${girl.name}" class="large-girl-image" />
+          <img src="${UTILS.getCharacterImagePath(
+            girlId,
+            RomanceGame.state.loveScores[girlId]
+          )}" alt="${girl.name}" class="large-girl-image" />
           <h2>${girl.name}</h2>
           <p>${girl.personality}</p>
-          <p class="love-score">Current Love Level: ${RomanceGame.state.loveScores[girlId]}/${CONFIG.MAX_LOVE}</p>
+          <p class="love-score">Current Love Level: ${
+            RomanceGame.state.loveScores[girlId]
+          }/${CONFIG.MAX_LOVE}</p>
         </div>
 
         <div class="location-selection">
           <h3>Where would you like to take ${girl.name}?</h3>
           <div class="location-grid">
-            ${availableLocations.map(location => {
-              const girlLikesLocation = UTILS.doesGirlLikeLocation(girlId, location.id);
-              return `
-                <button class="location-button ${girlLikesLocation ? 'liked' : 'disliked'}" data-location="${location.id}">
-                  <img src="${UTILS.getLocationImagePath(location.id)}" alt="${location.name}" class="location-image" />
+            ${availableLocations
+              .map((location) => {
+                const girlLikesLocation = UTILS.doesGirlLikeLocation(
+                  girlId,
+                  location.id
+                );
+                return `
+                <button class="location-button ${
+                  girlLikesLocation ? "liked" : "disliked"
+                }" data-location="${location.id}">
+                  <img src="${UTILS.getLocationImagePath(location.id)}" alt="${
+                  location.name
+                }" class="location-image" />
                   <h4>${location.name}</h4>
                   <p>${location.description}</p>
-                  ${girlLikesLocation ? '<span class="like-indicator">💖 She likes this!</span>' : '<span class="dislike-indicator">😐 She might not enjoy this...</span>'}
+                  ${
+                    girlLikesLocation
+                      ? '<span class="like-indicator">💖 She likes this!</span>'
+                      : '<span class="dislike-indicator">😐 She might not enjoy this...</span>'
+                  }
                 </button>
               `;
-            }).join('')}
+              })
+              .join("")}
           </div>
           
-          ${availableLocations.length === 0 ? `
+          ${
+            availableLocations.length === 0
+              ? `
             <p class="no-locations">You've exhausted all dating options with ${girl.name}!</p>
             <button id="back-to-selection" class="back-button">Choose someone else</button>
-          ` : ''}
+          `
+              : ""
+          }
         </div>
       </div>
     `;
-    
+
     RomanceGame.attachLocationEventListeners(girlId);
   },
 
@@ -221,7 +268,7 @@ const RomanceGame = {
     const girl = CONFIG.GIRLS[girlId.toUpperCase()];
     const location = CONFIG.LOCATIONS[locationId.toUpperCase()];
     const girlLikesLocation = UTILS.doesGirlLikeLocation(girlId, locationId);
-    
+
     // Girl's response to date suggestion
     let response, loveChange;
     if (girlLikesLocation) {
@@ -237,16 +284,21 @@ const RomanceGame = {
       }, 2000);
       return;
     }
-    
+
     // Update love score
-    RomanceGame.state.loveScores[girlId] = UTILS.clampLove(RomanceGame.state.loveScores[girlId] + loveChange);
-    
+    RomanceGame.state.loveScores[girlId] = UTILS.clampLove(
+      RomanceGame.state.loveScores[girlId] + loveChange
+    );
+
     // Show response
     const container = document.getElementById("game-container");
     container.innerHTML = `
       <div class="romance-ui">
         <div class="date-response">
-          <img src="${UTILS.getCharacterImagePath(girlId, RomanceGame.state.loveScores[girlId])}" alt="${girl.name}" class="response-girl-image" />
+          <img src="${UTILS.getCharacterImagePath(
+            girlId,
+            RomanceGame.state.loveScores[girlId]
+          )}" alt="${girl.name}" class="response-girl-image" />
           <p class="date-response-text">${response}</p>
           <button id="go-on-date" class="date-button" data-girl="${girlId}" data-location="${locationId}">
             Go on the date!
@@ -254,7 +306,7 @@ const RomanceGame = {
         </div>
       </div>
     `;
-    
+
     document.getElementById("go-on-date").addEventListener("click", (e) => {
       const girl = e.target.dataset.girl;
       const location = e.target.dataset.location;
@@ -267,54 +319,73 @@ const RomanceGame = {
     RomanceGame.state.currentDate = {
       girl: girlId,
       location: locationId,
-      conversationIndex: 0
+      conversationIndex: 0,
     };
     RomanceGame.state.dayType = CONFIG.DAY_TYPES.DATE;
     RomanceGame.state.currentDay++; // Move to next day for the actual date
-    
+
     // Add to date history
     RomanceGame.state.dateHistory.push({
       girl: girlId,
       location: locationId,
-      day: RomanceGame.state.currentDay
+      day: RomanceGame.state.currentDay,
     });
-    
+
     RomanceGame.renderDateDay();
   },
 
   // Render actual date conversation
   renderDateDay: () => {
-    const { girl: girlId, location: locationId, conversationIndex } = RomanceGame.state.currentDate;
-    const currentScenario = getDateScenario(locationId, girlId, conversationIndex);
-    
+    const {
+      girl: girlId,
+      location: locationId,
+      conversationIndex,
+    } = RomanceGame.state.currentDate;
+    const currentScenario = getDateScenario(
+      locationId,
+      girlId,
+      conversationIndex
+    );
+
     if (!currentScenario) {
       // Date is over, go to next story day or end
       RomanceGame.endDate();
       return;
     }
-    
+
     const girl = CONFIG.GIRLS[girlId.toUpperCase()];
     const location = CONFIG.LOCATIONS[locationId.toUpperCase()];
-    
+
     const container = document.getElementById("game-container");
     container.innerHTML = `
       <div class="romance-ui date-scene">
         <div class="status-bar">
-          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${CONFIG.TOTAL_DAYS} | Date with ${girl.name} at ${location.name}</span>
-          <span class="timer ${RomanceGame.state.timer <= 3 ? 'warning' : ''}">${MESSAGES.UI.TIMER_LABEL} ${RomanceGame.state.timer}s</span>
+          <span>${MESSAGES.UI.DAYS_LABEL} ${RomanceGame.state.currentDay}/${
+      CONFIG.TOTAL_DAYS
+    } | Date with ${girl.name} at ${location.name}</span>
+          <span class="timer ${
+            RomanceGame.state.timer <= 3 ? "warning" : ""
+          }">${MESSAGES.UI.TIMER_LABEL} ${RomanceGame.state.timer}s</span>
         </div>
         
         <div class="date-setting">
-          <img src="${UTILS.getLocationImagePath(locationId)}" alt="${location.name}" class="location-bg" />
+          <img src="${UTILS.getLocationImagePath(locationId)}" alt="${
+      location.name
+    }" class="location-bg" />
           <p class="setting-text">${currentScenario.setting}</p>
           <p class="atmosphere">${location.atmosphere}</p>
         </div>
         
         <div class="date-conversation">
           <div class="girl-section">
-            <img src="${UTILS.getCharacterImagePath(girlId, RomanceGame.state.loveScores[girlId])}" alt="${girl.name}" class="date-girl-image" />
+            <img src="${UTILS.getCharacterImagePath(
+              girlId,
+              RomanceGame.state.loveScores[girlId]
+            )}" alt="${girl.name}" class="date-girl-image" />
             <h3>${girl.name}</h3>
-            <p class="love-indicator">${MESSAGES.UI.LOVE_LABEL} ${RomanceGame.state.loveScores[girlId]}/${CONFIG.MAX_LOVE}</p>
+            <p class="love-indicator">${MESSAGES.UI.LOVE_LABEL} ${
+      RomanceGame.state.loveScores[girlId]
+    }/${CONFIG.MAX_LOVE}</p>
           </div>
           
           <div class="dialogue-section" id="dialogue-section">
@@ -323,7 +394,7 @@ const RomanceGame = {
         </div>
       </div>
     `;
-    
+
     RomanceGame.attachDateEventListeners();
     if (!RomanceGame.state.showResponse) {
       RomanceGame.startTimer();
@@ -344,11 +415,15 @@ const RomanceGame = {
           <p class="dialogue-text">"${scenario.dialogue}"</p>
         </div>
         <div class="date-choices">
-          ${scenario.choices.map((choice, index) => `
+          ${scenario.choices
+            .map(
+              (choice, index) => `
             <button class="choice-button" data-choice="${index}">
               ${choice.text}
             </button>
-          `).join('')}
+          `
+            )
+            .join("")}
         </div>
       `;
     }
@@ -357,38 +432,51 @@ const RomanceGame = {
   // Handle date choice
   handleDateChoice: (choiceIndex) => {
     if (RomanceGame.state.showResponse) return;
-    
+
     RomanceGame.stopTimer();
-    
-    const { girl: girlId, location: locationId, conversationIndex } = RomanceGame.state.currentDate;
-    const currentScenario = getDateScenario(locationId, girlId, conversationIndex);
+
+    const {
+      girl: girlId,
+      location: locationId,
+      conversationIndex,
+    } = RomanceGame.state.currentDate;
+    const currentScenario = getDateScenario(
+      locationId,
+      girlId,
+      conversationIndex
+    );
     const selectedChoice = currentScenario.choices[choiceIndex];
-    
+
     // Apply love change
     const oldLove = RomanceGame.state.loveScores[girlId];
-    RomanceGame.state.loveScores[girlId] = UTILS.clampLove(oldLove + selectedChoice.love);
+    RomanceGame.state.loveScores[girlId] = UTILS.clampLove(
+      oldLove + selectedChoice.love
+    );
     const loveChange = RomanceGame.state.loveScores[girlId] - oldLove;
-    
+
     // Play appropriate sound
     if (loveChange > 0) {
       UTILS.playAudio(CONFIG.AUDIO.LOVE_INCREASE);
     } else if (loveChange < 0) {
       UTILS.playAudio(CONFIG.AUDIO.LOVE_DECREASE);
     }
-    
+
     // Update music based on highest love score
     const maxLove = Math.max(...Object.values(RomanceGame.state.loveScores));
     const oldTrack = RomanceGame.state.currentMusicTrack;
-    RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(maxLove, oldTrack);
-    
+    RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
+      maxLove,
+      oldTrack
+    );
+
     // Show response
     RomanceGame.state.lastResponse = selectedChoice.response;
     RomanceGame.state.showResponse = true;
-    
+
     // Re-render dialogue section
     const dialogueSection = document.getElementById("dialogue-section");
     dialogueSection.innerHTML = RomanceGame.renderDateDialogue(currentScenario);
-    
+
     // Continue to next part of conversation
     setTimeout(() => {
       RomanceGame.state.currentDate.conversationIndex++;
@@ -402,28 +490,39 @@ const RomanceGame = {
   endDate: () => {
     RomanceGame.state.datesCompleted++;
     RomanceGame.state.currentDate = null;
-    
+
     // Track achievements
-    if (RomanceGame.state.datesCompleted === 1 && typeof AchievementManager !== 'undefined') {
-      AchievementManager.unlockAchievement('first-date');
+    if (
+      RomanceGame.state.datesCompleted === 1 &&
+      typeof AchievementManager !== "undefined"
+    ) {
+      AchievementManager.unlockAchievement("first-date");
     }
-    
+
     // Check for three locations achievement
-    const uniqueLocations = new Set(RomanceGame.state.dateHistory.map(date => date.location));
-    if (uniqueLocations.size === 3 && typeof AchievementManager !== 'undefined') {
-      AchievementManager.unlockAchievement('three-dates');
+    const uniqueLocations = new Set(
+      RomanceGame.state.dateHistory.map((date) => date.location)
+    );
+    if (
+      uniqueLocations.size === 3 &&
+      typeof AchievementManager !== "undefined"
+    ) {
+      AchievementManager.unlockAchievement("three-dates");
     }
-    
+
     // Check for devoted heart achievement (same girl 3 times)
     const girlCounts = {};
-    RomanceGame.state.dateHistory.forEach(date => {
+    RomanceGame.state.dateHistory.forEach((date) => {
       girlCounts[date.girl] = (girlCounts[date.girl] || 0) + 1;
     });
     const maxDatesWithOneGirl = Math.max(...Object.values(girlCounts));
-    if (maxDatesWithOneGirl === 3 && typeof AchievementManager !== 'undefined') {
-      AchievementManager.unlockAchievement('devoted-heart');
+    if (
+      maxDatesWithOneGirl === 3 &&
+      typeof AchievementManager !== "undefined"
+    ) {
+      AchievementManager.unlockAchievement("devoted-heart");
     }
-    
+
     // Determine next day
     if (RomanceGame.state.currentDay >= CONFIG.BALL_DAY) {
       RomanceGame.renderBallDay();
@@ -440,46 +539,58 @@ const RomanceGame = {
     // Find girl with highest love score
     const maxLove = Math.max(...Object.values(RomanceGame.state.loveScores));
     const bestGirl = Object.keys(RomanceGame.state.loveScores).find(
-      girl => RomanceGame.state.loveScores[girl] === maxLove
+      (girl) => RomanceGame.state.loveScores[girl] === maxLove
     );
-    
+
     const girl = CONFIG.GIRLS[bestGirl.toUpperCase()];
     const canAskToBall = maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD;
-    
+
     const container = document.getElementById("game-container");
     container.innerHTML = `
       <div class="romance-ui ball-day">
         <div class="ball-header">
           <h1>${MESSAGES.UI.BALL_NIGHT} - Evening of Day 7</h1>
-          <p>The ballroom sparkles with golden light as couples arrive. You see ${girl.name} across the room...</p>
+          <p>The ballroom sparkles with golden light as couples arrive. You see ${
+            girl.name
+          } across the room...</p>
         </div>
         
         <div class="ball-scene">
-          <img src="${UTILS.getCharacterImagePath(bestGirl, RomanceGame.state.loveScores[bestGirl])}" alt="${girl.name}" class="ball-girl-image" />
+          <img src="${UTILS.getCharacterImagePath(
+            bestGirl,
+            RomanceGame.state.loveScores[bestGirl]
+          )}" alt="${girl.name}" class="ball-girl-image" />
           <div class="ball-dialogue">
             <h3>${girl.name}</h3>
-            <p class="girl-thoughts">${RomanceGame.getBallDialogue(bestGirl, maxLove)}</p>
+            <p class="girl-thoughts">${RomanceGame.getBallDialogue(
+              bestGirl,
+              maxLove
+            )}</p>
             
-            ${canAskToBall ? `
+            ${
+              canAskToBall
+                ? `
               <div class="ball-choice">
                 <p>This is your moment! Ask her to be your date!</p>
                 <button id="ask-to-ball" class="ball-button" data-girl="${bestGirl}">
                   "${girl.name}, would you like to dance with me?"
                 </button>
               </div>
-            ` : `
+            `
+                : `
               <div class="ball-rejection">
                 <p>You approach, but sense she's not interested in more than friendship...</p>
                 <button id="accept-friendship" class="ball-button">
                   "I hope we can be good friends"
                 </button>
               </div>
-            `}
+            `
+            }
           </div>
         </div>
       </div>
     `;
-    
+
     RomanceGame.attachBallEventListeners();
   },
 
@@ -489,21 +600,22 @@ const RomanceGame = {
       luna: {
         high: "Oh! You look so handsome tonight... I was hoping you'd find me here.",
         medium: "Hello! Isn't this magical? Like a fairy tale come to life!",
-        low: "Hi there! Are you enjoying the ball? Everyone looks so lovely tonight."
+        low: "Hi there! Are you enjoying the ball? Everyone looks so lovely tonight.",
       },
       maya: {
         high: "Hey you! I was wondering when you'd show up. You clean up pretty well!",
         medium: "Oh hey! Nice to see a familiar face in all this fancy stuff.",
-        low: "Hi! This is all pretty overwhelming, isn't it? So many people..."
+        low: "Hi! This is all pretty overwhelming, isn't it? So many people...",
       },
       rose: {
         high: "Darling! You look absolutely dashing. I've been saving a dance for someone special...",
-        medium: "How wonderful to see you! You've chosen quite the elegant evening wear.",
-        low: "Oh hello! What a delightful surprise to see you here. Are you enjoying yourself?"
-      }
+        medium:
+          "How wonderful to see you! You've chosen quite the elegant evening wear.",
+        low: "Oh hello! What a delightful surprise to see you here. Are you enjoying yourself?",
+      },
     };
-    
-    const level = loveLevel >= 7 ? 'high' : loveLevel >= 4 ? 'medium' : 'low';
+
+    const level = loveLevel >= 7 ? "high" : loveLevel >= 4 ? "medium" : "low";
     return responses[girlId][level];
   },
 
@@ -511,7 +623,7 @@ const RomanceGame = {
   startTimer: () => {
     RomanceGame.state.timerInterval = setInterval(() => {
       RomanceGame.state.timer--;
-      
+
       const timerElement = document.querySelector(".timer");
       if (timerElement) {
         timerElement.textContent = `${MESSAGES.UI.TIMER_LABEL} ${RomanceGame.state.timer}s`;
@@ -520,7 +632,7 @@ const RomanceGame = {
           UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.3);
         }
       }
-      
+
       if (RomanceGame.state.timer <= 0) {
         // Auto-select first choice when timer runs out
         RomanceGame.handleDateChoice(0);
@@ -544,12 +656,12 @@ const RomanceGame = {
         const choiceIndex = parseInt(e.target.dataset.choice);
         RomanceGame.handleStoryChoice(choiceIndex);
       });
-      
+
       button.addEventListener("mouseenter", () => {
         UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     });
-    
+
     // Girl selection buttons
     const girlButtons = document.querySelectorAll(".girl-button");
     girlButtons.forEach((button) => {
@@ -558,7 +670,7 @@ const RomanceGame = {
         RomanceGame.renderDateSelection(girlId);
       });
     });
-    
+
     // Continue button
     const continueBtn = document.getElementById("continue-btn");
     if (continueBtn) {
@@ -581,7 +693,7 @@ const RomanceGame = {
         RomanceGame.askOnDate(girlId, locationId);
       });
     });
-    
+
     const backBtn = document.getElementById("back-to-selection");
     if (backBtn) {
       backBtn.addEventListener("click", () => {
@@ -597,7 +709,7 @@ const RomanceGame = {
         const choiceIndex = parseInt(e.target.dataset.choice);
         RomanceGame.handleDateChoice(choiceIndex);
       });
-      
+
       button.addEventListener("mouseenter", () => {
         UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
@@ -614,7 +726,7 @@ const RomanceGame = {
         RomanceGame.endGame();
       });
     }
-    
+
     const friendshipBtn = document.getElementById("accept-friendship");
     if (friendshipBtn) {
       friendshipBtn.addEventListener("click", () => {
@@ -628,15 +740,15 @@ const RomanceGame = {
   handleStoryChoice: (choiceIndex) => {
     const storyData = getCurrentStoryDay(RomanceGame.state.currentDay);
     const selectedChoice = storyData.choices[choiceIndex];
-    
+
     UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
-    
+
     RomanceGame.state.lastResponse = selectedChoice.response;
     RomanceGame.state.showResponse = true;
-    
+
     const dialogueSection = document.getElementById("dialogue-section");
     dialogueSection.innerHTML = RomanceGame.renderStoryDialogue(storyData);
-    
+
     // Attach continue button listener
     const continueBtn = document.getElementById("continue-btn");
     if (continueBtn) {
@@ -654,23 +766,30 @@ const RomanceGame = {
       RomanceGame.state.ballInviteAccepted,
       RomanceGame.state.ballDateGirl
     );
-    
+
     // Track achievements
-    if (typeof AchievementManager !== 'undefined') {
-      if (RomanceGame.state.ballInviteAccepted && RomanceGame.state.ballDateGirl && RomanceGame.state.loveScores[RomanceGame.state.ballDateGirl] >= 9) {
-        AchievementManager.unlockAchievement('perfect-romance');
+    if (typeof AchievementManager !== "undefined") {
+      if (
+        RomanceGame.state.ballInviteAccepted &&
+        RomanceGame.state.ballDateGirl &&
+        RomanceGame.state.loveScores[RomanceGame.state.ballDateGirl] >= 9
+      ) {
+        AchievementManager.unlockAchievement("perfect-romance");
       }
-      
+
       // Check if rejected by all (heartbreaker achievement)
       const maxLove = Math.max(...Object.values(RomanceGame.state.loveScores));
-      if (!RomanceGame.state.ballInviteAccepted && maxLove < CONFIG.VICTORY_LOVE_THRESHOLD) {
-        AchievementManager.unlockAchievement('heartbreaker');
+      if (
+        !RomanceGame.state.ballInviteAccepted &&
+        maxLove < CONFIG.VICTORY_LOVE_THRESHOLD
+      ) {
+        AchievementManager.unlockAchievement("heartbreaker");
       }
     }
-    
+
     // Show ending screen
     RomanceEndingScreen.init(RomanceGame.state, endingType);
-  }
+  },
 };
 
 // Initialize game when DOM is loaded
