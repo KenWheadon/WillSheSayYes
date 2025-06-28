@@ -49,7 +49,9 @@ const RomanceGame = {
     RomanceGame.state.loveScores = { luna: 0, maya: 0, rose: 0 };
     RomanceGame.state.datesCompleted = 0;
     RomanceGame.state.dateHistory = [];
-    RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(0);
+    RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
+      CONFIG.MUSIC_CONTEXTS.PLANNING
+    );
 
     // Track game started achievement
     if (typeof AchievementManager !== "undefined") {
@@ -116,6 +118,7 @@ const RomanceGame = {
         </div>
         
         <div class="story-section">
+          <h2 class="story-title">${storyData.title}</h2>
           <p class="story-text">${storyData.text}</p>
         </div>
 
@@ -212,15 +215,10 @@ const RomanceGame = {
             girlId,
             RomanceGame.state.loveScores[girlId]
           )}" alt="${girl.name}" class="large-girl-image" />
-          <h2>${girl.name}</h2>
+          <div class="focus-text-holder">
+          <h2>Where to take ${girl.name}?</h2>
           <p>${girl.personality}</p>
-          <p class="love-score">Current Love Level: ${
-            RomanceGame.state.loveScores[girlId]
-          }/${CONFIG.MAX_LOVE}</p>
-        </div>
-
-        <div class="location-selection">
-          <h3>Where would you like to take ${girl.name}?</h3>
+                  <div class="location-selection">
           <div class="location-grid">
             ${availableLocations
               .map((location) => {
@@ -237,11 +235,6 @@ const RomanceGame = {
                 }" class="location-image" />
                   <h4>${location.name}</h4>
                   <p>${location.description}</p>
-                  ${
-                    girlLikesLocation
-                      ? '<span class="like-indicator">💖 She likes this!</span>'
-                      : '<span class="dislike-indicator">😐 She might not enjoy this...</span>'
-                  }
                 </button>
               `;
               })
@@ -257,7 +250,9 @@ const RomanceGame = {
               : ""
           }
         </div>
-      </div>
+          </div>
+        </div>
+
     `;
 
     RomanceGame.attachLocationEventListeners(girlId);
@@ -330,6 +325,24 @@ const RomanceGame = {
       location: locationId,
       day: RomanceGame.state.currentDay,
     });
+
+    // Switch to location-specific music
+    let musicContext;
+    switch (locationId) {
+      case "carnival":
+        musicContext = CONFIG.MUSIC_CONTEXTS.CARNIVAL;
+        break;
+      case "hike":
+        musicContext = CONFIG.MUSIC_CONTEXTS.HIKE;
+        break;
+      case "dinner":
+        musicContext = CONFIG.MUSIC_CONTEXTS.DINNER;
+        break;
+      default:
+        musicContext = CONFIG.MUSIC_CONTEXTS.PLANNING;
+    }
+    RomanceGame.state.currentMusicTrack =
+      UTILS.switchBackgroundMusic(musicContext);
 
     RomanceGame.renderDateDay();
   },
@@ -461,13 +474,8 @@ const RomanceGame = {
       UTILS.playAudio(CONFIG.AUDIO.LOVE_DECREASE);
     }
 
-    // Update music based on highest love score
-    const maxLove = Math.max(...Object.values(RomanceGame.state.loveScores));
-    const oldTrack = RomanceGame.state.currentMusicTrack;
-    RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
-      maxLove,
-      oldTrack
-    );
+    // Update music based on love progress during dates (keep current location music)
+    // Music stays the same during date conversations
 
     // Show response
     RomanceGame.state.lastResponse = selectedChoice.response;
@@ -527,15 +535,23 @@ const RomanceGame = {
     if (RomanceGame.state.currentDay >= CONFIG.BALL_DAY) {
       RomanceGame.renderBallDay();
     } else {
-      // Go to next story day
+      // Go to next story day - switch back to planning music
       RomanceGame.state.currentDay++;
       RomanceGame.state.dayType = CONFIG.DAY_TYPES.STORY;
+      RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
+        CONFIG.MUSIC_CONTEXTS.PLANNING
+      );
       RomanceGame.renderDay();
     }
   },
 
   // Render ball day (day 7)
   renderBallDay: () => {
+    // Switch to bump-in music for the initial encounter
+    RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
+      CONFIG.MUSIC_CONTEXTS.BUMP_IN
+    );
+
     // Find girl with highest love score
     const maxLove = Math.max(...Object.values(RomanceGame.state.loveScores));
     const bestGirl = Object.keys(RomanceGame.state.loveScores).find(
@@ -723,6 +739,12 @@ const RomanceGame = {
         const girlId = e.target.dataset.girl;
         RomanceGame.state.ballInviteAccepted = true;
         RomanceGame.state.ballDateGirl = girlId;
+
+        // Switch to ballroom music when accepting
+        RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
+          CONFIG.MUSIC_CONTEXTS.BALLROOM
+        );
+
         RomanceGame.endGame();
       });
     }
@@ -731,6 +753,12 @@ const RomanceGame = {
     if (friendshipBtn) {
       friendshipBtn.addEventListener("click", () => {
         RomanceGame.state.ballInviteAccepted = false;
+
+        // Switch to ballroom music for ending
+        RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
+          CONFIG.MUSIC_CONTEXTS.BALLROOM
+        );
+
         RomanceGame.endGame();
       });
     }
@@ -800,9 +828,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // Handle page visibility changes to pause/resume music
 document.addEventListener("visibilitychange", () => {
   const allMusicTracks = [
-    CONFIG.AUDIO.BACKGROUND_MUSIC_ROMANTIC,
-    CONFIG.AUDIO.BACKGROUND_MUSIC_NERVOUS,
-    CONFIG.AUDIO.BACKGROUND_MUSIC_VICTORY,
+    CONFIG.AUDIO.BACKGROUND_MUSIC_PLANNING,
+    CONFIG.AUDIO.BACKGROUND_MUSIC_CARNIVAL,
+    CONFIG.AUDIO.BACKGROUND_MUSIC_HIKE,
+    CONFIG.AUDIO.BACKGROUND_MUSIC_DINNER,
+    CONFIG.AUDIO.BACKGROUND_MUSIC_BUMP_IN,
+    CONFIG.AUDIO.BACKGROUND_MUSIC_BALLROOM,
   ];
 
   if (document.hidden) {

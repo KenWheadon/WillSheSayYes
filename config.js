@@ -27,9 +27,12 @@ const CONFIG = {
   },
 
   AUDIO: {
-    BACKGROUND_MUSIC_ROMANTIC: "background-music-romantic",
-    BACKGROUND_MUSIC_NERVOUS: "background-music-nervous", 
-    BACKGROUND_MUSIC_VICTORY: "background-music-victory",
+    BACKGROUND_MUSIC_PLANNING: "background-music-planning",
+    BACKGROUND_MUSIC_CARNIVAL: "background-music-carnival",
+    BACKGROUND_MUSIC_HIKE: "background-music-hike",
+    BACKGROUND_MUSIC_DINNER: "background-music-dinner",
+    BACKGROUND_MUSIC_BUMP_IN: "background-music-bump-in",
+    BACKGROUND_MUSIC_BALLROOM: "background-music-ballroom",
     CHOICE_SOUND: "choice-sound",
     CHOICE_HOVER: "choice-hover",
     BELL_CHIME: "bell-chime",
@@ -42,80 +45,85 @@ const CONFIG = {
   // Girls data
   GIRLS: {
     LUNA: {
-      id: 'luna',
-      name: 'Luna',
-      description: 'A dreamy artist with starlight in her eyes',
-      personality: 'Creative and whimsical, loves beauty and imagination',
-      likedLocations: ['carnival', 'hike'],
-      dislikedLocation: 'dinner',
-      loveTriggers: ['creative', 'romantic', 'adventurous'],
-      hates: ['boring', 'practical', 'rude']
+      id: "luna",
+      name: "Luna",
+      description: "A dreamy artist with starlight in her eyes",
+      personality: "Creative and whimsical, loves beauty and imagination",
+      likedLocations: ["carnival", "hike"],
+      dislikedLocation: "dinner",
+      loveTriggers: ["creative", "romantic", "adventurous"],
+      hates: ["boring", "practical", "rude"],
     },
     MAYA: {
-      id: 'maya',
-      name: 'Maya',
-      description: 'An athletic lioness who loves the outdoors',
-      personality: 'Energetic and bold, values honesty and adventure',
-      likedLocations: ['hike', 'dinner'],
-      dislikedLocation: 'carnival',
-      loveTriggers: ['honest', 'active', 'confident'],
-      hates: ['dishonest', 'lazy', 'fake']
+      id: "maya",
+      name: "Maya",
+      description: "An athletic lioness who loves the outdoors",
+      personality: "Energetic and bold, values honesty and adventure",
+      likedLocations: ["hike", "dinner"],
+      dislikedLocation: "carnival",
+      loveTriggers: ["honest", "active", "confident"],
+      hates: ["dishonest", "lazy", "fake"],
     },
     ROSE: {
-      id: 'rose',
-      name: 'Rose',
-      description: 'An elegant lioness with refined tastes',
-      personality: 'Sophisticated and charming, appreciates class and wit',
-      likedLocations: ['dinner', 'carnival'],
-      dislikedLocation: 'hike',
-      loveTriggers: ['witty', 'elegant', 'thoughtful'],
-      hates: ['crude', 'messy', 'immature']
-    }
+      id: "rose",
+      name: "Rose",
+      description: "An elegant lioness with refined tastes",
+      personality: "Sophisticated and charming, appreciates class and wit",
+      likedLocations: ["dinner", "carnival"],
+      dislikedLocation: "hike",
+      loveTriggers: ["witty", "elegant", "thoughtful"],
+      hates: ["crude", "messy", "immature"],
+    },
   },
 
   // Date locations
   LOCATIONS: {
     CARNIVAL: {
-      id: 'carnival',
-      name: 'Twilight Carnival',
-      description: 'A magical carnival with twinkling lights and whimsical rides',
-      atmosphere: 'Colorful lights dance around you as carnival music plays softly'
+      id: "carnival",
+      name: "Twilight Carnival",
+      description:
+        "A magical carnival with twinkling lights and whimsical rides",
+      atmosphere:
+        "Colorful lights dance around you as carnival music plays softly",
     },
     HIKE: {
-      id: 'hike',
-      name: 'Moonlit Nature Trail',
-      description: 'A peaceful hiking trail under the stars',
-      atmosphere: 'Cool night air and the sound of crickets surround you'
+      id: "hike",
+      name: "Moonlit Nature Trail",
+      description: "A peaceful hiking trail under the stars",
+      atmosphere: "Cool night air and the sound of crickets surround you",
     },
     DINNER: {
-      id: 'dinner',
-      name: 'Elegant Restaurant',
-      description: 'An upscale restaurant with candlelit tables',
-      atmosphere: 'Soft jazz music and the gentle clink of fine china'
-    }
+      id: "dinner",
+      name: "Elegant Restaurant",
+      description: "An upscale restaurant with candlelit tables",
+      atmosphere: "Soft jazz music and the gentle clink of fine china",
+    },
   },
 
   // Day types
   DAY_TYPES: {
-    STORY: 'story',
-    DATE: 'date',
-    BALL: 'ball'
+    STORY: "story",
+    DATE: "date",
+    BALL: "ball",
   },
 
-  // Music love thresholds
-  MUSIC_THRESHOLDS: {
-    ROMANTIC: { min: 7, max: 10 },
-    NERVOUS: { min: 3, max: 6 },
-    HOPEFUL: { min: 0, max: 2 },
+  // Music context types
+  MUSIC_CONTEXTS: {
+    PLANNING: "planning", // Start screen and story days
+    CARNIVAL: "carnival", // Carnival dates
+    HIKE: "hike", // Hike dates
+    DINNER: "dinner", // Dinner dates
+    BUMP_IN: "bump_in", // Day 7 encounter
+    BALLROOM: "ballroom", // Ball and endings
   },
 
   // Ending conditions
   ENDINGS: {
     PERFECT_ROMANCE: "perfect-romance",
-    SWEET_SUCCESS: "sweet-success", 
+    SWEET_SUCCESS: "sweet-success",
     FRIENDLY_REJECTION: "friendly-rejection",
     AWKWARD_FAILURE: "awkward-failure",
-    ALONE_AT_BALL: "alone-at-ball"
+    ALONE_AT_BALL: "alone-at-ball",
   },
 
   // Achievement system
@@ -124,32 +132,32 @@ const CONFIG = {
       id: "first-date",
       name: "First Date Nerves",
       description: "Asked someone on your first date",
-      icon: "💕"
+      icon: "💕",
     },
     PERFECT_ROMANCE: {
-      id: "perfect-romance", 
+      id: "perfect-romance",
       name: "Perfect Romance",
       description: "Found true love and went to the ball together",
-      icon: "👑"
+      icon: "👑",
     },
     THREE_DATES: {
       id: "three-dates",
-      name: "Social Butterfly", 
+      name: "Social Butterfly",
       description: "Went on dates to all three locations",
-      icon: "🦋"
+      icon: "🦋",
     },
     HEARTBREAKER: {
       id: "heartbreaker",
       name: "Heartbreaker",
       description: "Got rejected by all three girls",
-      icon: "💔"
+      icon: "💔",
     },
     DEVOTED_HEART: {
       id: "devoted-heart",
       name: "Devoted Heart",
-      description: "Went on three dates with the same girl", 
-      icon: "💝"
-    }
+      description: "Went on three dates with the same girl",
+      icon: "💝",
+    },
   },
 
   // Achievement storage key
@@ -160,7 +168,8 @@ const CONFIG = {
 const UTILS = {
   // Get character image path based on love level
   getCharacterImagePath: (characterId, loveLevel = 0) => {
-    const expression = loveLevel >= 7 ? 'happy' : loveLevel >= 4 ? 'neutral' : 'skeptical';
+    const expression =
+      loveLevel >= 7 ? "happy" : loveLevel >= 4 ? "neutral" : "skeptical";
     return `${CONFIG.IMAGES.CHARACTER_PREFIX}${characterId}-${expression}${CONFIG.IMAGES.CHARACTER_EXTENSION}`;
   },
 
@@ -190,29 +199,41 @@ const UTILS = {
     return girl.likedLocations.includes(locationId);
   },
 
-  // Get appropriate background music based on love level
-  getMusicTrackForLove: (highestLove) => {
-    if (highestLove >= CONFIG.MUSIC_THRESHOLDS.ROMANTIC.min) {
-      return CONFIG.AUDIO.BACKGROUND_MUSIC_VICTORY;
-    } else if (highestLove >= CONFIG.MUSIC_THRESHOLDS.NERVOUS.min) {
-      return CONFIG.AUDIO.BACKGROUND_MUSIC_NERVOUS;
-    } else {
-      return CONFIG.AUDIO.BACKGROUND_MUSIC_ROMANTIC;
+  // Get appropriate background music based on context
+  getMusicTrackForContext: (context) => {
+    switch (context) {
+      case CONFIG.MUSIC_CONTEXTS.PLANNING:
+        return CONFIG.AUDIO.BACKGROUND_MUSIC_PLANNING;
+      case CONFIG.MUSIC_CONTEXTS.CARNIVAL:
+        return CONFIG.AUDIO.BACKGROUND_MUSIC_CARNIVAL;
+      case CONFIG.MUSIC_CONTEXTS.HIKE:
+        return CONFIG.AUDIO.BACKGROUND_MUSIC_HIKE;
+      case CONFIG.MUSIC_CONTEXTS.DINNER:
+        return CONFIG.AUDIO.BACKGROUND_MUSIC_DINNER;
+      case CONFIG.MUSIC_CONTEXTS.BUMP_IN:
+        return CONFIG.AUDIO.BACKGROUND_MUSIC_BUMP_IN;
+      case CONFIG.MUSIC_CONTEXTS.BALLROOM:
+        return CONFIG.AUDIO.BACKGROUND_MUSIC_BALLROOM;
+      default:
+        return CONFIG.AUDIO.BACKGROUND_MUSIC_PLANNING;
     }
   },
 
-  // Switch background music based on love level
-  switchBackgroundMusic: (loveLevel, currentTrack = null) => {
-    const newTrack = UTILS.getMusicTrackForLove(loveLevel);
+  // Switch background music based on context
+  switchBackgroundMusic: (context, currentTrack = null) => {
+    const newTrack = UTILS.getMusicTrackForContext(context);
 
     // Don't switch if already playing the correct track
     if (currentTrack === newTrack) return newTrack;
 
     // Stop all music tracks
     const allTracks = [
-      CONFIG.AUDIO.BACKGROUND_MUSIC_ROMANTIC,
-      CONFIG.AUDIO.BACKGROUND_MUSIC_NERVOUS,
-      CONFIG.AUDIO.BACKGROUND_MUSIC_VICTORY,
+      CONFIG.AUDIO.BACKGROUND_MUSIC_PLANNING,
+      CONFIG.AUDIO.BACKGROUND_MUSIC_CARNIVAL,
+      CONFIG.AUDIO.BACKGROUND_MUSIC_HIKE,
+      CONFIG.AUDIO.BACKGROUND_MUSIC_DINNER,
+      CONFIG.AUDIO.BACKGROUND_MUSIC_BUMP_IN,
+      CONFIG.AUDIO.BACKGROUND_MUSIC_BALLROOM,
     ];
 
     allTracks.forEach((trackId) => {
