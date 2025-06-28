@@ -645,7 +645,7 @@ const RomanceGame = {
     );
 
     const girl = CONFIG.GIRLS[bestGirl.toUpperCase()];
-    const flowerShop = CONFIG.LOCATIONS.FLOWER_SHOP;
+    const flowerShop = CONFIG.SPECIAL_LOCATIONS.FLOWER_SHOP;
 
     const container = document.getElementById("game-container");
     container.innerHTML = `

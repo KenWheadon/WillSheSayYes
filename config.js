@@ -101,6 +101,10 @@ const CONFIG = {
       atmosphere:
         "The warm glow of neon signs and the comforting aroma of fresh coffee",
     },
+  },
+
+  // Special locations (not for dating)
+  SPECIAL_LOCATIONS: {
     FLOWER_SHOP: {
       id: "flower-shop",
       name: "Enchanted Flower Shop",
