@@ -191,6 +191,24 @@ const CONFIG = {
       description: "Successfully asked someone to the ball",
       icon: "💃",
     },
+    LUNAS_PARTNER: {
+      id: "lunas-partner",
+      name: "Luna's Dream Date",
+      description: "Took Luna to the Grand Spring Ball",
+      icon: "🌙",
+    },
+    MAYAS_PARTNER: {
+      id: "mayas-partner",
+      name: "Maya's Adventure Buddy",
+      description: "Took Maya to the Grand Spring Ball",
+      icon: "🏃‍♀️",
+    },
+    ROSES_PARTNER: {
+      id: "roses-partner",
+      name: "Rose's Elegant Escort",
+      description: "Took Rose to the Grand Spring Ball",
+      icon: "🌹",
+    },
   },
 
   // Achievement storage key

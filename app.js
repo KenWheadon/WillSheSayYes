@@ -641,11 +641,8 @@ const RomanceGame = {
     // Track romantic choices for achievements
     if (selectedChoice.tags && selectedChoice.tags.includes("romantic")) {
       RomanceGame.state.romanticChoiceCount++;
-      if (
-        RomanceGame.state.romanticChoiceCount >= 20 &&
-        typeof AchievementManager !== "undefined"
-      ) {
-        AchievementManager.unlockAchievement("sweet-talker");
+      if (typeof AchievementManager !== "undefined") {
+        AchievementManager.trackRomanticChoice();
       }
     }
 
@@ -731,11 +728,11 @@ const RomanceGame = {
     RomanceGame.state.showFarewell = false;
 
     // Track achievements
-    if (
-      RomanceGame.state.datesCompleted === 1 &&
-      typeof AchievementManager !== "undefined"
-    ) {
-      AchievementManager.unlockAchievement("first-date");
+    if (typeof AchievementManager !== "undefined") {
+      AchievementManager.trackDateCompleted(
+        RomanceGame.state.dateHistory[RomanceGame.state.dateHistory.length - 1]
+          .girl
+      );
     }
 
     // Check for three locations achievement
@@ -951,21 +948,18 @@ const RomanceGame = {
 
     const container = document.getElementById("game-container");
 
-    // Show enhanced "searching" screen
+    // Show enhanced "searching" screen with ballroom reveal image
     container.innerHTML = `
       <div class="romance-ui ball-reveal">
         <div class="reveal-suspense">
           <h2>🔍 Searching the ballroom... 🔍</h2>
           <div class="reveal-graphic">
-            <!-- Placeholder for custom graphic - will be replaced -->
-            <div class="search-animation">
-              <div class="search-spotlight"></div>
-              <div class="search-hearts">
-                <span class="floating-heart">💕</span>
-                <span class="floating-heart">💖</span>
-                <span class="floating-heart">💗</span>
-                <span class="floating-heart">💝</span>
-              </div>
+            <img src="images/ballroom-reveal.png" alt="Ballroom Reveal" class="ballroom-reveal-image" />
+            <div class="search-hearts">
+              <span class="floating-heart">💕</span>
+              <span class="floating-heart">💖</span>
+              <span class="floating-heart">💗</span>
+              <span class="floating-heart">💝</span>
             </div>
           </div>
           <div class="suspense-dots">
@@ -1066,7 +1060,7 @@ const RomanceGame = {
   getBallDialogue: (girlId, loveLevel) => {
     const responses = {
       luna: {
-        high: "Oh! You look so handsome tonight... I was hoping you'd find me here.",
+        high: "Oh! You look so beautiful tonight... I was hoping you'd find me here.",
         medium: "Hello! Isn't this magical? Like a fairy tale come to life!",
         low: "Hi there! Are you enjoying the ball? Everyone looks so lovely tonight.",
       },
@@ -1208,7 +1202,7 @@ const RomanceGame = {
 
         // Track ball ready achievement
         if (typeof AchievementManager !== "undefined") {
-          AchievementManager.unlockAchievement("ball-ready");
+          AchievementManager.trackBallInvitation(true, girlId);
         }
 
         // Switch to ballroom music when accepting
@@ -1224,6 +1218,11 @@ const RomanceGame = {
     if (friendshipBtn) {
       friendshipBtn.addEventListener("click", () => {
         RomanceGame.state.ballInviteAccepted = false;
+
+        // Track heartbreaker achievement
+        if (typeof AchievementManager !== "undefined") {
+          AchievementManager.trackBallInvitation(false, null);
+        }
 
         // Switch to ballroom music for ending
         RomanceGame.state.currentMusicTrack = UTILS.switchBackgroundMusic(
@@ -1269,6 +1268,7 @@ const RomanceGame = {
 
     // Track achievements
     if (typeof AchievementManager !== "undefined") {
+      AchievementManager.trackEnding(endingType);
       if (
         RomanceGame.state.ballInviteAccepted &&
         RomanceGame.state.ballDateGirl &&

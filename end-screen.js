@@ -37,33 +37,24 @@ const RomanceEndingScreen = {
           
           <div class='ending-message-container'>
           
-                    <p class="ending-message">${ending.message}</p>
+            <p class="ending-message">${ending.message}</p>
           
-          <div class="final-stats">
-            <h3>Your Romance Journey</h3>
-            <div class="love-scores">
-              <p>💕 Luna: ${gameState.loveScores.luna}/${CONFIG.MAX_LOVE}</p>
-              <p>💕 Maya: ${gameState.loveScores.maya}/${CONFIG.MAX_LOVE}</p>
-              <p>💕 Rose: ${gameState.loveScores.rose}/${CONFIG.MAX_LOVE}</p>
-            </div>
-            <p>${MESSAGES.UI.DAYS_COMPLETED_LABEL} ${gameState.currentDay}/${
-      CONFIG.TOTAL_DAYS
-    }</p>
-            <p>${MESSAGES.UI.TOTAL_DATES_LABEL} ${gameState.datesCompleted}/${
-      CONFIG.TOTAL_DATES
-    }</p>
-            <p>${MESSAGES.UI.BALL_OUTCOME_LABEL} ${
+            <div class="final-stats">
+              <h3>${MESSAGES.UI.BALL_OUTCOME_LABEL} ${
       gameState.ballInviteAccepted ? "Perfect Date!" : "Went Alone"
-    }</p>
-          </div>
+    }</h3>
+              <div class="love-scores">
+                <p>💕 Luna: ${gameState.loveScores.luna}/${CONFIG.MAX_LOVE}</p>
+                <p>💕 Maya: ${gameState.loveScores.maya}/${CONFIG.MAX_LOVE}</p>
+                <p>💕 Rose: ${gameState.loveScores.rose}/${CONFIG.MAX_LOVE}</p>
+              </div>
+            </div>
+
+            <button id="restart-button" class="restart-button">
+              ${MESSAGES.UI.RESTART_BUTTON}
+            </button>
           
           </div>
-
-
-          
-          <button id="restart-button" class="restart-button">
-            ${MESSAGES.UI.RESTART_BUTTON}
-          </button>
         </div>
       </div>
     `;

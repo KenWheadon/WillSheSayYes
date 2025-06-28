@@ -185,7 +185,7 @@ const AchievementManager = {
     AchievementManager.achievementData.statistics.romanticChoices++;
 
     // Sweet talker achievement (20 romantic choices)
-    if (AchievementManager.achievementData.statistics.romanticChoices === 20) {
+    if (AchievementManager.achievementData.statistics.romanticChoices >= 20) {
       AchievementManager.unlockAchievement("sweet-talker");
     }
 
@@ -204,11 +204,20 @@ const AchievementManager = {
     AchievementManager.saveToStorage();
   },
 
-  // Track ball invitation
-  trackBallInvitation: (accepted) => {
+  // Track ball invitation and individual girl achievements
+  trackBallInvitation: (accepted, girlId) => {
     if (accepted) {
       AchievementManager.achievementData.statistics.ballInvitations++;
       AchievementManager.unlockAchievement("ball-ready");
+
+      // Track individual girl ball achievements
+      if (girlId === "luna") {
+        AchievementManager.unlockAchievement("lunas-partner");
+      } else if (girlId === "maya") {
+        AchievementManager.unlockAchievement("mayas-partner");
+      } else if (girlId === "rose") {
+        AchievementManager.unlockAchievement("roses-partner");
+      }
     } else {
       AchievementManager.achievementData.statistics.heartbreaks++;
       AchievementManager.unlockAchievement("heartbreaker");

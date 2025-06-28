@@ -71,21 +71,21 @@
             },
             {
               "text": "The cotton candy looks good",
-              "response": "Luna giggles. 'It's like eating sweet clouds! How whimsical!'",
+              "response": "Luna smiles. 'It's sweet, just like tonight.'",
               "tags": ["creative"],
               "love": 1
             },
             {
-              "text": "This place is pretty crowded",
-              "response": "Luna tilts her head. 'But that means more joy to share, doesn't it?'",
-              "tags": ["practical"],
-              "love": -1
+              "text": "This place seems okay, I guess",
+              "response": "Luna tilts her head. 'Just okay? I see magic everywhere...'",
+              "tags": ["neutral"],
+              "love": 0
             },
             {
-              "text": "You look beautiful in this light",
-              "response": "Luna blushes deeply. 'You make everything more magical...'",
-              "tags": ["romantic"],
-              "love": 2
+              "text": "This place is too crowded and loud",
+              "response": "Luna's face falls slightly. 'Oh... I thought it was joyful and alive.'",
+              "tags": ["negative"],
+              "love": -1
             }
           ]
         },
@@ -106,16 +106,16 @@
               "love": 1
             },
             {
-              "text": "Are you afraid of heights?",
-              "response": "Luna shakes her head. 'When something is beautiful, fear melts away.'",
-              "tags": ["practical"],
+              "text": "Yeah, it's pretty nice up here",
+              "response": "Luna looks at you hopefully. 'Just nice? I feel like I'm touching the sky.'",
+              "tags": ["neutral"],
               "love": 0
             },
             {
-              "text": "I'm glad we're here together",
-              "response": "Luna takes your paw gently. 'Me too... this feels perfect.'",
-              "tags": ["romantic", "intimate"],
-              "love": 3
+              "text": "Are you going to get dizzy?",
+              "response": "Luna looks disappointed. 'No... I was hoping we could enjoy this moment together.'",
+              "tags": ["practical", "dismissive"],
+              "love": -1
             }
           ]
         },
@@ -124,28 +124,28 @@
           "dialogue": "What a magical evening! The colors, the lights, the wonder of it all... and the best part was sharing it with you.",
           "choices": [
             {
-              "text": "You made it magical for me",
+              "text": "You made it magical for me too",
               "response": "Luna twirls happily. 'We made magic together! Like two artists collaborating on a masterpiece.'",
               "tags": ["romantic", "artistic"],
               "love": 2
             },
             {
-              "text": "I'll never forget tonight",
-              "response": "Luna clasps her hands together. 'Neither will I! This will definitely inspire my next painting.'",
-              "tags": ["memorable", "sweet"],
-              "love": 2
-            },
-            {
-              "text": "Want to get some cotton candy for the road?",
-              "response": "Luna giggles. 'Yes! Sweet treats to end a sweet evening!'",
-              "tags": ["thoughtful", "fun"],
+              "text": "I had a nice time",
+              "response": "Luna smiles warmly. 'I'm so glad! This night will inspire my art for weeks.'",
+              "tags": ["polite"],
               "love": 1
             },
             {
-              "text": "I hope this is just the beginning",
-              "response": "Luna blushes deeply. 'I hope so too... you've awakened something wonderful in my heart.'",
-              "tags": ["forward", "romantic"],
-              "love": 2
+              "text": "It was alright, I suppose",
+              "response": "Luna nods quietly. 'Well, at least we got to spend time together.'",
+              "tags": ["neutral"],
+              "love": 0
+            },
+            {
+              "text": "Ready to get out of here?",
+              "response": "Luna's smile fades. 'Oh... yes, I guess the magic has to end sometime.'",
+              "tags": ["dismissive"],
+              "love": -1
             }
           ],
           "farewell": "Luna gives you a gentle hug goodbye. 'Thank you for such a wonderful evening... I can't wait to see you again!'"
@@ -157,28 +157,28 @@
           "dialogue": "Hmm, this is... very artificial. All these fake lights and processed sugar.",
           "choices": [
             {
+              "text": "I love how you see things honestly",
+              "response": "Maya softens. 'Thanks... most people just tell me to lighten up.'",
+              "tags": ["accepting", "honest"],
+              "love": 2
+            },
+            {
               "text": "Want to find something more active?",
               "response": "Maya perks up. 'Yes! Maybe some carnival games we can compete at?'",
               "tags": ["active", "competitive"],
-              "love": 2
-            },
-            {
-              "text": "Come on, it can be fun!",
-              "response": "Maya sighs. 'I suppose... for you, I'll try to enjoy it.'",
-              "tags": ["encouraging"],
               "love": 1
             },
             {
-              "text": "You're being a bit negative",
-              "response": "Maya's ears flatten. 'I'm just being honest about what I see.'",
-              "tags": ["rude", "critical"],
-              "love": -2
+              "text": "It's not that bad",
+              "response": "Maya shrugs. 'I guess... I just prefer authentic experiences.'",
+              "tags": ["neutral"],
+              "love": 0
             },
             {
-              "text": "I love how you see things differently",
-              "response": "Maya softens. 'Most people just tell me to go with the flow.'",
-              "tags": ["accepting", "honest"],
-              "love": 2
+              "text": "You're being way too negative",
+              "response": "Maya's ears flatten. 'Sorry for having standards and opinions.'",
+              "tags": ["rude", "critical"],
+              "love": -1
             }
           ]
         },
@@ -193,22 +193,22 @@
               "love": 2
             },
             {
-              "text": "I'll probably embarrass myself",
-              "response": "Maya rolls her eyes. 'Not with that attitude! Come on, at least try!'",
-              "tags": ["self-deprecating"],
-              "love": -1
-            },
-            {
-              "text": "Ladies first",
-              "response": "Maya flexes playfully. 'Prepare to be impressed!'",
-              "tags": ["respectful"],
-              "love": 1
-            },
-            {
               "text": "How about we work together?",
               "response": "Maya pauses. 'That's... actually sweet. Teamwork over competition.'",
               "tags": ["cooperative", "thoughtful"],
-              "love": 2
+              "love": 1
+            },
+            {
+              "text": "Sure, I'll give it a try",
+              "response": "Maya nods. 'That's the spirit! Even trying is what matters.'",
+              "tags": ["neutral"],
+              "love": 0
+            },
+            {
+              "text": "I'll probably just embarrass myself",
+              "response": "Maya rolls her eyes. 'Not with that attitude! Come on, at least try!'",
+              "tags": ["self-deprecating"],
+              "love": -1
             }
           ]
         },
@@ -226,22 +226,22 @@
               "text": "I had more fun than I expected",
               "response": "Maya nods enthusiastically. 'Same here! Sometimes it's good to embrace the silly stuff.'",
               "tags": ["honest", "fun"],
-              "love": 2
-            },
-            {
-              "text": "Next time I'm training first",
-              "response": "Maya laughs heartily. 'Now that's the spirit! I love a challenge.'",
-              "tags": ["competitive", "playful"],
               "love": 1
             },
             {
-              "text": "Want to celebrate with some real food?",
-              "response": "Maya's eyes light up. 'Yes! All this cotton candy has me craving a proper burger.'",
-              "tags": ["practical", "extending"],
-              "love": 1
+              "text": "It was fine",
+              "response": "Maya raises an eyebrow. 'Just fine? Well, I guess not everyone can appreciate good competition.'",
+              "tags": ["neutral"],
+              "love": 0
+            },
+            {
+              "text": "You didn't have to show off so much",
+              "response": "Maya's smile fades. 'Show off? I was just being myself. Sorry if that's too much for you.'",
+              "tags": ["critical"],
+              "love": -1
             }
           ],
-          "farewell": "Maya punches your arm playfully. 'You're alright, you know that? Thanks for showing me that fake can be fun sometimes. Catch you later!'"
+          "farewell": "Maya gives you a hearty high-five. 'That was awesome! You're definitely my kind of adventure buddy. Let's do this again soon!'"
         }
       ],
       "rose": [
@@ -250,26 +250,26 @@
           "dialogue": "How delightfully kitschy! It's like stepping into a children's storybook.",
           "choices": [
             {
-              "text": "Is that good or bad?",
-              "response": "Rose laughs melodiously. 'Both! Sometimes embracing the absurd is quite freeing.'",
-              "tags": ["curious"],
-              "love": 1
-            },
-            {
               "text": "You have such an interesting perspective",
               "response": "Rose's eyes sparkle. 'Why thank you! I do try to find beauty in unexpected places.'",
               "tags": ["appreciative", "thoughtful"],
               "love": 2
             },
             {
-              "text": "Want to win you a stuffed animal?",
+              "text": "Want me to win you a stuffed animal?",
               "response": "Rose claps her hoofs together. 'How charmingly traditional! I'd be delighted.'",
               "tags": ["romantic", "traditional"],
-              "love": 2
+              "love": 1
+            },
+            {
+              "text": "Is that good or bad?",
+              "response": "Rose laughs melodiously. 'Both! Sometimes embracing the absurd is quite freeing.'",
+              "tags": ["curious"],
+              "love": 0
             },
             {
               "text": "This place is kind of tacky",
-              "response": "Rose raises an eyebrow. 'Tacky, perhaps, but there's an honest joy here.'",
+              "response": "Rose's expression cools slightly. 'Tacky perhaps, but there's an honest joy here that's quite refreshing.'",
               "tags": ["critical"],
               "love": -1
             }
@@ -280,28 +280,28 @@
           "dialogue": "The secret is in the wrist action, darling. Gentle but confident.",
           "choices": [
             {
-              "text": "Thanks for the tip!",
-              "response": "Rose winks. 'I have many hidden talents, you know.'",
-              "tags": ["grateful", "flirty"],
-              "love": 1
+              "text": "Show me how it's done",
+              "response": "Rose takes the ring gracefully. 'With pleasure! Watch and learn.'",
+              "tags": ["admiring"],
+              "love": 2
             },
             {
               "text": "I want to impress you",
               "response": "Rose touches your arm gently. 'You already are, just by trying.'",
               "tags": ["honest", "vulnerable"],
-              "love": 2
-            },
-            {
-              "text": "This is harder than it looks",
-              "response": "Rose nods knowingly. 'The best things usually are, don't you think?'",
-              "tags": ["honest"],
               "love": 1
             },
             {
-              "text": "Show me how it's done",
-              "response": "Rose takes the ring gracefully. 'With pleasure! Watch and learn.'",
-              "tags": ["admiring"],
-              "love": 2
+              "text": "Thanks for the tip",
+              "response": "Rose winks. 'I have many hidden talents, you know.'",
+              "tags": ["grateful"],
+              "love": 0
+            },
+            {
+              "text": "I don't need help, thanks",
+              "response": "Rose steps back gracefully. 'Of course, my apologies. Please, carry on.'",
+              "tags": ["independent", "dismissive"],
+              "love": -1
             }
           ]
         },
@@ -319,19 +319,19 @@
               "text": "I'm glad you gave it a chance",
               "response": "Rose nods thoughtfully. 'Sometimes the most surprising experiences are the most rewarding.'",
               "tags": ["encouraging", "growth"],
-              "love": 2
+              "love": 1
             },
             {
               "text": "The night doesn't have to end",
               "response": "Rose raises an eyebrow with interest. 'Oh? And what did you have in mind, you charming rogue?'",
               "tags": ["forward", "flirty"],
-              "love": 1
+              "love": 0
             },
             {
               "text": "Thank you for being so gracious",
               "response": "Rose smiles warmly. 'Thank you for being such wonderful company. This has been truly special.'",
               "tags": ["polite", "grateful"],
-              "love": 1
+              "love": -1
             }
           ],
           "farewell": "Rose takes your hand and gives it a gentle kiss. 'What a marvelous evening, darling. You've quite swept me off my feet!'"

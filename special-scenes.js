@@ -1,0 +1,906 @@
+/* SPECIAL SCENES STYLES - Achievement System, Ball Scenes, and Special Events */
+
+/* Achievement Button */
+.achievement-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ffd700, #ffb347);
+  border: 3px solid #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.achievement-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Achievement Drawer Styles */
+.achievement-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.achievement-drawer-overlay.open {
+  opacity: 1;
+}
+
+.achievement-drawer {
+  background: linear-gradient(135deg, #fff 0%, #ffb6c1 100%);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 800px;
+  max-height: 80vh;
+  width: 90%;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 3px solid #ff69b4;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.achievement-drawer.open {
+  transform: scale(1);
+}
+
+.achievement-header {
+  display: flex;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #ff69b4;
+  justify-content: space-between;
+}
+
+.achievement-header h2 {
+  color: #ff1493;
+  font-size: 2.2em;
+  font-family: "Brush Script MT", cursive;
+  margin: 0;
+}
+
+.achievement-progress {
+  font-size: 1.1em;
+  color: #666;
+  font-weight: bold;
+}
+
+.close-drawer-btn {
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: #ff1493;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 5px;
+}
+
+.close-drawer-btn:hover {
+  color: #ff69b4;
+  transform: scale(1.2);
+}
+
+.achievement-content {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.achievement-item.unlocked {
+  background: linear-gradient(45deg, #90ee90, #98fb98);
+  border-color: #32cd32;
+  box-shadow: 0 4px 12px rgba(50, 205, 50, 0.3);
+}
+
+.achievement-item.locked {
+  background: rgba(200, 200, 200, 0.5);
+  border-color: #999;
+  opacity: 0.7;
+}
+
+.achievement-icon {
+  font-size: 2.5em;
+  margin-right: 15px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-name {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.achievement-description {
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.3;
+}
+
+.achievement-stats {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #ff69b4;
+}
+
+.achievement-stats h3 {
+  color: #ff1493;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 182, 193, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 105, 180, 0.3);
+}
+
+.stat-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-value {
+  color: #ff1493;
+  font-weight: bold;
+}
+
+/* Achievement Notification */
+.achievement-notification {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1500;
+  animation: achievementSlideIn 0.5s ease-out,
+    achievementSlideOut 0.5s ease-in 3.5s forwards;
+}
+
+.achievement-popup {
+  background: linear-gradient(45deg, #ffd700, #ffb347);
+  border: 3px solid #fff;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+  max-width: 350px;
+}
+
+.achievement-popup .achievement-icon {
+  font-size: 2em;
+  margin-right: 15px;
+}
+
+.achievement-text {
+  color: #333;
+}
+
+.achievement-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.achievement-popup .achievement-name {
+  font-weight: bold;
+  color: #8b4513;
+  margin-bottom: 3px;
+}
+
+.achievement-desc {
+  font-size: 0.9em;
+  color: #666;
+}
+
+@keyframes achievementSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes achievementSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Pre-bump-in Popup Styles */
+.pre-bump-in-popup {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #ff7675 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.popup-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  text-align: center;
+  border: 3px solid rgba(255, 105, 180, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  animation: popupAppear 0.8s ease-out;
+}
+
+@keyframes popupAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.popup-content h2 {
+  color: #ff1493;
+  font-size: 2.2em;
+  font-family: "Brush Script MT", cursive;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+}
+
+.transition-text {
+  margin-bottom: 30px;
+}
+
+.transition-text p {
+  font-size: 1.3em;
+  line-height: 1.6;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.transition-text p:last-child {
+  font-style: italic;
+  color: #ff1493;
+  font-weight: bold;
+}
+
+/* Bump-in Scene Styles */
+.bump-in-scene {
+  background: linear-gradient(135deg, #e6f3ff 0%, #ffb6c1 50%, #ff69b4 100%);
+}
+
+.bump-in-setting {
+  text-align: center;
+  margin-bottom: 10px;
+  padding: 5px 20px 15px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  border: 3px solid rgba(255, 105, 180, 0.3);
+}
+
+.bump-in-setting h2 {
+  color: #ff1493;
+  font-size: 2.2em;
+  font-family: "Brush Script MT", cursive;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+}
+
+.bump-in-encounter {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
+  border-radius: 14px;
+  border: 3px solid rgba(255, 105, 180, 0.3);
+  box-shadow: 0 10px 30px rgba(255, 20, 147, 0.2);
+}
+
+.bump-in-girl-image {
+  width: 66%;
+  animation: gentlePulse 2s infinite;
+}
+
+@keyframes gentlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.bump-in-dialogue {
+  width: 90%;
+}
+
+.dialogue-bubble {
+  background: rgba(255, 182, 193, 0.3);
+  border: 2px solid rgba(255, 105, 180, 0.5);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.dialogue-bubble::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 30px;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 15px solid rgba(255, 105, 180, 0.5);
+}
+
+.bump-in-choices {
+  text-align: center;
+}
+
+/* Ball Entrance and Reveal Styles */
+.ball-entrance {
+  background: linear-gradient(
+    135deg,
+    #ffd700 0%,
+    #ffb347 30%,
+    #ff69b4 70%,
+    #ff1493 100%
+  );
+  text-align: center;
+}
+
+.ball-entrance .ball-header h1 {
+  font-size: 3em;
+  color: #8b0000;
+  font-family: "Brush Script MT", cursive;
+  text-shadow: 3px 3px 6px rgba(139, 0, 0, 0.4);
+  margin-bottom: 10px;
+  animation: titleShimmer 3s infinite;
+}
+
+@keyframes titleShimmer {
+  0%,
+  100% {
+    text-shadow: 3px 3px 6px rgba(139, 0, 0, 0.4);
+  }
+  50% {
+    text-shadow: 3px 3px 6px rgba(255, 215, 0, 0.6);
+  }
+}
+
+.ball-description {
+  font-size: 1.3em;
+  line-height: 1.6;
+  color: #4a4a4a;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+}
+
+.ballroom-scene {
+  margin-top: 10px;
+}
+
+.ballroom-image {
+  width: 100%;
+  height: 288px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 4px solid #ffd700;
+  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+  margin-bottom: 10px;
+}
+
+.ballroom-atmosphere {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.ballroom-atmosphere p {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: #8b0000;
+  font-weight: bold;
+}
+
+.moment-of-truth {
+  margin-top: 20px;
+}
+
+.reveal-button {
+  background: linear-gradient(45deg, #ff69b4, #ff1493, #dc143c, #ffd700);
+  background-size: 300% 300%;
+  animation: rainbowGradient 3s ease infinite;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  font-size: 1.8em;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: "Brush Script MT", cursive;
+  letter-spacing: 2px;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.reveal-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7);
+}
+
+@keyframes rainbowGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ball Reveal Suspense */
+.ball-reveal {
+  text-align: center;
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #333 100%);
+  color: white;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reveal-suspense {
+  max-width: 500px;
+  width: 100%;
+}
+
+.reveal-suspense h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  font-family: "Brush Script MT", cursive;
+  animation: suspenseGlow 2s infinite;
+}
+
+.reveal-graphic {
+  margin: 30px 0;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ballroom-reveal-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 15px;
+  border: 3px solid #ffd700;
+  filter: brightness(0.8) contrast(1.2);
+  animation: revealImagePulse 3s infinite;
+}
+
+@keyframes revealImagePulse {
+  0%, 100% {
+    filter: brightness(0.8) contrast(1.2);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.1) contrast(1.4);
+    transform: scale(1.05);
+  }
+}
+
+.search-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-heart {
+  position: absolute;
+  font-size: 1.5em;
+  animation: floatHeart 4s infinite;
+  opacity: 0.7;
+}
+
+.floating-heart:nth-child(1) {
+  top: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.floating-heart:nth-child(2) {
+  top: 70%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.floating-heart:nth-child(3) {
+  bottom: 10%;
+  left: 60%;
+  animation-delay: 2s;
+}
+
+.floating-heart:nth-child(4) {
+  top: 40%;
+  right: 70%;
+  animation-delay: 3s;
+}
+
+@keyframes floatHeart {
+  0%,
+  100% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0px);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-5px);
+    opacity: 0.9;
+  }
+}
+
+.searching-text {
+  font-size: 1.4em;
+  font-style: italic;
+  margin-top: 20px;
+  color: #ff69b4;
+  animation: searchTextPulse 2s infinite;
+}
+
+@keyframes searchTextPulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+  }
+}
+
+@keyframes suspenseGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+}
+
+.suspense-dots {
+  font-size: 3em;
+  letter-spacing: 10px;
+}
+
+.dot {
+  animation: dotPulse 1.5s infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Enhanced Ball Day Styles */
+.ball-day {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff69b4 100%);
+  color: #2c1810;
+}
+
+.ball-day .ball-header h1 {
+  font-size: 2.8em;
+  color: #8b0000;
+  font-family: "Brush Script MT", cursive;
+  text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.3);
+  margin-bottom: 15px;
+  animation: celebrationGlow 2s infinite;
+}
+
+.ball-header p {
+  font-style: italic;
+}
+
+@keyframes celebrationGlow {
+  0%,
+  100% {
+    text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.8);
+  }
+}
+
+.ball-day {
+  background: linear-gradient(135deg, #e6e6fa 0%, #87ceeb 50%, #e6e6fa 100%);
+  color: #2c1810;
+}
+
+.ball-header {
+  text-align: center;
+}
+
+.ball-header h1 {
+  font-size: 2.5em;
+  font-family: "Brush Script MT", cursive;
+  text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.3);
+  margin-bottom: 15px;
+}
+
+.ball-scene {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.ball-girl-image {
+  width: 33%;
+}
+
+.ball-dialogue {
+  flex: 1;
+}
+
+.ball-dialogue h3 {
+  color: #8b0000;
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.girl-thoughts {
+  font-size: 1.3em;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+}
+
+.ball-choice,
+.ball-rejection {
+  text-align: center;
+}
+
+.ball-choice p,
+.ball-rejection p {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #8b0000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .girl-focus {
+    flex-direction: column;
+  }
+
+  .focus-text-holder {
+    width: 100%;
+  }
+
+  .large-girl-image {
+    width: 50%;
+  }
+
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bump-in-encounter {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .reveal-button {
+    font-size: 1.4em;
+    padding: 15px 25px;
+  }
+
+  .ball-entrance .ball-header h1 {
+    font-size: 2.2em;
+  }
+
+  .ballroom-image {
+    height: 200px;
+  }
+
+  .reveal-graphic {
+    height: 150px;
+  }
+
+  .ballroom-reveal-image {
+    max-width: 250px;
+  }
+
+  .transition-text p {
+    font-size: 1.1em;
+  }
+
+  .popup-content {
+    padding: 25px;
+  }
+
+  .response-bubble-story .story-response {
+    font-size: 1.2em;
+  }
+
+  .story-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .player-story-image {
+    width: 120px;
+    margin-bottom: 15px;
+  }
+
+  .story-text {
+    text-align: center;
+  }
+
+  .ball-scene {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .love-scores {
+    grid-template-columns: 1fr;
+  }
+
+  .date-response-content {
+    gap: 15px;
+  }
+
+  .girl-response-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .location-preview {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .reveal-button {
+    font-size: 1.2em;
+    padding: 12px 20px;
+  }
+
+  .ball-entrance .ball-header h1 {
+    font-size: 1.8em;
+  }
+
+  .response-bubble-story .story-response {
+    font-size: 1.2em;
+  }
+
+  .reveal-graphic {
+    height: 120px;
+  }
+
+  .ballroom-reveal-image {
+    max-width: 200px;
+  }
+
+  .searching-text {
+    font-size: 1.2em;
+  }
+
+  .transition-text p {
+    font-size: 1em;
+  }
+
+  .popup-content {
+    padding: 20px;
+  }
+
+  .popup-content h2 {
+    font-size: 1.8em;
+  }
+}
