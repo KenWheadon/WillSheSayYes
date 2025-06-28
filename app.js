@@ -144,13 +144,20 @@ const RomanceGame = {
       </div>
     `;
 
-    // Attach event listener
+    // Attach event listener with sound effects
     document
       .getElementById("continue-to-bump-in")
       .addEventListener("click", () => {
         UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         RomanceGame.state.showPreBumpIn = true;
         RomanceGame.renderDay();
+      });
+
+    // Add hover sound effect
+    document
+      .getElementById("continue-to-bump-in")
+      .addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
   },
 
@@ -446,10 +453,17 @@ const RomanceGame = {
       </div>
     `;
 
-    document.getElementById("go-on-date").addEventListener("click", (e) => {
+    // Add sound effects to the go-on-date button
+    const goOnDateBtn = document.getElementById("go-on-date");
+    goOnDateBtn.addEventListener("click", (e) => {
+      UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
       const girl = e.target.dataset.girl;
       const location = e.target.dataset.location;
       RomanceGame.startDate(girl, location);
+    });
+
+    goOnDateBtn.addEventListener("mouseenter", () => {
+      UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
     });
   },
 
@@ -658,6 +672,8 @@ const RomanceGame = {
       UTILS.playAudio(CONFIG.AUDIO.LOVE_INCREASE);
     } else if (loveChange < 0) {
       UTILS.playAudio(CONFIG.AUDIO.LOVE_DECREASE);
+    } else {
+      UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
     }
 
     // Show response
@@ -716,6 +732,11 @@ const RomanceGame = {
             RomanceGame.renderDateDay();
           }
         }
+      });
+
+      // Add hover sound effect
+      continueBtn.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     }
   },
@@ -861,44 +882,50 @@ const RomanceGame = {
       </div>
     `;
 
-    // Attach event listener
-    document
-      .getElementById("bump-in-response")
-      .addEventListener("click", () => {
+    // Attach event listener with sound effects
+    const bumpInBtn = document.getElementById("bump-in-response");
+    bumpInBtn.addEventListener("click", () => {
+      UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
+
+      // Show response first
+      const responseText =
+        maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD
+          ? `${girl.name} smiles warmly and takes your hand. 'I was hoping you'd say that... I'll see you tonight at the ball!'`
+          : `${girl.name} nods politely. 'Of course! It should be a wonderful evening for everyone.'`;
+
+      // Update the dialogue section to show response
+      const dialogueSection = document.querySelector(".bump-in-dialogue");
+      dialogueSection.innerHTML = `
+        <div class="dialogue-bubble">
+          <p class="dialogue-text">${responseText}</p>
+        </div>
+        <div class="bump-in-choices">
+          <button id="continue-to-ball" class="continue-button">
+            Continue to the Ball
+          </button>
+        </div>
+      `;
+
+      // Attach continue listener with sound effects
+      const continueBtn = document.getElementById("continue-to-ball");
+      continueBtn.addEventListener("click", () => {
+        RomanceGame.state.bumpInCompleted = true;
         UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
 
-        // Show response first
-        const responseText =
-          maxLove >= CONFIG.VICTORY_LOVE_THRESHOLD
-            ? `${girl.name} smiles warmly and takes your hand. 'I was hoping you'd say that... I'll see you tonight at the ball!'`
-            : `${girl.name} nods politely. 'Of course! It should be a wonderful evening for everyone.'`;
-
-        // Update the dialogue section to show response
-        const dialogueSection = document.querySelector(".bump-in-dialogue");
-        dialogueSection.innerHTML = `
-          <div class="dialogue-bubble">
-            <p class="dialogue-text">${responseText}</p>
-          </div>
-          <div class="bump-in-choices">
-            <button id="continue-to-ball" class="continue-button">
-              Continue to the Ball
-            </button>
-          </div>
-        `;
-
-        // Attach continue listener
-        document
-          .getElementById("continue-to-ball")
-          .addEventListener("click", () => {
-            RomanceGame.state.bumpInCompleted = true;
-            UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
-
-            // Transition to ball after a brief moment
-            setTimeout(() => {
-              RomanceGame.renderBallDay();
-            }, 500);
-          });
+        // Transition to ball after a brief moment
+        setTimeout(() => {
+          RomanceGame.renderBallDay();
+        }, 500);
       });
+
+      continueBtn.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
+      });
+    });
+
+    bumpInBtn.addEventListener("mouseenter", () => {
+      UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
+    });
   },
 
   // Render ball day (day 7)
@@ -936,9 +963,14 @@ const RomanceGame = {
       </div>
     `;
 
-    // Attach event listener for the big reveal
-    document.getElementById("reveal-button").addEventListener("click", () => {
+    // Attach event listener for the big reveal with sound effects
+    const revealBtn = document.getElementById("reveal-button");
+    revealBtn.addEventListener("click", () => {
       RomanceGame.performBallReveal(bestGirl, maxLove);
+    });
+
+    revealBtn.addEventListener("mouseenter", () => {
+      UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
     });
   },
 
@@ -1128,6 +1160,7 @@ const RomanceGame = {
     const girlButtons = document.querySelectorAll(".girl-button");
     girlButtons.forEach((button) => {
       button.addEventListener("click", (e) => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         const girlId = e.currentTarget.dataset.girl;
         RomanceGame.renderDateSelection(girlId);
       });
@@ -1142,9 +1175,14 @@ const RomanceGame = {
     const continueBtn = document.getElementById("continue-btn");
     if (continueBtn) {
       continueBtn.addEventListener("click", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         RomanceGame.state.showResponse = false;
         RomanceGame.state.showDatingOptions = true;
         RomanceGame.renderStoryDay();
+      });
+
+      continueBtn.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     }
   },
@@ -1153,15 +1191,25 @@ const RomanceGame = {
     const locationButtons = document.querySelectorAll(".location-button");
     locationButtons.forEach((button) => {
       button.addEventListener("click", (e) => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         const locationId = e.currentTarget.dataset.location;
         RomanceGame.askOnDate(girlId, locationId);
+      });
+
+      button.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     });
 
     const backBtn = document.getElementById("back-to-selection");
     if (backBtn) {
       backBtn.addEventListener("click", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         RomanceGame.renderStoryDay();
+      });
+
+      backBtn.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     }
   },
@@ -1196,6 +1244,7 @@ const RomanceGame = {
     const askBtn = document.getElementById("ask-to-ball");
     if (askBtn) {
       askBtn.addEventListener("click", (e) => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         const girlId = e.target.dataset.girl;
         RomanceGame.state.ballInviteAccepted = true;
         RomanceGame.state.ballDateGirl = girlId;
@@ -1212,11 +1261,16 @@ const RomanceGame = {
 
         RomanceGame.endGame();
       });
+
+      askBtn.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
+      });
     }
 
     const friendshipBtn = document.getElementById("accept-friendship");
     if (friendshipBtn) {
       friendshipBtn.addEventListener("click", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         RomanceGame.state.ballInviteAccepted = false;
 
         // Track heartbreaker achievement
@@ -1230,6 +1284,10 @@ const RomanceGame = {
         );
 
         RomanceGame.endGame();
+      });
+
+      friendshipBtn.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     }
   },
@@ -1247,13 +1305,18 @@ const RomanceGame = {
     const dialogueSection = document.getElementById("dialogue-section");
     dialogueSection.innerHTML = RomanceGame.renderStoryDialogue(storyData);
 
-    // Attach continue button listener
+    // Attach continue button listener with sound effects
     const continueBtn = document.getElementById("continue-btn");
     if (continueBtn) {
       continueBtn.addEventListener("click", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_SOUND);
         RomanceGame.state.showResponse = false;
         RomanceGame.state.showDatingOptions = true;
         RomanceGame.renderStoryDay();
+      });
+
+      continueBtn.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
       });
     }
   },

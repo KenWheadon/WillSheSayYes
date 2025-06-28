@@ -33,6 +33,11 @@ const RomanceStartScreen = {
           RomanceGame.startGame();
         }
       });
+
+      // Add hover sound effect
+      startButton.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
+      });
     }
   },
 
@@ -42,7 +47,9 @@ const RomanceStartScreen = {
     RomanceStartScreen.attachEventListeners();
 
     // Start romantic background music
-    const currentTrack = UTILS.switchBackgroundMusic(0);
+    const currentTrack = UTILS.switchBackgroundMusic(
+      CONFIG.MUSIC_CONTEXTS.PLANNING
+    );
 
     // Track music for achievements if system is available
     if (typeof AchievementManager !== "undefined") {

@@ -149,6 +149,11 @@ const AchievementDrawer = {
       achievementButton.addEventListener("click", () => {
         AchievementDrawer.toggleDrawer();
       });
+
+      // Add hover sound effect
+      achievementButton.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
+      });
     }
 
     if (drawerOverlay) {
@@ -180,11 +185,15 @@ const AchievementDrawer = {
       // Update content before showing
       drawer.innerHTML = AchievementDrawer.renderDrawerContent();
 
-      // Attach close button listener
+      // Attach close button listener with sound effects
       const closeButton = document.getElementById("close-drawer");
       if (closeButton) {
         closeButton.addEventListener("click", () => {
           AchievementDrawer.closeDrawer();
+        });
+
+        closeButton.addEventListener("mouseenter", () => {
+          UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.3);
         });
       }
 
@@ -228,11 +237,15 @@ const AchievementDrawer = {
       if (drawer) {
         drawer.innerHTML = AchievementDrawer.renderDrawerContent();
 
-        // Re-attach close button listener
+        // Re-attach close button listener with sound effects
         const closeButton = document.getElementById("close-drawer");
         if (closeButton) {
           closeButton.addEventListener("click", () => {
             AchievementDrawer.closeDrawer();
+          });
+
+          closeButton.addEventListener("mouseenter", () => {
+            UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.3);
           });
         }
       }

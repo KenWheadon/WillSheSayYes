@@ -72,6 +72,11 @@ const RomanceEndingScreen = {
         }
         RomanceStartScreen.init();
       });
+
+      // Add hover sound effect
+      restartButton.addEventListener("mouseenter", () => {
+        UTILS.playAudio(CONFIG.AUDIO.CHOICE_HOVER, 0.4);
+      });
     }
   },
 
