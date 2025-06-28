@@ -5,7 +5,7 @@ const MESSAGES = {
     [CONFIG.ENDINGS.PERFECT_ROMANCE]: {
       title: "PERFECT ROMANCE",
       message:
-        "True love has blossomed! You and your chosen lioness dance together under the starlit ballroom, hearts beating as one. This is the beginning of a beautiful love story that will be told for generations.",
+        "True love has blossomed! You and your chosen partner dance together under the starlit ballroom, hearts beating as one. This is the beginning of a beautiful love story that will be told for generations.",
       color: "#ff69b4",
     },
     [CONFIG.ENDINGS.SWEET_SUCCESS]: {
@@ -17,7 +17,7 @@ const MESSAGES = {
     [CONFIG.ENDINGS.FRIENDLY_REJECTION]: {
       title: "JUST FRIENDS",
       message:
-        "Though romance didn't bloom, you've gained a wonderful friend. She appreciates your company but sees you as a dear friend rather than a romantic partner. Sometimes friendship is just as precious.",
+        "She appreciates your company but sees you as a dear friend rather than a romantic partner. Sometimes friendship is just as precious.",
       color: "#ffa500",
     },
     [CONFIG.ENDINGS.AWKWARD_FAILURE]: {

@@ -22,19 +22,20 @@ const RomanceEndingScreen = {
                 gameState.loveScores[gameState.ballDateGirl]
               )}" 
                    alt="${ballGirl.name}" 
-                   class="ending-girl-image final-girl-image" />
-              <h3>With ${ballGirl.name}</h3>
-            `
+                   class="ending-girl-image final-girl-image" />`
                 : `
-              <img src="${UTILS.getCharacterImagePath("player", 2)}" 
-                   alt="You alone" 
-                   class="ending-girl-image final-girl-image" />
+                   <img src="${UTILS.getCharacterImagePath(
+                     "player",
+                     2
+                   )}" alt="You alone" class="ending-girl-image final-girl-image" />
               <h3>Flying Solo</h3>
             `
             }
           </div>
           
-          <p class="ending-message">${ending.message}</p>
+          <div class='ending-message-container'>
+          
+                    <p class="ending-message">${ending.message}</p>
           
           <div class="final-stats">
             <h3>Your Romance Journey</h3>
@@ -53,6 +54,10 @@ const RomanceEndingScreen = {
       gameState.ballInviteAccepted ? "Perfect Date!" : "Went Alone"
     }</p>
           </div>
+          
+          </div>
+
+
           
           <button id="restart-button" class="restart-button">
             ${MESSAGES.UI.RESTART_BUTTON}

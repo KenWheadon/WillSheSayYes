@@ -362,8 +362,8 @@ body::before {
 
 .bump-in-setting {
   text-align: center;
-  margin-bottom: 30px;
-  padding: 25px;
+  margin-bottom: 10px;
+  padding: 5px 20px 15px 20px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
   border: 3px solid rgba(255, 105, 180, 0.3);
@@ -373,27 +373,23 @@ body::before {
   color: #ff1493;
   font-size: 2.2em;
   font-family: "Brush Script MT", cursive;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
 }
 
 .bump-in-encounter {
   display: flex;
-  gap: 30px;
+  gap: 22px;
   align-items: center;
   background: rgba(255, 255, 255, 0.95);
-  padding: 30px;
-  border-radius: 20px;
+  padding: 25px;
+  border-radius: 14px;
   border: 3px solid rgba(255, 105, 180, 0.3);
   box-shadow: 0 10px 30px rgba(255, 20, 147, 0.2);
 }
 
 .bump-in-girl-image {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  border: 4px solid #ff69b4;
-  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+  width: 66%;
   animation: gentlePulse 2s infinite;
 }
 
@@ -408,7 +404,7 @@ body::before {
 }
 
 .bump-in-dialogue {
-  flex: 1;
+  width: 90%;
 }
 
 .dialogue-bubble {
@@ -742,7 +738,7 @@ body::before {
 .romance-ui {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
-  padding: 30px;
+  padding: 24px;
   max-width: 900px;
   width: 100%;
   backdrop-filter: blur(10px);
@@ -754,7 +750,7 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   font-size: 1.1em;
   color: #ff1493;
   border-bottom: 2px solid rgba(255, 105, 180, 0.3);
@@ -1141,13 +1137,13 @@ body::before {
   font-size: 1.2em;
   color: #4a4a4a;
   font-style: italic;
-  margin-bottom: 10px;
 }
 
 .atmosphere {
   font-size: 1em;
   color: #666;
   font-style: italic;
+  margin-bottom: 10px;
 }
 
 .date-conversation {
@@ -1324,11 +1320,7 @@ body::before {
 }
 
 .ball-girl-image {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 5px solid #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  width: 33%;
 }
 
 .ball-dialogue {
@@ -1426,7 +1418,6 @@ body::before {
 
   .romance-ui {
     padding: 20px;
-    margin: 10px;
   }
 
   .girl-selection {
@@ -1495,12 +1486,6 @@ body::before {
     flex-direction: column;
     text-align: center;
   }
-
-  .bump-in-girl-image {
-    width: 150px;
-    height: 150px;
-  }
-
   .reveal-button {
     font-size: 1.4em;
     padding: 15px 25px;

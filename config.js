@@ -24,7 +24,7 @@ const CONFIG = {
     CHARACTER_PREFIX: "images/",
     CHARACTER_EXTENSION: ".png",
     LOCATION_PREFIX: "images/location-",
-    BACKGROUND: "images/ballroom.jpg",
+    BACKGROUND: "images/location-ballroon.png",
   },
 
   AUDIO: {
