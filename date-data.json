@@ -148,7 +148,11 @@
               "love": -1
             }
           ],
-          "farewell": "Luna gives you a gentle hug goodbye. 'Thank you for such a wonderful evening... I can't wait to see you again!'"
+          "farewells": {
+            "high": "Luna gives you a tender kiss on the cheek, her eyes sparkling with joy. 'Tonight was absolutely enchanting... you've touched my heart in ways I never imagined. I can't wait to see you again, my sweet muse!'",
+            "medium": "Luna gives you a gentle hug goodbye. 'Thank you for such a wonderful evening... I can't wait to see you again!'",
+            "low": "Luna waves politely as she steps back. 'Well, that was... different. Thank you for the experience, I suppose.'"
+          }
         }
       ],
       "maya": [
@@ -241,7 +245,11 @@
               "love": -1
             }
           ],
-          "farewell": "Maya gives you a hearty high-five. 'That was awesome! You're definitely my kind of adventure buddy. Let's do this again soon!'"
+          "farewells": {
+            "high": "Maya pulls you into an enthusiastic embrace and gives you a playful punch on the arm. 'That was AMAZING! You totally get me and my competitive side. I haven't had this much fun in ages - we need to do this again ASAP!'",
+            "medium": "Maya gives you a hearty high-five. 'That was awesome! You're definitely my kind of adventure buddy. Let's do this again soon!'",
+            "low": "Maya gives you a brief, awkward wave. 'Well, that was... something. Thanks for trying, I guess. See you around.'"
+          }
         }
       ],
       "rose": [
@@ -334,7 +342,11 @@
               "love": -1
             }
           ],
-          "farewell": "Rose takes your hand and gives it a gentle kiss. 'What a marvelous evening, darling. You've quite swept me off my feet!'"
+          "farewells": {
+            "high": "Rose takes both your hands in hers and looks deeply into your eyes. 'My darling, you've completely swept me off my feet tonight. You've shown me magic I never knew existed in such simple pleasures. I do believe I'm quite smitten with you!'",
+            "medium": "Rose takes your hand and gives it a gentle kiss. 'What a marvelous evening, darling. You've quite swept me off my feet!'",
+            "low": "Rose offers a polite curtsey and a reserved smile. 'Thank you for the evening. It was... educational. Good night.'"
+          }
         }
       ]
     },
@@ -359,7 +371,7 @@
             },
             {
               "text": "Watch out for that root",
-              "response": "Luna rolls her eyes, 'Oh I saw it - and it's not my first flurt with danger.'",
+              "response": "Luna rolls her eyes, 'Oh I saw it - and it's not my first flirt with danger.'",
               "tags": ["protective"],
               "love": -1
             },
@@ -395,7 +407,7 @@
             },
             {
               "text": "Make a wish on a star",
-              "response": "Luna closes her eyes and lets out a sign. 'Do you really believe in that stuff?'",
+              "response": "Luna closes her eyes and lets out a sigh. 'Do you really believe in that stuff?'",
               "tags": ["romantic", "whimsical"],
               "love": 0
             }
@@ -419,7 +431,7 @@
             },
             {
               "text": "Thanks for coming - I wasn't sure who to ask!",
-              "response": "Luna looks at you quentionly, 'I didn't know I had so much competition.'",
+              "response": "Luna looks at you questioningly, 'I didn't know I had so much competition.'",
               "tags": ["honest", "sweet"],
               "love": -1
             },
@@ -430,7 +442,11 @@
               "love": 0
             }
           ],
-          "farewell": "Luna gives you a sweet kiss on the cheek. 'Tonight was charming... thank you for making me feel special among the stars.'"
+          "farewells": {
+            "high": "Luna gazes at you with starlight in her eyes and gently cups your face. 'Tonight you've shown me that real magic isn't just in art or dreams - it's in moments like this, with someone who truly sees me. You've captured my heart completely.'",
+            "medium": "Luna gives you a sweet kiss on the cheek. 'Tonight was charming... thank you for making me feel special among the stars.'",
+            "low": "Luna gives you a small, distant smile and steps back. 'The stars were nice, I suppose. Thank you for the walk. Goodnight.'"
+          }
         }
       ],
       "maya": [
@@ -523,7 +539,11 @@
               "love": 0
             }
           ],
-          "farewell": "Maya gives you a hearty high-five. 'That was awesome! You're definitely my kind of adventure buddy. Let's do this again soon!'"
+          "farewells": {
+            "high": "Maya throws her arms around you in a bear hug, practically lifting you off the ground. 'This was INCREDIBLE! You totally matched my energy and made me feel like I could conquer mountains! I think I'm falling for you hard!'",
+            "medium": "Maya gives you a hearty high-five. 'That was awesome! You're definitely my kind of adventure buddy. Let's do this again soon!'",
+            "low": "Maya gives you a quick, impersonal pat on the shoulder. 'Thanks for the hike, I guess. Maybe try to keep up better next time. See ya.'"
+          }
         }
       ],
       "rose": [
@@ -616,7 +636,11 @@
               "love": 0
             }
           ],
-          "farewell": "Rose curtseys gracefully despite her muddy shoes. 'What an adventure! You've awakened the explorer in me, darling.'"
+          "farewells": {
+            "high": "Rose, despite being disheveled from the hike, looks radiant as she takes your hands. 'Darling, you've awakened something wild and wonderful in me tonight. I never knew I could be so... adventurous! You make me want to explore every part of life with you.'",
+            "medium": "Rose curtseys gracefully despite her muddy shoes. 'What an adventure! You've awakened the explorer in me, darling.'",
+            "low": "Rose brushes off her clothes with obvious irritation. 'Well, that was certainly... rustic. I think I'll stick to more civilized venues in the future. Good evening.'"
+          }
         }
       ]
     },
@@ -712,7 +736,11 @@
               "love": -1
             }
           ],
-          "farewell": "Luna stands up and spins once, happily. 'Tonight was like a beautiful dream! Thank you for such a perfect evening!'"
+          "farewells": {
+            "high": "Luna spins once more and then pulls you into a warm, lingering embrace. 'Tonight was like living in a beautiful dream! You made every moment feel like poetry. I think... I think I'm falling in love with you!'",
+            "medium": "Luna stands up and spins once, happily. 'Tonight was like a beautiful dream! Thank you for such a perfect evening!'",
+            "low": "Luna stands up awkwardly and fidgets with her purse. 'Well, that was... nice, I suppose. Thanks for dinner. I should probably get going.'"
+          }
         }
       ],
       "maya": [
@@ -740,7 +768,7 @@
             },
             {
               "text": "This feels like a real date",
-              "response": "Maya chuckles. 'Yeah... that's because it's supossed to be one silly.'",
+              "response": "Maya chuckles. 'Yeah... that's because it's supposed to be one silly.'",
               "tags": ["genuine", "romantic"],
               "love": 0
             }
@@ -805,7 +833,11 @@
               "love": 0
             }
           ],
-          "farewell": "Maya gives you a firm handshake that turns into a warm hug. 'Thanks for keeping it real tonight. You're good people!'"
+          "farewells": {
+            "high": "Maya grabs you in a spontaneous, tight hug that lifts you off your feet. 'You are AWESOME! I can't believe how perfectly we clicked tonight. You appreciate the real me, and that's rare. I think you might be the one!'",
+            "medium": "Maya gives you a firm handshake that turns into a warm hug. 'Thanks for keeping it real tonight. You're good people!'",
+            "low": "Maya gives you a perfunctory nod and wave. 'Thanks for the meal, I suppose. It was... fine. I've got to run. Later.'"
+          }
         }
       ],
       "rose": [
@@ -827,7 +859,7 @@
             },
             {
               "text": "The atmosphere has character",
-              "response": "Rose laughts. 'Indeed! Is that what these sticky stains are then?' She points to the cushion beside her.'",
+              "response": "Rose laughs. 'Indeed! Is that what these sticky stains are then?' She points to the cushion beside her.'",
               "tags": ["appreciative"],
               "love": -1
             },
@@ -898,7 +930,11 @@
               "love": 1
             }
           ],
-          "farewell": "Rose stands and offers you her arm. 'Shall we continue this magical evening with that moonlit stroll? Tonight has been absolutely divine.'"
+          "farewells": {
+            "high": "Rose stands gracefully and offers you her arm with sparkling eyes. 'My dearest, tonight you've shown me that true sophistication isn't about expensive places - it's about the company you keep. Shall we continue this magical evening with that moonlit stroll? I find myself quite enchanted by you.'",
+            "medium": "Rose stands and offers you her arm. 'Shall we continue this magical evening with that moonlit stroll? Tonight has been absolutely divine.'",
+            "low": "Rose stands up stiffly and smooths her dress. 'Well, that was certainly... different. Thank you for the meal. I think I'll call it an evening. Goodnight.'"
+          }
         }
       ]
     }

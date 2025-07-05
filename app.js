@@ -99,6 +99,25 @@ const RomanceGame = {
     };
   },
 
+  // Get farewell message based on current love level
+  getFarewellMessage: (scenario, girlId) => {
+    const currentLove = RomanceGame.state.loveScores[girlId];
+
+    // Check if scenario has dynamic farewells
+    if (scenario.farewells) {
+      if (currentLove >= 7) {
+        return scenario.farewells.high;
+      } else if (currentLove >= 4) {
+        return scenario.farewells.medium;
+      } else {
+        return scenario.farewells.low;
+      }
+    }
+
+    // Fallback to static farewell if no dynamic ones exist
+    return scenario.farewell || "Thank you for the lovely evening.";
+  },
+
   // Render current day
   renderDay: () => {
     if (
@@ -596,9 +615,15 @@ const RomanceGame = {
   // Render date dialogue
   renderDateDialogue: (scenario) => {
     if (RomanceGame.state.showFarewell) {
+      // Use dynamic farewell message based on current love level
+      const farewellMessage = RomanceGame.getFarewellMessage(
+        scenario,
+        RomanceGame.state.currentDate.girl
+      );
+
       return `
         <div class="girl-response">
-          <p class="response-text farewell-text">${scenario.farewell}</p>
+          <p class="response-text farewell-text">${farewellMessage}</p>
           <button id="continue-date" class="continue-button">Continue</button>
         </div>
       `;
@@ -701,6 +726,10 @@ const RomanceGame = {
         } else if (RomanceGame.state.showResponse) {
           if (isFinalScenario) {
             // Show farewell message for final scenario
+            RomanceGame.state.showResponse = false;
+            RomanceGame.state.showFarewell = true;
+            const dialogueSection = document.getElementById("dialogue-section");
+
             const {
               girl: girlId,
               location: locationId,
@@ -712,18 +741,9 @@ const RomanceGame = {
               conversationIndex
             );
 
-            if (currentScenario.farewell) {
-              RomanceGame.state.showResponse = false;
-              RomanceGame.state.showFarewell = true;
-              const dialogueSection =
-                document.getElementById("dialogue-section");
-              dialogueSection.innerHTML =
-                RomanceGame.renderDateDialogue(currentScenario);
-              RomanceGame.attachContinueDateListener(isFinalScenario);
-            } else {
-              // No farewell message, just end date
-              RomanceGame.endDate();
-            }
+            dialogueSection.innerHTML =
+              RomanceGame.renderDateDialogue(currentScenario);
+            RomanceGame.attachContinueDateListener(isFinalScenario);
           } else {
             // Continue to next conversation
             RomanceGame.state.currentDate.conversationIndex++;
